@@ -4,6 +4,7 @@ import './App.css'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
+import Subscription from './pages/Subscription'
 
 export default function App() {
   return (
@@ -11,7 +12,8 @@ export default function App() {
       <Routes>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/" element={<Signup />} />
-        <Route exact path="/Home" element={<Home/>} />
+      <Route exact path="/Home" element={<Home />} />
+      <Route exact path="/Subscription" element={<Subscription/>}/>
       </Routes>
    
   )

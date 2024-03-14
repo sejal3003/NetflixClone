@@ -2,8 +2,11 @@ import React, { useState } from "react";
 // import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Signup() {
+  const navigate=useNavigate();
   const [showPassword, setShowPassword] = useState(false)
   const [formValues, setFormValues] = useState({
     email: "",
@@ -12,8 +15,10 @@ export default function Signup() {
   });
   const handleSignIn = async () => {
     console.log(formValues);
+    navigate('/Subscription');
  }
 
+  
   return (
     <div showPassword={showPassword } className="signupPageContainer">
       <BackgroundImage />
@@ -35,7 +40,7 @@ export default function Signup() {
               { !showPassword &&( <button onClick={()=>setShowPassword(true)} className="signupPageGetstartButton">Get Started</button>)}
 
           </div>
-          <button onClick={handleSignIn} className="signupPageButton">Sign Up</button>
+          <button onClick={handleSignIn}className="signupPageButton">Sign Up</button>
         </div>
       </div>
     </div>

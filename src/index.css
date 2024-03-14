@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
-  color: white;
+  background-color:white;
+  color: black;
 }
 * {
   margin: 0;
@@ -93,6 +93,8 @@ body::-webkit-scrollbar {
   background-color: #e50914;
   color: white;
   height: 3rem;
+  border: none;
+  border-radius: .5rem;
   cursor: pointer;
   font-weight: bolder;
   font-size: 1.05rem;

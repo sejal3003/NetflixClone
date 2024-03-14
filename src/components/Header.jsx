@@ -32,6 +32,7 @@ button{
     cursor:pointer;s
     font-weight:bolder;
     font-size:1.05rem;
+    border: none;
     
 
 }
