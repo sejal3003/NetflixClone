@@ -1,13 +1,128 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: white;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body::-webkit-scrollbar {
+  display: none;
 }
+.flex {
+  display: flex;
+}
+.column {
+  flex-direction: column;
+}
+.j-between {
+  justify-content: space-between;
+}
+.j-center {
+  justify-content: center;
+}
+.a-center {
+  align-items: center;
+}
+
+
+/*signupPageContainer css*/
+
+.signupPageContainer {
+  position: relative;
+}
+
+.signupPageContainer .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 15vh 85vh;
+}
+.signupPageContainer .signupPageBody {
+  gap: 2rem;
+}
+
+.signupPageContainer .signupPageBody .signupPageBodytext {
+  gap: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  color:white;
+}
+.signupPageBodytext h1 {
+  padding: 0 25rem;
+}
+
+.signupPageBody .form {
+  display: flex;
+  /* grid-template-columns:${({showPassword})=>showPassword ?"1fr 1fr" :"2fr 1fr"}; */
+  width: 40%;
+}
+
+.signupPageBody .form input {
+  color: black;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  border: 2px solid black;
+  height: 1rem;
+  margin: auto;
+  
+}
+.signupPageBody .form input:focus {
+  outline: none;
+}
+
+.signupPageBody .signupPageButton{
+  padding: 0.5rem 1rem;
+  background-color: #e50914;
+  color: white;
+  height: 3rem;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 1.05rem;
+  text-align: center;
+  width: fit-content;
+
+  
+}
+.signupPageBody .signupPageGetstartButton {
+  padding: 0.5rem 5rem;
+  background-color: #e50914;
+  color: white;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 1.05rem;
+  text-align: center;
+  width: fit-content;
+  margin: auto;
+  border: 2px solid black;
+  }
+
+  /* Background CSS */
+.background{
+  
+height: 100vh;
+width: 100vw;
+
+}
+.backgroundImg{
+    height: 100vh;
+    width: 100vw;
+}
+  

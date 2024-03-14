@@ -1,0 +1,120 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+.flex {
+  display: flex;
+}
+.column {
+  flex-direction: column;
+}
+.j-between {
+  justify-content: space-between;
+}
+.j-center {
+  justify-content: center;
+}
+.a-center {
+  align-items: center;
+}
+.content{
+
+}
+
+.loginForm-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+ 
+}
+
+.loginForm-container .content{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  grid-template-rows: 15vh 85vh; 
+}
+.loginForm-container .loginFormBody {
+ 
+  display: flex;
+  justify-content: center;
+  align-items:center ;
+  flex-direction: column;
+  max-width: 400px;
+  height: 70vh;
+  padding: 60px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  
+}
+.loginFormBody .loginForm input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+
+  
+}
+.loginFormBody .loginForm input:focus {
+  outline: none;
+}
+
+.loginFormBody{
+  margin: 100px 50px 50px 150px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+}
+
+.loginFormBody .loginForm {
+   padding: 0.5rem 2rem; 
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  height: 2rem;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 1.05rem;
+  text-align: center;
+  width: fit-content;
+  margin: 12px;
+ 
+}
+.loginTitle{
+    color: white;
+}
+.loginForm button {
+  width: 100%;
+  padding: 12px;
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.loginForm button:hover {
+  background-color: #ff3c4a;
+}
