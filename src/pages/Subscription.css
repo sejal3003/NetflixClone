@@ -24,9 +24,7 @@ body{
   grid-template-rows: 15vh 85vh;
   }
 
-   
-  
-  .subscriptionBody {
+.subscriptionBody {
     max-width: 400px;
     padding: 20px;
     text-align: center;

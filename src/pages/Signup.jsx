@@ -15,7 +15,7 @@ export default function Signup() {
   });
   const handleSignIn = async () => {
     console.log(formValues);
-    navigate('/Subscription');
+    navigate('/subscription');
  }
 
   
@@ -24,6 +24,7 @@ export default function Signup() {
       <BackgroundImage />
       <div className="content">
         <Header login />
+        
         <div className="signupPageBody flex column a-center j-center">
           <div className="signupPageBodytext flex column">
             <h1>Unlimited movies,TV shows and more</h1>

@@ -9,7 +9,7 @@ export default function Subscription() {
     <div className="subscription">
      <div className="content">
       <Header />
-    
+     <div className="d-flex justify-content-center">
       <div className="subscriptionBody">
       <i className="fas fa-check-circle" style={{ color: "red", fontSize: "25px", padding: "20px" }}></i>
         <h5>STEP 1 OF 3</h5>
@@ -20,7 +20,7 @@ export default function Subscription() {
           onSubmit={(e) => {
             e.preventDefault();
             alert("Thank you for subscribing!");
-            navigate("/");
+            navigate("/plan");
           }}
         ></form>
 
@@ -29,7 +29,8 @@ export default function Subscription() {
         <p> <i className="fas fa-check icons" style={{ color: 'red', verticalAlign: 'middle' }}></i>No commitments, cancel anytime.</p>
         <p> <i className="fas fa-check icons" style={{ color: 'red' }}></i>Everything on Netflix for one low price.</p>
 
-        <button onClick={() => navigate("/")}>Next</button>
+            <button onClick={() => navigate("/plan")}>Next</button>
+            </div>
       </div>
       </div>
       </div>

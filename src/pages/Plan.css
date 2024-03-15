@@ -1,0 +1,74 @@
+.plans{
+    position: relative;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+    color: black;
+    position: relative;
+}
+.plans .content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 15vh 85vh;
+  padding: 20px;
+  }
+
+.planPageBody{
+    max-width: 600px;
+    padding: 20px;
+    text-align: center;
+}
+.planPageBody h5{
+    font-weight: 500;
+    padding: 15px;
+  }
+  .planPageBody h2{
+    font-size: 1.7rem;
+  }
+  .planPageBody .nextButton  {
+    padding: 12px 20px;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 300px;
+    margin: 40px;
+    box-shadow: 0px  8px 16px 0 rgba(0, 0, 0,  0.2);
+    transition: all 0.3s ease-in-out;  
+  }
+  
+  .planPageBody button:hover {
+    background-color: rgb(246, 87, 59);
+   
+  }  
+  /* SubscriptionCards.css */
+
+.subscription-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start; /* Center the cards horizontally */
+  gap: 26px; /* Add gap between the cards */
+  margin-top: 50px; 
+  width: 40rem;
+  margin-bottom: 50px;
+  box-sizing: content-box;
+ 
+ 
+}
+
+
+
+.subscription-button {
+ 
+  width: 100% !important;
+  text-align: center;
+  margin:auto;
+  margin-top:10%;  
+  padding: 12px;
+}
