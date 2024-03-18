@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
-import "./Subscription.css";
+import "../styles/Subscription.css";
 export default function Subscription() {
   const navigate = useNavigate();
   return (

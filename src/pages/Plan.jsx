@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
-import "./Plan.css";
+import "../styles/Plan.css";
 
 const Plan = () => {
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ const Plan = () => {
                 </Card>
                 
             </div>
-              <button className="nextButton" onClick={() => navigate("/")}>Next</button>
+              <button className="nextButton" onClick={() => navigate("/payment")}>Next</button>
               
           </div>
         </div>
