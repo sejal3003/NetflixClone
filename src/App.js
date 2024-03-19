@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Payment from "./pages/Payment";
 import Subscription from "./pages/Subscription";
+import Home from "./HomePage/Home";
 import Plan from "./pages/Plan";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       <Route exact path="/subscription" element={<Subscription />} />
       <Route exact path="/plan" element={<Plan />} />
       <Route exact path="/payment" element={<Payment />} />
+      <Route exact path="/home" element={<Home />} />
     </Routes>
   );
 }

@@ -9,7 +9,7 @@ const Plan = () => {
   return (
     <div className="plans">
       <div className="content">
-        <Header />
+        <Header />  
         <div className="d-flex justify-content-center">
           <div className="planPageBody">
             <i

@@ -1,0 +1,40 @@
+.home{
+    background-color: black;
+   
+
+}
+.container{
+    position: absolute;
+    bottom: 5rem;
+}
+.logo img{
+    width:30% ;
+    height:20%;
+    margin-left: 4rem;
+}
+.buttons{
+    margin:5rem;
+    gap:2rem;
+
+}
+.buttons button{
+    font-size: 1.4rem;
+    gap: 1rem;
+    padding: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2.4rem;
+    border:none;
+    cursor: pointer;
+    transition: 0.3 ease-in-out;
+}
+.buttons button:hover{
+    opacity:  0.8;
+
+}
+.buttons button:nth-of-type(2){
+    background-color: rgba(109, 109, 110, 0.7);
+    color: white;
+}
+.buttons button:nth-of-type(2) svg{
+    font-size: 1.8rem;
+}
