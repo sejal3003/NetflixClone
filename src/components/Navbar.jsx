@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
+import styled from 'styled-components';
 
 
 export default function Navbar({ isScrolled }) {
@@ -21,8 +22,8 @@ export default function Navbar({ isScrolled }) {
   return (
     
    
-   <div>
-      <nav className={`${isScrolled ? "scrolled" : ""} flex`}>
+   <Container>
+      <nav className={`flex ${isScrolled ? "scrolled" : ""}`}>
         <div className="left flex a-center">
           <div className="brand flex a-center j-center">
             <img src={logo} alt="Logo" />
@@ -67,9 +68,13 @@ export default function Navbar({ isScrolled }) {
         
         </div>
       </nav>
-    </div>
+    </Container>
 
   )
 }
-
+const Container = styled.div`
+.scrolled{
+  background-color:black;
+}
+`;
 

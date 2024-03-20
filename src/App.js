@@ -7,6 +7,7 @@ import Payment from "./pages/Payment";
 import Subscription from "./pages/Subscription";
 import Home from "./HomePage/Home";
 import Plan from "./pages/Plan";
+import Player from "./Player/Player";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <Route exact path="/plan" element={<Plan />} />
       <Route exact path="/payment" element={<Payment />} />
       <Route exact path="/home" element={<Home />} />
+      <Route exact path="/player" element={<Player />} />
     </Routes>
   );
 }

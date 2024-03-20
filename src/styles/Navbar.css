@@ -81,7 +81,7 @@ svg {
     border: none;
     color: white;
   }
-  .search button  input:focus{
+  .searchButton:focus{
     outline:none;
   }
   .show-search {
