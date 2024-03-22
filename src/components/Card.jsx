@@ -7,13 +7,11 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
 import { BsCheck } from "react-icons/bs";
- 
-export default React.memo( function Card(movieData, isLiked = false) {
- 
+
+export default React.memo(function Card(movieData, isLiked = false) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
- 
- 
+
   return (
     <Container
       onMouseEnter={() => setIsHovered(true)}
@@ -42,7 +40,7 @@ export default React.memo( function Card(movieData, isLiked = false) {
           </div>
           <div className="info-container flex column">
             <h3 className="name" onClick={() => navigate("/player")}>
-              {movieData.name}
+              {movieData.movieData.name}
             </h3>
             <div className="icons flex j-between">
               <div className="controls flex">
@@ -63,13 +61,9 @@ export default React.memo( function Card(movieData, isLiked = false) {
               </div>
             </div>
             <div className="genres flex">
-           
-            <ul className="flex">
-                {
-                  movieData.genres && movieData.genres.map((genre) => (
-                    <li key={genre}>{genre }</li>
-                  ))
-                }
+              <ul className="flex">
+                {movieData.genres &&
+                  movieData.genres.map((genre) => <li key={genre}>{genre}</li>)}
               </ul>
             </div>
           </div>
@@ -79,7 +73,7 @@ export default React.memo( function Card(movieData, isLiked = false) {
   );
 });
 const Container = styled.div`
-max-width: 230px;
+  max-width: 230px;
   width: 230px;
   height: 100%;
   cursor: pointer;
@@ -89,9 +83,7 @@ max-width: 230px;
     width: 100%;
     height: 100%;
     z-index: 10;
-    color:white;
-   
-
+    color: white;
   }
   .hover {
     z-index: 99;
@@ -129,6 +121,9 @@ max-width: 230px;
     .info-container {
       padding: 1rem;
       gap: 0.5rem;
+      h3 {
+        color: white;
+      }
     }
     .icons {
       .controls {
@@ -157,4 +152,3 @@ max-width: 230px;
     }
   }
 `;
-

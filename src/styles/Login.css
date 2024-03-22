@@ -47,7 +47,7 @@ body::-webkit-scrollbar {
   flex-direction: column;
   max-width: 400px;
   height: 70vh;
-  padding: 60px;
+  padding-bottom: 210px;
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
@@ -82,17 +82,16 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   color: white;
   cursor: pointer;
   font-weight: bolder;
   font-size: 1.05rem;
   text-align: center;
   width: fit-content;
-
 }
-.forgot-password-link{
-  font-size:  0.875rem;
+.forgot-password-link {
+  font-size: 0.875rem;
   font-weight: 400;
   color: #fff;
   text-decoration: none;
@@ -100,7 +99,6 @@ body::-webkit-scrollbar {
   margin-top: 10px;
   cursor: pointer;
 }
-
 
 .loginForm button {
   width: 100%;

@@ -1,4 +1,4 @@
-import React, {useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import backgroundImage from "../assets/home.jpg";
@@ -9,9 +9,8 @@ import { fetchMovies, getGenres } from "../store";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Slider from "../components/Slider";
-import axios from 'axios';
 
-function Netflix() {
+export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const movies = useSelector((state) => state.netflix.movies);
   const genres = useSelector((state) => state.netflix.genres);
@@ -20,12 +19,9 @@ function Netflix() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // console.log(genres,movies);
-  
-  
+
   useEffect(() => {
     dispatch(getGenres());
-  
-
   }, []);
 
   useEffect(() => {
@@ -34,13 +30,11 @@ function Netflix() {
     }
   }, [genresLoaded]);
 
-  
-
   window.onscroll = () => {
     setIsScrolled(window.scrollY === 0 ? false : true);
     return () => (window.onscroll = null);
   };
- 
+
   return (
     <Container>
       <Navbar isScrolled={isScrolled} />
@@ -70,7 +64,7 @@ function Netflix() {
         </div>
       </div>
       <Slider movies={movies} />
-      </Container>
+    </Container>
   );
 }
 
@@ -123,4 +117,3 @@ const Container = styled.div`
     }
   }
 `;
-export default Netflix;

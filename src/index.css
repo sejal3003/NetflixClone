@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color:white;
+  background-color: white;
   color: black;
 }
 * {
@@ -37,7 +37,6 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 
-
 /*signupPageContainer css*/
 
 .signupPageContainer {
@@ -62,27 +61,25 @@ body::-webkit-scrollbar {
   gap: 2rem;
   text-align: center;
   font-size: 2rem !important;
-  color:white;
+  color: white;
 }
 .signupPageBodytext h1 {
   padding: 0 25rem;
   font-size: 3.5rem;
 }
-.signupPageBodytext h4{
+.signupPageBodytext h4 {
   font-size: 1.5rem;
   font-weight: 400;
 }
-.signupPageBodytext h6{
-font-size: 1.5rem;
-font-weight: 400;
+.signupPageBodytext h6 {
+  font-size: 1.5rem;
+  font-weight: 400;
 }
-
-
 
 .signupPageBody .form {
   display: flex;
   /* grid-template-columns:${({showPassword})=>showPassword ?"1fr 1fr" :"2fr 1fr"}; */
-  }
+}
 
 .signupPageBody .form input {
   color: black;
@@ -92,26 +89,23 @@ font-weight: 400;
   border: 2px solid black;
   height: 2vh !important;
   margin: auto;
-  
 }
 .signupPageBody .form input:focus {
   outline: none;
 }
 
-.signupPageBody .signupPageButton{
+.signupPageBody .signupPageButton {
   padding: 0.5rem 1rem;
   background-color: #e50914;
   color: white;
   height: 3rem;
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   cursor: pointer;
   font-weight: bolder;
   font-size: 1.05rem;
   text-align: center;
   width: fit-content;
-
-  
 }
 .signupPageBody .signupPageGetstartButton {
   padding: 0.5rem 5rem;
@@ -124,17 +118,14 @@ font-weight: 400;
   width: fit-content;
   margin: auto;
   border: 2px solid black;
-  }
-
-  /* Background CSS */
-.background{
-  
-height: 100vh;
-width: 100vw;
-
 }
-.backgroundImg{
-    height: 100vh;
-    width: 100vw;
+
+/* Background CSS */
+.background {
+  height: 100vh;
+  width: 100vw;
 }
-  
+.backgroundImg {
+  height: 100vh;
+  width: 100vw;
+}
