@@ -13,11 +13,11 @@ export default function App() {
   return (
     <Routes>
       <Route exact path="/login" element={<Login />} />
-      <Route exact path="/" element={<Signup />} />
+      <Route exact path="/signup" element={<Signup />} />
       <Route exact path="/subscription" element={<Subscription />} />
       <Route exact path="/plan" element={<Plan />} />
       <Route exact path="/payment" element={<Payment />} />
-      <Route exact path="/home" element={<Home />} />
+      <Route exact path="/" element={<Home />} />
       <Route exact path="/player" element={<Player />} />
     </Routes>
   );

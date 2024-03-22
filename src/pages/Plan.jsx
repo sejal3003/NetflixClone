@@ -9,7 +9,7 @@ const Plan = () => {
   return (
     <div className="plans">
       <div className="content">
-        <Header />  
+        <Header />
         <div className="d-flex justify-content-center">
           <div className="planPageBody">
             <i
@@ -18,24 +18,32 @@ const Plan = () => {
             ></i>
             <h5>STEP 2 OF 3</h5>
             <h2>Choose the plan thats right for you</h2>
-            
+
             <div className="subscription-cards  ">
-              <Card style={{ width: "60rem" }}>
+              <Card style={{ width: "100rem" }}>
                 <Card.Body>
-                  <Card.Title>Basic Plan</Card.Title>
+                  <Card.Title>
+                    <div className="card">Basic Plan</div>
+                  </Card.Title>
                   <Card.Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vivamus eleifend nisi sed magna fermentum.
+                    <h3>Video and sound quality Good</h3>
+                    <p>Resolution 720p (HD)</p>
+                    <h5>
+                      Supported devices TV, computer, mobile phone, tablet
+                    </h5>
+                    <h6>Devices your household can watch at the same time:1</h6>
                   </Card.Text>
                   <Card.Subtitle className="mb-2 text-muted">
-                    $9.99/month
+                    ₹199/month
                   </Card.Subtitle>
                   <Button variant="secondary">Subscribe</Button>
                 </Card.Body>
               </Card>
-              <Card style={{ width: "60rem" }}>
+              <Card style={{ width: "100rem" }}>
                 <Card.Body>
-                  <Card.Title>Standard Plan</Card.Title>
+                  <Card.Title>
+                    <div className="card">Standard Plan</div>
+                  </Card.Title>
                   <Card.Text>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Vivamus eleifend nisi sed magna fermentum.
@@ -46,9 +54,11 @@ const Plan = () => {
                   <Button variant="secondary">Subscribe</Button>
                 </Card.Body>
               </Card>
-              <Card style={{ width: "60rem" }}>
+              <Card style={{ width: "100rem" }}>
                 <Card.Body>
-                  <Card.Title>Premium Plan</Card.Title>
+                  <Card.Title>
+                    <div className="card">Premium Plan</div>
+                  </Card.Title>
                   <Card.Text>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Vivamus eleifend nisi sed magna fermentum.
@@ -58,11 +68,11 @@ const Plan = () => {
                   </Card.Subtitle>
                   <Button variant="secondary">Subscribe</Button>
                 </Card.Body>
-                </Card>
-                
+              </Card>
             </div>
-              <button className="nextButton" onClick={() => navigate("/payment")}>Next</button>
-              
+            <button className="nextButton" onClick={() => navigate("/payment")}>
+              Next
+            </button>
           </div>
         </div>
       </div>

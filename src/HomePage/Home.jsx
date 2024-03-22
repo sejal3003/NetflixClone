@@ -19,7 +19,7 @@ function Netflix() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(genres,movies);
+  // console.log(genres,movies);
   
   
   useEffect(() => {
@@ -70,12 +70,7 @@ function Netflix() {
         </div>
       </div>
       <Slider movies={movies} />
-      <h1>1</h1>
-      <h1>1</h1>
-      <h1>1</h1>
-      <h1>1</h1>
-      <h1>1</h1>
-    </Container>
+      </Container>
   );
 }
 
