@@ -22,6 +22,7 @@ export default React.memo(function Card(movieData, isLiked = false) {
         alt="card"
         onClick={() => navigate("/player")}
       />
+      <h6>{movieData.movieData.name}</h6>
       {isHovered && (
         <div className="hover">
           <div className="image-video-container">
@@ -85,6 +86,11 @@ const Container = styled.div`
     z-index: 10;
     color: white;
   }
+  h6 {
+    padding-top: 12px;
+    padding-left: 25px;
+    color: white;
+  }
   .hover {
     z-index: 99;
     height: max-content;
@@ -121,6 +127,7 @@ const Container = styled.div`
     .info-container {
       padding: 1rem;
       gap: 0.5rem;
+      color: white;
       h3 {
         color: white;
       }
@@ -128,7 +135,8 @@ const Container = styled.div`
     .icons {
       .controls {
         display: flex;
-        gap: 1rem;
+        gap: 1.5rem;
+        color: white;
       }
       svg {
         font-size: 2rem;

@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import "../styles/Plan.css";
+import PlanCard from "../components/PlanCard";
 
 const Plan = () => {
   const navigate = useNavigate();
@@ -20,55 +21,27 @@ const Plan = () => {
             <h2>Choose the plan thats right for you</h2>
 
             <div className="subscription-cards  ">
-              <Card style={{ width: "100rem" }}>
-                <Card.Body>
-                  <Card.Title>
-                    <div className="card">Basic Plan</div>
-                  </Card.Title>
-                  <Card.Text>
-                    <h3>Video and sound quality Good</h3>
-                    <p>Resolution 720p (HD)</p>
-                    <h5>
-                      Supported devices TV, computer, mobile phone, tablet
-                    </h5>
-                    <h6>Devices your household can watch at the same time:1</h6>
-                  </Card.Text>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    ₹199/month
-                  </Card.Subtitle>
-                  <Button variant="secondary">Subscribe</Button>
-                </Card.Body>
-              </Card>
-              <Card style={{ width: "100rem" }}>
-                <Card.Body>
-                  <Card.Title>
-                    <div className="card">Standard Plan</div>
-                  </Card.Title>
-                  <Card.Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vivamus eleifend nisi sed magna fermentum.
-                  </Card.Text>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    $13.99/month
-                  </Card.Subtitle>
-                  <Button variant="secondary">Subscribe</Button>
-                </Card.Body>
-              </Card>
-              <Card style={{ width: "100rem" }}>
-                <Card.Body>
-                  <Card.Title>
-                    <div className="card">Premium Plan</div>
-                  </Card.Title>
-                  <Card.Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vivamus eleifend nisi sed magna fermentum.
-                  </Card.Text>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    $16.99/month
-                  </Card.Subtitle>
-                  <Button variant="secondary">Subscribe</Button>
-                </Card.Body>
-              </Card>
+              <PlanCard
+                title="Basic Plan"
+                text="Supported devices
+                 TV, computer, mobile phone, tablet"
+                title2="Resolution 720p (HD)"
+              />
+
+              <PlanCard
+                title="Standard Plan"
+                text="Supported devices
+                      TV, computer, mobile phone, tablet"
+                title2="Resolution
+                        1080p (Full HD)"
+              />
+              <PlanCard
+                title="Premium Plan"
+                text="Supported devices
+                        TV, computer, mobile phone, tablet"
+                title2="Resolution
+                     4K (Ultra HD) + HDR"
+              />
             </div>
             <button className="nextButton" onClick={() => navigate("/payment")}>
               Next

@@ -57,8 +57,8 @@ const Container = styled.div`
   padding: 2rem 0;
   h1 {
     margin-left: 50px;
-    color:white;
-    font-size:2rem
+    font-size: 2rem;
+    color: white;
   }
   .wrapper {
     .slider {
@@ -67,6 +67,7 @@ const Container = styled.div`
       transform: translateX(0px);
       transition: 0.3s ease-in-out;
       margin-left: 50px;
+      ${"" /* color: red; */}
     }
     .slider-action {
       position: absolute;
@@ -78,6 +79,7 @@ const Container = styled.div`
       transition: 0.3s ease-in-out;
       svg {
         font-size: 2rem;
+        color: red;
       }
     }
     .none {
