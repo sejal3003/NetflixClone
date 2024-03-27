@@ -10,6 +10,7 @@ import Plan from "./pages/Plan";
 import Player from "./Player/Player";
 import Movies from "./Movies/Movies";
 import TVShows from "./TvShows/TVShows";
+import MyList from "./MyList/MyList";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <Route exact path="/player" element={<Player />} />
       <Route exact path="/movies" element={<Movies />} />
       <Route exact path="/tv" element={<TVShows />} />
+      <Route exact path="/mylist" element={<MyList />} />
     </Routes>
   );
 }

@@ -7,10 +7,21 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
 import { BsCheck } from "react-icons/bs";
+import axios from "axios";
 
 export default React.memo(function Card(movieData, isLiked = false) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+
+  const addToList = async () => {
+    try {
+      await axios.post("http://localhost:5000/api/user/add", {
+        data: movieData,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container
@@ -54,7 +65,7 @@ export default React.memo(function Card(movieData, isLiked = false) {
                 {isLiked ? (
                   <BsCheck title="Remove From the List" />
                 ) : (
-                  <AiOutlinePlus title="Add to my list" />
+                  <AiOutlinePlus title="Add to my list" onClick={addToList} />
                 )}
               </div>
               <div className="info">

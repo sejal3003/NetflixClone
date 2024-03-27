@@ -57,6 +57,10 @@ export default function Login() {
                 <Link to="/forgot-password" className="forgot-password-link">
                   Forgot Password?
                 </Link>
+                <h5>Don't have an account?</h5>
+                <Link to="/signup" className="signuplink">
+                  Sign up
+                </Link>
               </div>
             </div>
           </div>

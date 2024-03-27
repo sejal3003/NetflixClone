@@ -88,16 +88,26 @@ body::-webkit-scrollbar {
   font-weight: bolder;
   font-size: 1.05rem;
   text-align: center;
-  width: fit-content;
+  width: 310px;
+  margin-top: 130px;
 }
 .forgot-password-link {
   font-size: 0.875rem;
   font-weight: 400;
   color: #fff;
   text-decoration: none;
-  padding-top: 2px;
-  margin-top: 10px;
+  padding-top: 5px;
+  margin-top: 30px !important;
   cursor: pointer;
+}
+h5 {
+  margin-top: 30px !important;
+  padding-top: 12px;
+}
+.signuplink {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 400;
 }
 
 .loginForm button {
