@@ -15,14 +15,14 @@
   border: 2px solid green;
   overflow: hidden;
 }
-.zoom {
+/* .zoom {
   padding: 70px;
   background-color: green;
   transition: transform 0.3s;
   width: 250px;
   height: 100px;
   margin: 0 10px;
-}
+} */
 
 /*.zoom:hover {
   border: 2px solid green;
@@ -40,7 +40,8 @@
 }
 .card .card-title {
   font-family: Arial, sans-serif;
-  margin: 0;
+  margin-bottom: 1.7rem !important;
+  line-height: 1.5;
   color: hsl(0, 0%, 20%);
 }
 .card .card-text {

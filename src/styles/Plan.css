@@ -18,7 +18,7 @@
 }
 
 .planPageBody {
-  width: 900px;
+  width: 1000px;
   padding: 20px;
   text-align: center;
 }
@@ -54,7 +54,7 @@
   justify-content: flex-start; /* Center the cards horizontally */
   gap: 26px; /* Add gap between the cards */
   margin-top: 50px;
-  width: 100rem;
+  width: 60rem;
   margin-bottom: 50px;
   height: 25rem;
   box-sizing: content-box;

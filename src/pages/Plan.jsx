@@ -22,14 +22,17 @@ const Plan = () => {
 
             <div className="subscription-cards  ">
               <PlanCard
-                title="Basic Plan"
+                title="Basic Plan "
+                price="{Monthly price ₹199}"
                 text="Supported devices
-                 TV, computer, mobile phone, tablet"
+                 TV, computer, mobile phone, tablet 
+                "
                 title2="Resolution 720p (HD)"
               />
 
               <PlanCard
                 title="Standard Plan"
+                price="{Monthly price ₹499}"
                 text="Supported devices
                       TV, computer, mobile phone, tablet"
                 title2="Resolution
@@ -37,6 +40,7 @@ const Plan = () => {
               />
               <PlanCard
                 title="Premium Plan"
+                price="{Monthly price ₹649}"
                 text="Supported devices
                         TV, computer, mobile phone, tablet"
                 title2="Resolution
