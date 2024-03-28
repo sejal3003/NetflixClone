@@ -70,7 +70,7 @@ export default function Movies() {
         <div
           style={{
             backgroundImage: `url(${backgroundImage})`,
-            minHeight: "70vh", // Adjust the height here (e.g., 50vh)
+            minHeight: "100vh", // Adjust the height here (e.g., 50vh)
             backgroundSize: "cover", // Adjust the background size to cover the container
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center", // Center the background image
