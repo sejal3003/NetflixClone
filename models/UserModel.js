@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const loginSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     unique: true,
     max: 50,
   },
-  likedMovies: Array,
+  password: {
+    type: String,
+    required: true,
+  },
 });
-
-module.exports = mongoose.model("users", userSchema);
+const LoginModel = mongoose.model("User", loginSchema);
+module.exports = LoginModel;
