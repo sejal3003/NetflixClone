@@ -84,11 +84,16 @@ body::-webkit-scrollbar {
 .signupPageBody .form input {
   color: black;
   border: none;
-  padding: 1rem 3rem;
+  padding: 1.7rem 3rem;
   font-size: 1.2rem;
   border: 2px solid black;
   height: 2vh !important;
-  margin: auto;
+  margin: 10px;
+  border-radius: 0.5rem;
+}
+.signupPageBody .form input:hover {
+  border: 2.5px solid red;
+  overflow: hidden;
 }
 .signupPageBody .form input:focus {
   outline: none;
@@ -108,16 +113,17 @@ body::-webkit-scrollbar {
   width: fit-content;
 }
 .signupPageBody .signupPageGetstartButton {
-  padding: 0.5rem 5rem;
+  padding: 0.7rem 5rem;
   background-color: #e50914;
   color: white;
   cursor: pointer;
   font-weight: bolder;
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   text-align: center;
   width: fit-content;
+  border-radius: 0.5rem;
   margin: auto;
-  border: 2px solid black;
+  border: none;
 }
 
 /* Background CSS */
