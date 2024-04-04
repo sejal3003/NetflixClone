@@ -5,6 +5,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import axios from "axios"; // Import axios
+import { toast } from "react-toastify"; // Import toast from react-toastify
+import "../styles/Login.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,8 +16,23 @@ export default function Login() {
     password: "",
   });
   const handleLogIn = async () => {
-    console.log(formValues);
-    navigate("/subscription");
+    try {
+      // Make POST request to backend login endpoint
+      await axios.post("http://localhost:8000/api/v1/login", {
+        email: formValues.email,
+        password: formValues.password,
+      });
+
+      toast.success("Login successful!"); // Display success message using toast
+      alert("Login successful!");
+
+      // If login is successful, navigate to subscription page
+      navigate("/subscription");
+    } catch (error) {
+      // If there's an error, display error message using toast
+      toast.error("Invalid email or password. Please try again.");
+      console.error("Error logging in:", error);
+    }
   };
   return (
     <div className="loginForm-container">

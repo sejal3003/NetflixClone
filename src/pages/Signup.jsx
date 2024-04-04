@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-// import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import { toast } from "react-toastify"; // Import toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling toast notifications
 export default function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -11,9 +12,31 @@ export default function Signup() {
     email: "",
     password: "",
   });
+
   const handleSignIn = async () => {
-    console.log(formValues);
-    navigate("/subscription");
+    try {
+      // Make an HTTP POST request to your backend API endpoint
+      await axios.post("http://localhost:8000/api/v1/signup", {
+        email: formValues.email,
+        password: formValues.password,
+      });
+      toast.success("Signup successful!"); // Display success message using toast
+      alert("Signup successful!");
+
+      // Redirect the user to the subscription page upon successful signup
+      navigate("/subscription");
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message === "User already exists."
+      ) {
+        toast.error("User already exists. Please use a different email.");
+      } else {
+        console.error("Error signing up:", error);
+        toast.error("Failed to sign up.");
+      }
+    }
   };
 
   return (
