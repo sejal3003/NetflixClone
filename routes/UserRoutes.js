@@ -1,16 +1,11 @@
-const router = require("express").Router();
-const UserLogin = require("../models/UserModel");
+const express = require("express");
+const router = express.Router();
+const { signup, login } = require("../controllers/UserController");
 
-router.post("/login", async (req, res) => {
-  const loginData = new UserLogin({
-    email: req.body.email,
-    password: req.body.password,
-  });
-  try {
-    const userInfo = await loginData.save();
-    res.status(201).json(userInfo);
-  } catch (error) {
-    res.status(500).json(err);
-  }
-});
+// Signup route
+router.post("/signup", signup);
+
+// Login route
+router.post("/login", login);
+
 module.exports = router;

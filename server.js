@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const userRoutes = require("./routes/MovieRoutes");
-const authRoutes = require("./routes/UserRoutes");
+const movieRoutes = require("./routes/MovieRoutes");
+const userRoutes = require("./routes/UserRoutes");
 // const dotenv = require("dotenv");
 const app = express();
 // dotenv.config();
@@ -26,12 +26,17 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+// Middleware
+// app.use(express.json());
 
-app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
+// Routes
+app.use("/api/v1", movieRoutes);
+app.use("/api/v1", userRoutes);
 app.get("/", (req, res) => {
   res.send("hello world");
 });
+
+// Start the server
 
 app.listen(8000, () => {
   console.log("server started on port 8000");
