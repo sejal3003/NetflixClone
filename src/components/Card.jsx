@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import video from "../assets/video.mp4";
 import { IoPlayCircleSharp } from "react-icons/io5";
-import { AiOutlinePlus } from "react-icons/ai";
 import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
+import { AiOutlinePlus } from "react-icons/ai";
 import { BsCheck } from "react-icons/bs";
+
 import axios from "axios";
 
 export default React.memo(function Card(movieData, isLiked = false) {
@@ -132,7 +133,7 @@ const Container = styled.div`
         border-radius: 0.3rem;
         top: 0;
         z-index: 5;
-        position: absolute;
+        position: relative;
       }
     }
     .info-container {
@@ -143,6 +144,7 @@ const Container = styled.div`
         color: white;
       }
     }
+
     .icons {
       .controls {
         display: flex;

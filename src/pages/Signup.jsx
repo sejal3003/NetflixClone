@@ -14,6 +14,18 @@ export default function Signup() {
   });
 
   const handleSignIn = async () => {
+    // Basic email validation
+    if (!validateEmail(formValues.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    // Basic password validation
+    if (formValues.password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
+
     try {
       // Make an HTTP POST request to your backend API endpoint
       await axios.post("http://localhost:8000/api/v1/signup", {
@@ -37,6 +49,12 @@ export default function Signup() {
         toast.error("Failed to sign up.");
       }
     }
+  };
+
+  const validateEmail = (email) => {
+    // Regular expression for basic email validation
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
   };
 
   return (

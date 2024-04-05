@@ -22,13 +22,13 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getGenres());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (genresLoaded) {
       dispatch(fetchMovies({ genres, type: "all" }));
     }
-  }, [genresLoaded]);
+  }, [dispatch, genresLoaded, genres]);
 
   window.onscroll = () => {
     setIsScrolled(window.scrollY === 0 ? false : true);

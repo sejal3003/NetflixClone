@@ -57,6 +57,7 @@ const Container = styled.div`
   padding: 2rem 0;
   h1 {
     margin-left: 50px;
+    margin-right: auto;
     font-size: 2rem;
     color: white;
   }

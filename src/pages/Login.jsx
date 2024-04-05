@@ -16,6 +16,18 @@ export default function Login() {
     password: "",
   });
   const handleLogIn = async () => {
+    // Basic email validation
+    if (!validateEmail(formValues.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    // Basic password validation
+    if (formValues.password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
+
     try {
       // Make POST request to backend login endpoint
       await axios.post("http://localhost:8000/api/v1/login", {
@@ -34,6 +46,13 @@ export default function Login() {
       console.error("Error logging in:", error);
     }
   };
+
+  const validateEmail = (email) => {
+    // Regular expression for basic email validation
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
   return (
     <div className="loginForm-container">
       <BackgroundImage />
