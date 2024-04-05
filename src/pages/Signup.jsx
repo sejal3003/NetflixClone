@@ -5,8 +5,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify"; // Import toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling toast notifications
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import icons
+
 export default function Signup() {
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
@@ -56,6 +59,9 @@ export default function Signup() {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
+  const togglePasswordVisibility = () => {
+    setVisible(!visible); // Toggle the state to show/hide password
+  };
 
   return (
     <div showPassword={showPassword} className="signupPageContainer">
@@ -86,18 +92,26 @@ export default function Signup() {
               }
             />
             {showPassword && (
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={formValues.password}
-                onChange={(e) =>
-                  setFormValues({
-                    ...formValues,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-              />
+              <div className="password-input-container">
+                <input
+                  type={visible ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                  value={formValues.password}
+                  onChange={(e) =>
+                    setFormValues({
+                      ...formValues,
+                      [e.target.name]: e.target.value,
+                    })
+                  }
+                />
+                <span
+                  className="password-toggle-icon"
+                  onClick={togglePasswordVisibility}
+                >
+                  {visible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </span>
+              </div>
             )}
             {!showPassword && (
               <button

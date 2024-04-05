@@ -8,6 +8,7 @@ import "../styles/Login.css";
 import axios from "axios"; // Import axios
 import { toast } from "react-toastify"; // Import toast from react-toastify
 import "../styles/Login.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import icons
 
 export default function Login() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const handleLogIn = async () => {
     // Basic email validation
     if (!validateEmail(formValues.email)) {
@@ -52,6 +54,9 @@ export default function Login() {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Toggle the state to show/hide password
+  };
 
   return (
     <div className="loginForm-container">
@@ -74,20 +79,26 @@ export default function Login() {
                   })
                 }
               />
-
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={formValues.password}
-                onChange={(e) =>
-                  setFormValues({
-                    ...formValues,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-              />
-
+              <div className="password-input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                  value={formValues.password}
+                  onChange={(e) =>
+                    setFormValues({
+                      ...formValues,
+                      [e.target.name]: e.target.value,
+                    })
+                  }
+                />
+                <span
+                  className="loginPassword-toggle-icon"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </span>
+              </div>
               <button onClick={handleLogIn}>Log In</button>
               <div>
                 {/* Forgot Password Link */}
