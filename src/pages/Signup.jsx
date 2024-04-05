@@ -106,7 +106,7 @@ export default function Signup() {
                   }
                 />
                 <span
-                  className="password-toggle-icon"
+                  className="signupPassword-toggle-icon"
                   onClick={togglePasswordVisibility}
                 >
                   {visible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
