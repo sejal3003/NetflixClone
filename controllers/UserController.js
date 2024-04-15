@@ -1,5 +1,7 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 // Signup controller
 exports.signup = async (req, res) => {
@@ -48,10 +50,74 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password." });
     }
 
+    const token = jwt.sign({ _id: user._id }, process.env.KEY, {
+      expiresIn: "1h",
+    });
+    // res.status(200).json({ token });
+
     // If user and password are valid, return success message
-    return res.status(200).json({ message: "Login successful." });
+    return res.status(200).json({ message: "Login successful.", token });
   } catch (error) {
     console.error("Error in login:", error);
     return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+//Forgot Password
+exports.forgotpassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ message: "User not found." });
+    }
+
+    const token = jwt.sign({ _id: user._id }, process.env.Key, {
+      expiresIn: "5m",
+    });
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "sejalr.uvxcel@gmail.com",
+        pass: "udkt uath qoip bull",
+      },
+    });
+
+    var mailOptions = {
+      from: "sejalr.uvxcel@gmail.com",
+      to: email,
+      subject: "Reset password.",
+      text: `http://localhost:3000/resetPassword/${token}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        return res.json({ status: true, message: "email sent" });
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//Reset Password
+exports.resetpassword = async (req, res) => {
+  // const { token } = req.params;
+  const { password, token } = req.body;
+  console.log(password, token);
+  try {
+    const decoded = await jwt.verify(token, process.env.KEY);
+    console.log(decoded);
+    const id = decoded._id;
+    console.log("id", id);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.findByIdAndUpdate(id, { password: hashedPassword });
+    return res.json({ status: true, message: "updated password" });
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ message: "Invalid token or failed to reset password" });
   }
 };
