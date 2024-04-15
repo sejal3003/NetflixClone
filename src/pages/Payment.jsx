@@ -1,34 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import "../styles/Payment.css";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-
-
 
 export default function Payment() {
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
- 
+  const [error, setError] = useState(null);
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
       return;
     }
-
+    const cardElement = elements.getElement(CardElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
+      type: "card",
+      card: cardElement,
     });
 
     if (error) {
+      setError(error.message);
       console.error(error);
     } else {
-      console.log(paymentMethod);
-      // Handle successful payment
+      console.log(paymentMethod); // Handle successful payment
+      setError(null);
+      console.log("Sending payment request...");
+      try {
+        const response = await fetch("/api/payment/process", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            paymentMethodId: paymentMethod.id,
+            amount: 199,
+          }),
+        });
+        console.log("Response:", response);
+        const data = await response.json();
+        console.log(data); // Handle response from backend (payment succeeded or failed)
+      } catch (error) {
+        console.error("Error processing payment:", error);
+      }
     }
   };
 
@@ -52,8 +68,27 @@ export default function Payment() {
             </p>
             <p>Secure for peace of mind. Cancel easily online.</p>
             <div className="payment-container">
-             <form onSubmit={handleSubmit}>
-                <CardElement/>
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <label>Card Details</label>
+                  <CardElement
+                    options={{
+                      style: {
+                        base: {
+                          fontSize: "16px",
+                          color: "#424770",
+                          "::placeholder": {
+                            color: "#aab7c4",
+                          },
+                        },
+                        invalid: {
+                          color: "#9e2146",
+                        },
+                      },
+                    }}
+                  />
+                </div>
+                {error && <div style={{ color: "red" }}>{error}</div>}
                 <button type="submit" disabled={!stripe}>
                   Pay
                 </button>

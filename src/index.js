@@ -10,11 +10,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Provider } from "react-redux";
 import { store } from "./store/index";
 
-
 const stripePromise = loadStripe(
   "pk_test_51OvtIZSIokf14IAPBmfATVZAFkF9SZikjgTMxOnTVsxxefPsd6UbXiATOCqDYABTmKjQGygawBzygLSI6uhNTS9F00XPJ8mLZr"
 );
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,7 +20,7 @@ root.render(
     <React.StrictMode>
       <Elements stripe={stripePromise}>
         <Provider store={store}>
-         <App />
+          <App />
         </Provider>
       </Elements>
     </React.StrictMode>

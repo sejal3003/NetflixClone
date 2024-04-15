@@ -13,6 +13,8 @@ import Player from "./Player/Player";
 import Movies from "./Movies/Movies";
 import TVShows from "./TvShows/TVShows";
 import MyList from "./MyList/MyList";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 export default function App() {
   return (
@@ -29,6 +31,8 @@ export default function App() {
         <Route exact path="/movies" element={<Movies />} />
         <Route exact path="/tv" element={<TVShows />} />
         <Route exact path="/mylist" element={<MyList />} />
+        <Route exact path="/forgot-password" element={<ForgotPassword />} />
+        <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
       </Routes>
     </div>
   );
