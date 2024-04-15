@@ -63,7 +63,7 @@ export default React.memo(function Card(movieData, isLiked = false) {
                 />
                 <RiThumbUpFill title="Like" />
                 <RiThumbDownFill title="Dislike" />
-                {isLiked ? (
+                {!isLiked ? (
                   <BsCheck title="Remove From the List" />
                 ) : (
                   <AiOutlinePlus title="Add to my list" onClick={addToList} />
