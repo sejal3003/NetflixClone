@@ -15,6 +15,7 @@ import TVShows from "./TvShows/TVShows";
 import MyList from "./MyList/MyList";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import AdminPortal from "./AdminPortal/AdminPortal";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route exact path="/mylist" element={<MyList />} />
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
+        <Route exact path="/admin" element={<AdminPortal />} />
       </Routes>
     </div>
   );

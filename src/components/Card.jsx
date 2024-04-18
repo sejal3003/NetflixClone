@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import video from "../assets/video.mp4";
@@ -16,11 +16,12 @@ export default React.memo(function Card(movieData, isLiked = false) {
 
   const addToList = async () => {
     try {
-      await axios.post("http://localhost:5000/api/user/add", {
+      await axios.post("http://localhost:8000/api/v1/add", {
         data: movieData,
       });
-    } catch (err) {
-      console.log(err);
+      // console.log(movieData);
+    } catch (error) {
+      console.log(error);
     }
   };
 
