@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const movieRoutes = require("./routes/MovieRoutes");
+const movieRoutes = require("./routes/MovielistRoutes");
 const userRoutes = require("./routes/UserRoutes");
+const adminRoutes = require("./routes/AdminRoutes");
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // const bodyParser = require("body-parser");
+
 const dotenv = require("dotenv");
 const app = express();
 
@@ -75,7 +77,8 @@ app.use("/api/v1", userRoutes);
 app.get("/", (req, res) => {
   res.send("hello world");
 });
-
+//admin route
+app.use("/api/admin", adminRoutes);
 // Start the server
 
 app.listen(8000, () => {

@@ -1,4 +1,4 @@
-const item = require("../models/MovieModel");
+const item = require("../models/MovielistModel");
 
 module.exports.addToLikedMovies = async (req, res) => {
   try {
@@ -20,5 +20,16 @@ module.exports.addToLikedMovies = async (req, res) => {
     return res.json({ msg: "Movie successfully added to liked list." });
   } catch (error) {
     return res.json({ msg: "Error adding movie to the liked list" });
+  }
+};
+module.exports.getLikedMovies = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await item.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", movies: user.likedMovies });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching movies." });
   }
 };

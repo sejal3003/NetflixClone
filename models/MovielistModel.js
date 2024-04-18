@@ -10,4 +10,4 @@ const movieSchema = new mongoose.Schema({
   likedMovies: Array,
 });
 
-module.exports = mongoose.model("Movie", movieSchema);
+module.exports = mongoose.model("MovieList", movieSchema);

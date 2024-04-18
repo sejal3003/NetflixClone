@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
     }
 
     const token = jwt.sign({ _id: user._id }, process.env.KEY, {
-      expiresIn: "1h",
+      expiresIn: "15m",
     });
     // res.status(200).json({ token });
 
@@ -82,12 +82,28 @@ exports.forgotpassword = async (req, res) => {
         pass: "udkt uath qoip bull",
       },
     });
+    // Customize the email template
+    var resetPasswordLink = `http://localhost:3000/resetPassword/${token}`;
+    var emailTemplate = `
+    <p>Dear <strong>User</strong>,</p>
 
+    <p>You are receiving this email because a password reset request was initiated for your account.</p>
+  
+    <p>To reset your password, please click on the following link:</p>
+    <p><a href="${resetPasswordLink}">${resetPasswordLink}</a></p>
+  
+    <p>If you did not request this password reset, please ignore this email. Your password will remain unchanged.</p>
+  
+    <p>Please note that this link is valid for a limited time and will expire after 5 mins. If you need further assistance, please contact at <a href="mailto:support@example.com">Support team</a>.</p>
+  
+    <p>Thank you,</p>
+    <p><strong>The Netflix Team</strong></p>
+`;
     var mailOptions = {
       from: "sejalr.uvxcel@gmail.com",
       to: email,
-      subject: "Reset password.",
-      text: `http://localhost:3000/resetPassword/${token}`,
+      subject: "Reset Password Link",
+      html: emailTemplate,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

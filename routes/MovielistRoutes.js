@@ -1,10 +1,9 @@
+const router = require("express").Router();
 const {
   addToLikedMovies,
   // getLikedMovies,
   // removeFromLikedMovies,
-} = require("../controllers/MovieController");
-
-const router = require("express").Router();
+} = require("../controllers/MovielistController");
 
 //   router.get("/liked/:email", getLikedMovies);
 router.post("/add", addToLikedMovies);
