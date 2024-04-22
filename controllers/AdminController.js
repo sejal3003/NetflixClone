@@ -1,5 +1,6 @@
 const User = require("../models/UserModel");
 
+//getAllUsers Logic
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}, { password: 0 });
@@ -15,4 +16,14 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = getAllUsers;
+//deleteUsers
+const deleteUserById = async (req, res) => {
+  if (req.user.id === req.params.id)
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      return res.status(200).json({ message: "User Deleted Successfully" });
+    } catch (error) {
+      console.log(error);
+    }
+};
+module.exports = { getAllUsers, deleteUserById };

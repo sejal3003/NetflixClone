@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const movieRoutes = require("./routes/MovielistRoutes");
+const listRoutes = require("./routes/MovielistRoutes");
 const userRoutes = require("./routes/UserRoutes");
 const adminRoutes = require("./routes/AdminRoutes");
+const movieRoutes = require("./routes/MovieRoute");
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // const bodyParser = require("body-parser");
 
@@ -15,7 +16,6 @@ dotenv.config();
 
 app.use(cors());
 app.use(express.json());
-// const PORT = process.env.PORT || 3000;
 
 //connect to MongoDb
 mongoose
@@ -71,8 +71,9 @@ app.use(express.json());
 // });
 
 // Routes
-app.use("/api/v1", movieRoutes);
+app.use("/api/v1", listRoutes);
 app.use("/api/v1", userRoutes);
+app.use("/api/movies", movieRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello world");

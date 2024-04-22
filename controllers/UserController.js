@@ -22,11 +22,19 @@ exports.signup = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    // //Assign JWT to user
+    // const token = jwt.sign({ _id: newUser._id }, process.env.KEY, {
+    //   expiresIn: "15m",
+    // });
 
     // Save the user
     await newUser.save();
 
-    return res.status(201).json({ message: "User created successfully." });
+    return res.status(201).json({
+      message: "User created successfully.",
+      token: await newUser.generateToken(),
+      _id: newUser._id.toString(),
+    });
   } catch (error) {
     console.error("Error in signup:", error);
     return res.status(500).json({ message: "Internal server error." });
@@ -50,13 +58,18 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password." });
     }
 
-    const token = jwt.sign({ _id: user._id }, process.env.KEY, {
-      expiresIn: "15m",
-    });
-    // res.status(200).json({ token });
+    // const token = jwt.sign({ _id: user._id }, process.env.KEY, {
+    //   expiresIn: "15m",
+    // });
 
     // If user and password are valid, return success message
-    return res.status(200).json({ message: "Login successful.", token });
+    return res
+      .status(200)
+      .json({
+        message: "Login successful.",
+        token: await user.generateToken(),
+        _id: user._id.toString(),
+      });
   } catch (error) {
     console.error("Error in login:", error);
     return res.status(500).json({ message: "Internal server error." });
@@ -135,5 +148,16 @@ exports.resetpassword = async (req, res) => {
     return res
       .status(400)
       .json({ message: "Invalid token or failed to reset password" });
+  }
+};
+
+//get userData on the screen
+exports.user = async (req, res) => {
+  try {
+    const userData = req.user;
+    console.log(userData);
+    return res.status(200).json({ msg: userData });
+  } catch (error) {
+    console.log(`error from the user route ${error}`);
   }
 };
