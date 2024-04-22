@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CardSlider from "./CardSlider";
+import axios from "axios";
+
 export default React.memo(function Slider({ movies }) {
+  // const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/movies/");
+        fetchMovies(response.data);
+      } catch (error) {
+        setError(error.message || "An error occurred while fetching movies.");
+      }
+    };
+    fetchMovies();
+  }, []);
+
   const getMoviesFromRange = (from, to) => {
     return movies.slice(from, to);
   };
-  // console.log(movies);
+
   return (
     <Container>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <CardSlider data={getMoviesFromRange(0, 10)} title="Trending Now" />
       <CardSlider data={getMoviesFromRange(10, 20)} title="New Releases" />
       <CardSlider
@@ -25,3 +43,8 @@ export default React.memo(function Slider({ movies }) {
 });
 
 const Container = styled.div``;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-weight: bold;
+`;

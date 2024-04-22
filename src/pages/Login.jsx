@@ -32,16 +32,25 @@ export default function Login() {
 
     try {
       // Make POST request to backend login endpoint
-      await axios.post("http://localhost:8000/api/v1/login", {
+      const { data } = await axios.post("http://localhost:8000/api/v1/login", {
         email: formValues.email,
         password: formValues.password,
       });
+      console.log(data);
+      const dataMsg = data.message;
+      if (dataMsg === "Login successful.") {
+        toast.success("Login successful!"); // Display success message using toast
+        alert("Login successful!");
+        const localStorageData = {
+          message: dataMsg,
+          token: data.token,
+        };
+        console.log(localStorageData);
 
-      toast.success("Login successful!"); // Display success message using toast
-      alert("Login successful!");
-
-      // If login is successful, navigate to subscription page
-      navigate("/subscription");
+        localStorage.setItem("loginData", JSON.stringify(localStorageData));
+        // If login is successful, navigate to subscription page
+        navigate("/subscription");
+      }
     } catch (error) {
       // If there's an error, display error message using toast
       toast.error("Invalid email or password. Please try again.");

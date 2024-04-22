@@ -1,20 +1,38 @@
-import React from 'react'
-import {useNavigate} from 'react-router-dom';
-import styled from "styled-components"
-import logo from  "../assets/logo.png";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import logo from "../assets/logo.png";
 
 export default function Header(props) {
-    const  navigate = useNavigate();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem("loginData");
+
+    // Redirect the user to the login page or any other appropriate page
+    navigate("/login"); // Assuming "/login" is the route for your login page
+  };
+
   return (
     <Container className="flex a-center j-between">
-          <div className="logo">
-              <img src={logo} alt="logo" />
-          </div>
-          <button onClick={() => navigate(props.login ? "/login": "/signup")}>
-             {props.login  ? "Log In ":"Sign In"}
-          </button>
+      <div className="logo">
+        <img src={logo} alt="logo" />
+      </div>
+      <button
+        onClick={() => {
+          if (props.login) {
+            navigate("/login"); // Redirect to the login page
+          } else {
+            handleLogout(); // Call the handleLogout function directly
+            alert("logout"); // Optionally, you can include an alert here
+            navigate("/login"); // Redirect to the login page
+          }
+        }}
+      >
+        {props.login ? "Log In " : "Log Out"}
+      </button>
     </Container>
-  )
+  );
 }
 const Container = styled.div`
 padding: 0 4rem;

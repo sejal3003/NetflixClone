@@ -13,6 +13,13 @@ export default function Navbar({ isScrolled }) {
     { name: "Movies", link: "/movies" },
     { name: "My List", link: "/mylist" },
   ];
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem("loginData");
+
+    // Redirect the user to the login page or any other appropriate page
+    navigate("/login"); // Assuming "/login" is the route for your login page
+  };
 
   return (
     <Container>
@@ -56,6 +63,7 @@ export default function Navbar({ isScrolled }) {
           </div>
           <button
             onClick={() => {
+              handleLogout();
               alert("logout");
               navigate("/login");
             }}

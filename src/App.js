@@ -16,6 +16,8 @@ import MyList from "./MyList/MyList";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AdminPortal from "./AdminPortal/AdminPortal";
+import AdminUsers from "./AdminPages/AdminUsers";
+import AdminMovies from "./AdminPages/AdminMovies";
 
 export default function App() {
   return (
@@ -34,7 +36,10 @@ export default function App() {
         <Route exact path="/mylist" element={<MyList />} />
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
-        <Route exact path="/admin" element={<AdminPortal />} />
+        <Route exact path="/admin" element={<AdminPortal />}>
+          <Route exact path="users" element={<AdminUsers />} />
+          <Route exact path="movieshow" element={<AdminMovies />} />
+        </Route>
       </Routes>
     </div>
   );
