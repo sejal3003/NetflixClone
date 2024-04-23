@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
 import { useState } from "react";
@@ -11,6 +11,12 @@ import "../styles/Login.css";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import icons
 
 export default function Login() {
+  useEffect(() => {
+    if (localStorage.getItem("loginData")) {
+      navigate("/");
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     email: "",

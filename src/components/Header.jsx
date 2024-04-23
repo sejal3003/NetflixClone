@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 
 export default function Header(props) {
   const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem("loginData"));
   const handleLogout = () => {
     // Remove the token from localStorage
     localStorage.removeItem("loginData");
@@ -19,6 +20,7 @@ export default function Header(props) {
         <img src={logo} alt="logo" />
       </div>
       <button
+        className={`${props.login ? "" : "d-none"}`}
         onClick={() => {
           if (props.login) {
             navigate("/login"); // Redirect to the login page

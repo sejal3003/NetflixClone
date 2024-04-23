@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { fetchMovies, getGenres } from "../store";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import NotAvailable from "../components/NotAvailable";
 import SelectGenre from "../components/SelectGenre";
@@ -14,6 +12,7 @@ import img2 from "../assets/2.jpg";
 import img3 from "../assets/3.jpg";
 import img4 from "../assets/4.jpg";
 import img5 from "../assets/5.jpg";
+import Layout from "../components/Layout/Layout";
 
 export default function Movies() {
   const [backgroundImage, setBackgroundImage] = useState(img1);
@@ -22,7 +21,6 @@ export default function Movies() {
   const genres = useSelector((state) => state.netflix.genres);
   const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   // console.log(genres,movies);
   // Array of imported images
@@ -64,7 +62,7 @@ export default function Movies() {
   return (
     <Container>
       <div className="navbar">
-        <Navbar isScrolled={isScrolled} />
+        <Layout isScrolled={isScrolled} />
       </div>
       <div className="data">
         <div

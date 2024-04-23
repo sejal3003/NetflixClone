@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { fetchMovies, getGenres } from "../store";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import NotAvailable from "../components/NotAvailable";
 import SelectGenre from "../components/SelectGenre";
+import Layout from "../components/Layout/Layout";
 
 export default function TVShows() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,7 +15,6 @@ export default function TVShows() {
   const genres = useSelector((state) => state.netflix.genres);
   const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   // console.log(genres,movies);
 
@@ -38,7 +36,7 @@ export default function TVShows() {
   return (
     <Container>
       <div className="navbar">
-        <Navbar isScrolled={isScrolled} />
+        <Layout isScrolled={isScrolled} />
       </div>
       <div className="data">
         <SelectGenre genres={genres} type="tv" />

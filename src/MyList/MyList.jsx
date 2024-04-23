@@ -1,20 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
 import Card from "../components/Card";
+import Layout from "../components/Layout/Layout";
 
 export default function MyList() {
   const [isScrolled, setIsScrolled] = useState(false);
   const movies = useSelector((state) => state.netflix.movies);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  // console.log(genres,movies);
 
   useEffect(() => {}, []);
 
@@ -26,7 +20,7 @@ export default function MyList() {
   return (
     <Container>
       <div className="navbar">
-        <Navbar isScrolled={isScrolled} />
+        <Layout isScrolled={isScrolled} />
 
         <div className="content flex column">
           <div className="grid flex">

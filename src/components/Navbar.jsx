@@ -3,10 +3,33 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
+import { LuLogIn } from "react-icons/lu";
+import { searchMovies } from "../store/index";
+import { useDispatch } from "react-redux";
+
 export default function Navbar({ isScrolled }) {
+  const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
+
+  const handleSearch = () => {
+    if (query.trim() !== "") {
+      dispatch(searchMovies({ query }));
+    }
+  };
+
   const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem("loginData"));
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+
+    navigate("/login");
+  };
+
   const links = [
     { name: "Home", link: "/" },
     { name: "TV Shows", link: "/tv" },
@@ -16,11 +39,10 @@ export default function Navbar({ isScrolled }) {
   const handleLogout = () => {
     // Remove the token from localStorage
     localStorage.removeItem("loginData");
-
-    // Redirect the user to the login page or any other appropriate page
-    navigate("/login"); // Assuming "/login" is the route for your login page
+    setIsLoggedIn(false);
+    navigate("/login");
   };
-
+  // console.log(isLoggedIn, data);
   return (
     <Container>
       <nav className={`${isScrolled ? "scrolled" : ""} flex`}>
@@ -47,12 +69,15 @@ export default function Navbar({ isScrolled }) {
                   setShowSearch(false);
                 }
               }}
+              onClick={handleSearch}
             >
               <FaSearch />
             </button>
             <input
               type="text"
-              placeholder="Search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search for movies..."
               onMouseEnter={() => setInputHover(true)}
               onMouseLeave={() => setInputHover(false)}
               onBlur={() => {
@@ -61,7 +86,16 @@ export default function Navbar({ isScrolled }) {
               }}
             />
           </div>
-          <button
+          {isLoggedIn === false && data ? (
+            <button onClick={handleLogout}>
+              <FaPowerOff />
+            </button>
+          ) : (
+            <button onClick={handleLogin}>
+              <LuLogIn />
+            </button>
+          )}
+          {/* <button
             onClick={() => {
               handleLogout();
               alert("logout");
@@ -69,7 +103,7 @@ export default function Navbar({ isScrolled }) {
             }}
           >
             <FaPowerOff />
-          </button>
+          </button> */}
         </div>
       </nav>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,11 @@ import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling to
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import icons
 
 export default function Signup() {
+  useEffect(() => {
+    if (localStorage.getItem("loginData")) {
+      navigate("/");
+    }
+  }, []);
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
