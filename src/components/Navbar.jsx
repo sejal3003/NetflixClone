@@ -138,7 +138,9 @@ const Container = styled.div`
         gap: 2rem;
         li {
           a {
-            color: white;
+            color: red;
+            font-weight: 600;
+            font-size: 1.2rem;
             text-decoration: none;
           }
         }

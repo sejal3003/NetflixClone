@@ -15,10 +15,11 @@ import TVShows from "./TvShows/TVShows";
 import MyList from "./MyList/MyList";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import AdminPortal from "./AdminPortal/AdminPortal";
+import AdminPortal from "./components/AdminPortal";
 import AdminUsers from "./AdminPages/AdminUsers";
 import AdminMovies from "./AdminPages/AdminMovies";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
+import AdminProfile from "./AdminPages/AdminProfile";
 
 export default function App() {
   return (
@@ -61,7 +62,8 @@ export default function App() {
         <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
         <Route exact path="/admin" element={<AdminPortal />}>
           <Route exact path="users" element={<AdminUsers />} />
-          <Route exact path="movieshow" element={<AdminMovies />} />
+          <Route exact path="movieslist" element={<AdminMovies />} />
+          <Route exact path="profile" element={<AdminProfile />} />
         </Route>
       </Routes>
     </div>
