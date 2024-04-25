@@ -37,7 +37,7 @@ const AdminPortal = ({ children }) => {
     },
     {
       path: "/admin/deletemov",
-      name: "Delete Movies",
+      name: "Deleted Movies",
       icon: <RiDeleteBinLine />,
     },
     {

@@ -42,20 +42,29 @@ export default function Login() {
         email: formValues.email,
         password: formValues.password,
       });
-      console.log(data);
-      const dataMsg = data.message;
-      if (dataMsg === "Login successful.") {
+
+      const { message, token, isAdmin } = data;
+
+      if (message === "Login successful.") {
         toast.success("Login successful!"); // Display success message using toast
         alert("Login successful!");
+
         const localStorageData = {
-          message: dataMsg,
-          token: data.token,
+          message,
+          token,
+          isAdmin,
         };
-        console.log(localStorageData);
+        // console.log(localStorageData);
 
         localStorage.setItem("loginData", JSON.stringify(localStorageData));
-        // If login is successful, navigate to subscription page
-        navigate("/subscription");
+
+        if (isAdmin === true) {
+          // Navigate to "/admin" page for admin user
+          navigate("/admin");
+        } else {
+          // Navigate to "/subscription" page for normal user
+          navigate("/subscription");
+        }
       }
     } catch (error) {
       // If there's an error, display error message using toast
