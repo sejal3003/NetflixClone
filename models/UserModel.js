@@ -33,7 +33,7 @@ userSchema.methods.generateToken = async function () {
       },
       process.env.KEY,
       {
-        expiresIn: "2h",
+        expiresIn: "1h",
       }
     );
   } catch (error) {

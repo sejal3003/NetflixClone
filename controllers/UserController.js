@@ -11,7 +11,9 @@ exports.signup = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists." });
+      return res.status(400).json({
+        message: "User already exists.",
+      });
     }
 
     // Hash the password
@@ -151,7 +153,7 @@ exports.resetpassword = async (req, res) => {
   }
 };
 
-//get userData on the screen
+//get userData
 exports.user = async (req, res) => {
   try {
     const userData = req.user;
@@ -159,5 +161,43 @@ exports.user = async (req, res) => {
     return res.status(200).json({ msg: userData });
   } catch (error) {
     console.log(`error from the user route ${error}`);
+  }
+};
+
+// Update Profile controller
+exports.updateProfile = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find the user by email and password
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if the user is an admin
+    if (!user.isAdmin) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to update profile." });
+    }
+
+    // Update the user's profile
+    if (email) {
+      user.email = email;
+    }
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Admin profile updated successfully." });
+  } catch (error) {
+    console.error("Error in updating profile:", error);
+    return res.status(500).json({ message: "Internal server error." });
   }
 };
