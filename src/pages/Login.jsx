@@ -54,7 +54,7 @@ export default function Login() {
           token,
           isAdmin,
         };
-        // console.log(localStorageData);
+        // console.log(localStoragData);
 
         localStorage.setItem("loginData", JSON.stringify(localStorageData));
 
