@@ -5,6 +5,7 @@ import "../AdminPages/adMovies.css";
 const AdminMovies = () => {
   const [movies, setMovies] = useState([]);
 
+  // Function to fetch movie data
   const fetchMovieData = async () => {
     try {
       const logindataString = localStorage.getItem("loginData");
@@ -17,14 +18,35 @@ const AdminMovies = () => {
 
       const response = await axios.get(
         "http://localhost:8000/api/admin/getmovies",
-        {
-          headers: headers,
-        }
+        { headers: headers }
       );
 
       setMovies(response.data);
     } catch (error) {
       console.error("Error fetching movies:", error);
+    }
+  };
+
+  // Function to handle movie deletion
+  const handleDelete = async (id) => {
+    try {
+      const logindataString = localStorage.getItem("loginData");
+      const logindata = JSON.parse(logindataString);
+      const token = logindata.token;
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      await axios.delete(`http://localhost:8000/api/admin/deletemovies/${id}`, {
+        headers: headers,
+      });
+
+      // Refetch movie data after deletion
+      console.log("Movie deleted successfully");
+      fetchMovieData();
+    } catch (error) {
+      console.error("Error deleting movie:", error);
     }
   };
 
@@ -50,13 +72,28 @@ const AdminMovies = () => {
               </tr>
             </thead>
             <tbody>
-              {movies.map((movie, index) => (
-                <tr key={index}>
+              {movies.map((movie) => (
+                <tr key={movie._id}>
                   <td>{movie.id}</td>
                   <td>{movie.name}</td>
-                  <td>{movie.image}</td>
-                  <td>{movie.genre}</td>
-                  <td>Delete</td>
+                  <td>
+                    {movie.image && (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${movie.image}`}
+                        alt={movie.name}
+                      />
+                    )}
+                  </td>
+
+                  <td>{movie.genre.join(", ")}</td>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(movie._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

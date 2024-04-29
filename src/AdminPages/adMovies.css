@@ -1,9 +1,9 @@
 .admin-movies-section {
-  padding: 20px;
+  padding: 30px;
 }
 
 .moviecontainer {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .movie-list-container {
@@ -19,13 +19,18 @@
 
 .movie-list th,
 .movie-list td {
-  padding: 8px;
+  display: grid;
+  text-align: center;
+  justify-content: center;
+  padding: 2px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 1.2rem !important;
 }
 
 .movie-list th {
   background-color: #f2f2f2;
+  font-size: 20px !important;
 }
 
 /* Optional: Style table rows and cells */
@@ -37,4 +42,24 @@
   /* Style the last column (Delete button) */
   color: red;
   cursor: pointer;
+}
+.delete-btn {
+  padding: 6px 10px;
+  background-color: #ff3333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+}
+
+.movie-list img {
+  max-width: 100px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
 }

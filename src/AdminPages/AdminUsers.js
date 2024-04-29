@@ -76,12 +76,13 @@ export default function AdminUsers() {
           <h1>Admin Users Data</h1>
         </div>
         <div className="userContainer admin-users">
-          <table>
+          <table className="user-table">
             <thead>
               <tr>
                 <th> User Id</th>
                 <th>Email</th>
                 <th>CreatedAt</th>
+                <th>UpdatedAt</th>
                 <th>Delete</th>
               </tr>
             </thead>
@@ -92,6 +93,7 @@ export default function AdminUsers() {
                     <td>{curUser._id}</td>
                     <td>{curUser.email}</td>
                     <td>{curUser.createdAt}</td>
+                    <td>{curUser.updatedAt}</td>
                     <td>
                       <button
                         className="delete-btn"
