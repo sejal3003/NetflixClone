@@ -1,0 +1,40 @@
+.admin-movies-section {
+  padding: 20px;
+}
+
+.moviecontainer {
+  margin-bottom: 20px;
+}
+
+.movie-list-container {
+  max-height: 400px; /* Set maximum height for the movie list container */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  border: 1px solid #ccc; /* Optional: Add border for visual separation */
+}
+
+.movie-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.movie-list th,
+.movie-list td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.movie-list th {
+  background-color: #f2f2f2;
+}
+
+/* Optional: Style table rows and cells */
+.movie-list tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.movie-list tbody td:last-child {
+  /* Style the last column (Delete button) */
+  color: red;
+  cursor: pointer;
+}
