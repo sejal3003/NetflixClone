@@ -17,6 +17,10 @@ const movieSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Movie", movieSchema);
