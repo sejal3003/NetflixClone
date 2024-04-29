@@ -1,4 +1,5 @@
 const User = require("../models/UserModel");
+const Movie = require("../models/MovieModel");
 
 //getAllUsers Logic
 const getAllUsers = async (req, res) => {
@@ -16,4 +17,27 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers };
+//deleteUser Logic
+const deleteUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await User.deleteOne({ _id: id });
+    return res.status(200).json({
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//getMoviesData Logic
+const getAllMovies = async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    res.json(movies);
+  } catch (err) {
+    res.status(500).json({ message: " Movies not found" });
+  }
+};
+
+module.exports = { getAllUsers, deleteUserById, getAllMovies };
