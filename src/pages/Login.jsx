@@ -46,8 +46,13 @@ export default function Login() {
       const { message, token, isAdmin } = data;
 
       if (message === "Login successful.") {
-        toast.success("Login successful!"); // Display success message using toast
-        alert("Login successful!");
+        if (isAdmin === true) {
+          toast.success(" Admin Login successful!"); // Display success message using toast
+          alert(" Admin Login successful!");
+        } else {
+          toast.success("User Login successful"); // Display success message using toast
+          alert("User Login successful");
+        }
 
         const localStorageData = {
           message,
@@ -63,7 +68,7 @@ export default function Login() {
           navigate("/admin");
         } else {
           // Navigate to "/subscription" page for normal user
-          navigate("/subscription");
+          navigate("/");
         }
       }
     } catch (error) {

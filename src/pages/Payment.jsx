@@ -94,7 +94,7 @@ export default function Payment() {
                 </button>
               </form>
             </div>
-            <button className="Next" onClick={() => navigate("/")}>
+            <button className="Next" onClick={() => navigate("/login")}>
               Next
             </button>
           </div>

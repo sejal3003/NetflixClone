@@ -20,6 +20,7 @@ import AdminUsers from "./AdminPages/AdminUsers";
 import AdminMovies from "./AdminPages/AdminMovies";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import AdminProfile from "./AdminPages/AdminProfile";
+import AdminDeletedMovies from "./AdminPages/AdminDeletedMovies";
 
 export default function App() {
   return (
@@ -64,6 +65,7 @@ export default function App() {
           <Route exact path="users" element={<AdminUsers />} />
           <Route exact path="movieslist" element={<AdminMovies />} />
           <Route exact path="profile" element={<AdminProfile />} />
+          <Route exact path="deletemov" element={<AdminDeletedMovies />} />
         </Route>
       </Routes>
     </div>

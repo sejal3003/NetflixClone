@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../AdminPages/adUsers.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
@@ -61,11 +63,28 @@ export default function AdminUsers() {
       await axios.delete(`http://localhost:8000/api/admin/users/delete/${id}`, {
         headers: headers,
       });
-
+      toast.success("User Deleted Successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       // Re-fetch the users
       fetchData();
     } catch (error) {
       console.error("Error deleting user:", error);
+      toast.error("Failed to delete user. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 

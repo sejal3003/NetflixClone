@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../AdminPages/adMovies.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -44,9 +46,27 @@ const AdminMovies = () => {
 
       // Refetch movie data after deletion
       console.log("Movie deleted successfully");
+      toast.success("Movie Deleted Successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       fetchMovieData();
     } catch (error) {
       console.error("Error deleting movie:", error);
+      toast.error("Failed to delete Movie. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 

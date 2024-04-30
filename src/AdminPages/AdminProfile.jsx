@@ -3,12 +3,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../AdminPages/adProfile.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const ProfileUpdateForm = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +23,16 @@ const ProfileUpdateForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateEmail(formData.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    // Basic password validation
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
 
     try {
       // Make API call to update admin profile
@@ -59,6 +72,15 @@ const ProfileUpdateForm = () => {
     }
   };
 
+  const validateEmail = (email) => {
+    // Regular expression for basic email validation
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Toggle the state to show/hide password
+  };
+
   return (
     <div className="profile-update-container">
       <h1>Admin Details</h1>
@@ -74,14 +96,21 @@ const ProfileUpdateForm = () => {
         />
 
         <label>Password:</label>
+
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           name="password"
           value={formData.password}
           onChange={handleInputChange}
           placeholder="Enter your password"
           required
         />
+        <span
+          className="loginPassword-toggle-icon"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+        </span>
 
         <button type="submit" className="update-profile-button">
           Update Profile
