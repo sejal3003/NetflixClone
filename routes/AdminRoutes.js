@@ -1,4 +1,5 @@
 const express = require("express");
+
 const {
   getAllUsers,
   deleteUserById,
@@ -10,6 +11,8 @@ const {
 const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware");
 const adminMiddleware = require("../middlewares/adminMiddleware");
+
+// Routes
 
 //getAllUsers Route
 router.route("/users").get(authMiddleware, adminMiddleware, getAllUsers);
@@ -36,4 +39,5 @@ router
 router
   .route("/undo/:id")
   .put(authMiddleware, adminMiddleware, undoDeletedMovie);
+
 module.exports = router;

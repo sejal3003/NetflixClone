@@ -164,7 +164,7 @@ exports.user = async (req, res) => {
   }
 };
 
-// Update Profile controller
+// Update  Admin Profile logic
 exports.updateProfile = async (req, res) => {
   try {
     const { email, password } = req.body;
