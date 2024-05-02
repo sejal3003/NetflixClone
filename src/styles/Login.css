@@ -100,7 +100,12 @@ body::-webkit-scrollbar {
   margin-top: 30px !important;
   cursor: pointer;
 }
-h5 {
+
+.forgot-password-link:hover {
+  color: green;
+}
+
+.loginFormBody .loginForm h5 {
   margin-top: 30px !important;
   padding-top: 12px;
 }
@@ -108,6 +113,9 @@ h5 {
   font-size: 1rem;
   color: #fff;
   font-weight: 400;
+}
+.signuplink:hover {
+  color: #ff3c4a;
 }
 
 .loginForm button {

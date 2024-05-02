@@ -71,7 +71,7 @@ export default function AdminDeletedMovies() {
   return (
     <section className="admin-movies-section">
       <div className="moviecontainer">
-        <h1>Admin Movies Data</h1>
+        <h1>Admin Deleted Movies Data</h1>
       </div>
       <div className="moviecontainer admin-mov">
         <div className="movie-list-container">
@@ -92,10 +92,17 @@ export default function AdminDeletedMovies() {
                     <td>{movie.id}</td>
                     <td>{movie.name}</td>
                     <td>
-                      {movie.image && (
+                      {movie.image.startsWith("uploads") ? (
+                        <img
+                          src={`http://localhost:8000/${movie.image}`}
+                          alt={movie.name}
+                          style={{ maxWidth: "100px", maxHeight: "150px" }}
+                        />
+                      ) : (
                         <img
                           src={`https://image.tmdb.org/t/p/w500${movie.image}`}
                           alt={movie.name}
+                          style={{ maxWidth: "100px", maxHeight: "150px" }}
                         />
                       )}
                     </td>

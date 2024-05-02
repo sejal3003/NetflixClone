@@ -106,7 +106,7 @@ const ProfileUpdateForm = () => {
           required
         />
         <span
-          className="loginPassword-toggle-icon"
+          className="profilePassword-toggle-icon"
           onClick={togglePasswordVisibility}
         >
           {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}

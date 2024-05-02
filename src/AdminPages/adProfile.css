@@ -53,7 +53,7 @@
 .update-profile-button:hover {
   background-color: #0056b3;
 }
-.loginPassword-toggle-icon {
+.profilePassword-toggle-icon {
   position: relative;
   top: -60px !important;
   left: 219px;
@@ -62,9 +62,9 @@
   color: black;
   font-size: 24px;
 }
-.loginPassword-toggle-icon:hover {
+.profilePassword-toggle-icon:hover {
   color: #007bff;
 }
-.loginPassword-toggle-icon:active {
+.profilePassword-toggle-icon:active {
   color: #0056b3;
 }

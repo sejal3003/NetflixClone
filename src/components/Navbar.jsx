@@ -63,6 +63,7 @@ export default function Navbar({ isScrolled }) {
         <div className="right flex a-center">
           <div className={`search ${showSearch ? "show-search" : ""}`}>
             <button
+              title="Search"
               onFocus={() => setShowSearch(true)}
               onBlur={() => {
                 if (!inputHover) {
@@ -87,11 +88,11 @@ export default function Navbar({ isScrolled }) {
             />
           </div>
           {isLoggedIn === false && data ? (
-            <button onClick={handleLogout}>
+            <button title="Logout" onClick={handleLogout}>
               <FaPowerOff />
             </button>
           ) : (
-            <button onClick={handleLogin}>
+            <button title="Login" onClick={handleLogin}>
               <LuLogIn />
             </button>
           )}
@@ -178,6 +179,7 @@ const Container = styled.div`
             font-size: 1.2rem;
           }
         }
+
         input {
           width: 0;
           opacity: 0;
@@ -200,6 +202,29 @@ const Container = styled.div`
           visibility: visible;
           padding: 0.3rem;
         }
+      }
+      button {
+        position: relative;
+        cursor: pointer;
+      }
+
+      button:hover::before {
+        content: attr(title);
+        background-color: #333;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      button:hover::before {
+        opacity: 1;
       }
     }
   }

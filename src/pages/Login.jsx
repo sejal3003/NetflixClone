@@ -1,28 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import axios from "axios"; // Import axios
-import { toast } from "react-toastify"; // Import toast from react-toastify
-import "../styles/Login.css";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import icons
+import axios from "axios";
+import { toast } from "react-toastify";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export default function Login() {
-  useEffect(() => {
-    if (localStorage.getItem("loginData")) {
-      navigate("/");
-    }
-  }, []);
-
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [isLockedOut, setIsLockedOut] = useState(false);
+
   const handleLogIn = async () => {
     // Basic email validation
     if (!validateEmail(formValues.email)) {
@@ -37,7 +32,6 @@ export default function Login() {
     }
 
     try {
-      // Make POST request to backend login endpoint
       const { data } = await axios.post("http://localhost:8000/api/v1/login", {
         email: formValues.email,
         password: formValues.password,
@@ -46,11 +40,14 @@ export default function Login() {
       const { message, token, isAdmin } = data;
 
       if (message === "Login successful.") {
+        // Reset failed attempts on successful login
+        setFailedAttempts(0);
+
         if (isAdmin === true) {
-          toast.success(" Admin Login successful!"); // Display success message using toast
-          alert(" Admin Login successful!");
+          toast.success("Admin Login successful!");
+          alert("Admin Login successful!");
         } else {
-          toast.success("User Login successful"); // Display success message using toast
+          toast.success("User Login successful");
           alert("User Login successful");
         }
 
@@ -59,33 +56,46 @@ export default function Login() {
           token,
           isAdmin,
         };
-        // console.log(localStoragData);
 
         localStorage.setItem("loginData", JSON.stringify(localStorageData));
 
         if (isAdmin === true) {
-          // Navigate to "/admin" page for admin user
           navigate("/admin");
         } else {
-          // Navigate to "/subscription" page for normal user
           navigate("/");
         }
       }
     } catch (error) {
-      // If there's an error, display error message using toast
+      // Increment failed login attempts on error
+      setFailedAttempts(failedAttempts + 1);
+
+      if (failedAttempts >= 2) {
+        setIsLockedOut(true);
+        setTimeout(() => {
+          setIsLockedOut(false);
+          setFailedAttempts(0);
+        }, 60000); // Lockout for 60 seconds (60000 milliseconds)
+      }
+
       toast.error("Invalid email or password. Please try again.");
       console.error("Error logging in:", error);
     }
   };
 
   const validateEmail = (email) => {
-    // Regular expression for basic email validation
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
+
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); // Toggle the state to show/hide password
+    setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("loginData")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div className="loginForm-container">
@@ -128,7 +138,22 @@ export default function Login() {
                   {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                 </span>
               </div>
-              <button onClick={handleLogIn}>Log In</button>
+              <button onClick={handleLogIn} disabled={isLockedOut}>
+                Log In
+              </button>
+              {isLockedOut && (
+                <p
+                  style={{
+                    color: "white",
+                    fontStyle: "Bold",
+                    textAlign: "center",
+                    fontWeight: 400,
+                  }}
+                >
+                  "Tried to login with wrong password for more than 3 times.
+                  Please try again in 60 seconds".
+                </p>
+              )}
               <div>
                 {/* Forgot Password Link */}
                 <Link to="/forgot-password" className="forgot-password-link">
