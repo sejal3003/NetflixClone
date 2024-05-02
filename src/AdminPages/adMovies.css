@@ -75,3 +75,14 @@
 .undo-btn:hover {
   background-color: #cc0000;
 }
+
+.search-bar-container {
+  margin-bottom: 20px;
+}
+.listsearch-bar {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}

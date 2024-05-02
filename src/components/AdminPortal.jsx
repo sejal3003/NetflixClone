@@ -27,17 +27,17 @@ const AdminPortal = ({ children }) => {
     },
     {
       path: "/admin/movieslist",
-      name: "View All Movies",
+      name: "View All Movies/TV Shows",
       icon: <MdLocalMovies />,
     },
     {
       path: "/admin/addmov",
-      name: "Add Movies",
+      name: "Add Movies/TV Shows",
       icon: <MdAddToPhotos />,
     },
     {
       path: "/admin/deletemov",
-      name: "Deleted Movies",
+      name: "Deleted Movies/TV Shows",
       icon: <RiDeleteBinLine />,
     },
     {

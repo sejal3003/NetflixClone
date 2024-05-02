@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
   const fetchData = async () => {
     try {
       // Retrieve the logindata object from localStorage
@@ -37,6 +38,7 @@ export default function AdminUsers() {
 
       // return response.data;
       setUsers(response.data);
+      setTotalUsers(response.data.length);
     } catch (error) {
       // Handle errors
       console.error("Error fetching data:", error);
@@ -95,6 +97,12 @@ export default function AdminUsers() {
           <h1>Admin Users Data</h1>
         </div>
         <div className="userContainer admin-users">
+          {/* Display total number of users */}
+          <p style={{ color: "black", fontSize: "25px", fontWeight: "bold" }}>
+            Total Users: {totalUsers}
+          </p>
+
+          {/* User table */}
           <table className="user-table">
             <thead>
               <tr>

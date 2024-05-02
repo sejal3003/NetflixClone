@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminDeletedMovies() {
   const [movies, setMovies] = useState([]);
+  const [totalMovies, setTotalMovies] = useState(0); // State to hold the total number of movies
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchDeletedMovie = async () => {
     try {
@@ -25,6 +27,7 @@ export default function AdminDeletedMovies() {
       let movieData = response.data;
       if (movieData) {
         setMovies(movieData.movieData);
+        setTotalMovies(movieData.movieData.length);
       } else {
         setMovies([]);
       }
@@ -68,13 +71,40 @@ export default function AdminDeletedMovies() {
     fetchDeletedMovie();
   }, []);
 
+  // Function to handle search input change
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // Filter movies based on search query
+  const filteredMovies = movies.filter((movie) =>
+    movie.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <section className="admin-movies-section">
       <div className="moviecontainer">
         <h1>Admin Deleted Movies Data</h1>
       </div>
       <div className="moviecontainer admin-mov">
+        <div className="search-bar-container">
+          {/* Search bar */}
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search by movie name..."
+            className="listsearch-bar"
+          />
+        </div>
         <div className="movie-list-container">
+          {/* Display total number of movies */}
+          <p style={{ color: "black", fontSize: "25px", fontWeight: "bold" }}>
+            Total Movies: {totalMovies}
+          </p>
+
+          {/* Movie table */}
+
           <table className="movie-list">
             <thead>
               <tr>
@@ -82,42 +112,41 @@ export default function AdminDeletedMovies() {
                 <th>Movie Name</th>
                 <th>Movie Image</th>
                 <th>Movie Genre</th>
-                <th>Undo</th>
+                <th>Restore</th>
               </tr>
             </thead>
             <tbody>
-              {movies &&
-                movies.map((movie) => (
-                  <tr key={movie._id}>
-                    <td>{movie.id}</td>
-                    <td>{movie.name}</td>
-                    <td>
-                      {movie.image.startsWith("uploads") ? (
-                        <img
-                          src={`http://localhost:8000/${movie.image}`}
-                          alt={movie.name}
-                          style={{ maxWidth: "100px", maxHeight: "150px" }}
-                        />
-                      ) : (
-                        <img
-                          src={`https://image.tmdb.org/t/p/w500${movie.image}`}
-                          alt={movie.name}
-                          style={{ maxWidth: "100px", maxHeight: "150px" }}
-                        />
-                      )}
-                    </td>
+              {filteredMovies.map((movie) => (
+                <tr key={movie._id}>
+                  <td>{movie.id}</td>
+                  <td>{movie.name}</td>
+                  <td>
+                    {movie.image.startsWith("uploads") ? (
+                      <img
+                        src={`http://localhost:8000/${movie.image}`}
+                        alt={movie.name}
+                        style={{ maxWidth: "100px", maxHeight: "150px" }}
+                      />
+                    ) : (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${movie.image}`}
+                        alt={movie.name}
+                        style={{ maxWidth: "100px", maxHeight: "150px" }}
+                      />
+                    )}
+                  </td>
 
-                    <td>{movie.genre.join(", ")}</td>
-                    <td>
-                      <button
-                        className="undo-btn"
-                        onClick={() => undoMovie(movie._id)}
-                      >
-                        Restore
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                  <td>{movie.genre.join(", ")}</td>
+                  <td>
+                    <button
+                      className="undo-btn"
+                      onClick={() => undoMovie(movie._id)}
+                    >
+                      Restore
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const AdminMovies = () => {
   const [movies, setMovies] = useState([]);
+  const [totalMovies, setTotalMovies] = useState(0); // State to hold the total number of movies
+  const [searchQuery, setSearchQuery] = useState(""); // State to hold the search query
 
   // Function to fetch movie data
   const fetchMovieData = async () => {
@@ -24,6 +26,7 @@ const AdminMovies = () => {
       );
 
       setMovies(response.data);
+      setTotalMovies(response.data.length);
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
@@ -74,13 +77,39 @@ const AdminMovies = () => {
     fetchMovieData();
   }, []);
 
+  // Function to handle search input change
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // Filter movies based on search query
+  const filteredMovies = movies.filter((movie) =>
+    movie.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <section className="admin-movies-section">
       <div className="moviecontainer">
-        <h1>Admin Movies Data</h1>
+        <h1>Admin Movies / TVShows Data</h1>
       </div>
       <div className="moviecontainer admin-mov">
+        <div className="search-bar-container">
+          {/* Search bar */}
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search by movie name..."
+            className="listsearch-bar"
+          />
+        </div>
         <div className="movie-list-container">
+          {/* Display total number of movies */}
+          <p style={{ color: "black", fontSize: "25px", fontWeight: "bold" }}>
+            Total Movies: {totalMovies}
+          </p>
+
+          {/* Movie table with filtered results */}
           <table className="movie-list">
             <thead>
               <tr>
@@ -92,7 +121,7 @@ const AdminMovies = () => {
               </tr>
             </thead>
             <tbody>
-              {movies.map((movie) => (
+              {filteredMovies.map((movie) => (
                 <tr key={movie._id}>
                   <td>{movie.id}</td>
                   <td>{movie.name}</td>
