@@ -91,6 +91,33 @@ const undoDeletedMovie = async (req, res) => {
   }
 };
 
+//Logic for uploading the movie
+
+const uploadMovie = async (req, res) => {
+  console.log(req.file);
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+  try {
+    const { id, name, genre } = req.body;
+    // console.log(req.file);
+    const image = req.file.path;
+
+    const newMovie = new Movie({
+      id,
+      name,
+      image: image,
+      genre: genre.split(",").map((g) => g.trim()),
+      isDeleted: false,
+    });
+
+    const savedMovie = await newMovie.save();
+    res.status(201).json(savedMovie);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   deleteUserById,
@@ -98,4 +125,5 @@ module.exports = {
   deleteMovieById,
   getDeletedMovie,
   undoDeletedMovie,
+  uploadMovie,
 };

@@ -5,6 +5,7 @@ const listRoutes = require("./routes/MovielistRoutes");
 const userRoutes = require("./routes/UserRoutes");
 const adminRoutes = require("./routes/AdminRoutes");
 const movieRoutes = require("./routes/MovieRoute");
+const path = require("path");
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // const bodyParser = require("body-parser");
 
@@ -16,6 +17,7 @@ dotenv.config();
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads/images", express.static("uploads/images"));
 
 //connect to MongoDb
 mongoose
