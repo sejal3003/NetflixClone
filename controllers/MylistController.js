@@ -1,4 +1,4 @@
-const item = require("../models/MovielistModel");
+const item = require("../models/MylistModel");
 
 module.exports.addToLikedMovies = async (req, res) => {
   try {

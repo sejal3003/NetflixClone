@@ -3,7 +3,7 @@ const {
   addToLikedMovies,
   // getLikedMovies,
   // removeFromLikedMovies,
-} = require("../controllers/MovielistController");
+} = require("../controllers/MylistController");
 
 //   router.get("/liked/:email", getLikedMovies);
 router.post("/add", addToLikedMovies);
