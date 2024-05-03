@@ -2,50 +2,98 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import "../styles/Payment.css";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Payment() {
   const navigate = useNavigate();
-  const stripe = useStripe();
-  const elements = useElements();
-  const [error, setError] = useState(null);
+  const [selectedAmount, setSelectedAmount] = useState(500);
+  const [name, setName] = useState("");
+  const [isTransactionSuccessful, setIsTransactionSuccessful] = useState(false);
+  const [isNextButtonVisible, setIsNextButtonVisible] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!stripe || !elements) {
-      return;
-    }
-    const cardElement = elements.getElement(CardElement);
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
+  const currency = "INR";
+  const receiptId = "qwsql";
+
+  const handleAmountChange = (amount) => {
+    setSelectedAmount(amount);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handlePaymentSuccess = () => {
+    setIsTransactionSuccessful(true);
+    setIsNextButtonVisible(true); // Show the Next button after successful transaction
+  };
+
+  const paymentHandler = async (e) => {
+    const paiseAmount = selectedAmount * 100; // Convert rupees to paise
+    const response = await fetch("http://localhost:8000/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: paiseAmount,
+        currency,
+        receipt: receiptId,
+      }),
     });
+    const order = await response.json();
+    console.log(order);
 
-    if (error) {
-      setError(error.message);
-      console.error(error);
-    } else {
-      console.log(paymentMethod); // Handle successful payment
-      setError(null);
-      console.log("Sending payment request...");
-      try {
-        const response = await fetch("/api/payment/process", {
+    var option = {
+      key: "",
+      amount: paiseAmount,
+      currency,
+      name: "Netflix Subscription",
+      description: "Test Transaction",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLBoNFiGLLn1OUzqhNveglzC5uGYa8U1o3Sw&s",
+      order_id: order.id,
+      handler: async function (response) {
+        toast.success("Transaction Successful");
+        alert("Transaction successful");
+        const body = { ...response };
+
+        const validateResponse = await fetch("http://localhost:8000/validate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            paymentMethodId: paymentMethod.id,
-            amount: 199,
-          }),
+          body: JSON.stringify(body),
         });
-        console.log("Response:", response);
-        const data = await response.json();
-        console.log(data); // Handle response from backend (payment succeeded or failed)
-      } catch (error) {
-        console.error("Error processing payment:", error);
-      }
-    }
+        const jsonResponse = await validateResponse.json();
+
+        // console.log("jsonResponse", jsonResponse);
+        handlePaymentSuccess();
+      },
+      prefill: {
+        name: name, // Dynamic name
+        email: "sej@example.com",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    var rzp1 = new window.Razorpay(option);
+    rzp1.on("payment.failed", function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+
+    rzp1.open();
+    e.preventDefault();
   };
 
   return (
@@ -68,35 +116,46 @@ export default function Payment() {
             </p>
             <p>Secure for peace of mind. Cancel easily online.</p>
             <div className="payment-container">
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <label>Card Details</label>
-                  <CardElement
-                    options={{
-                      style: {
-                        base: {
-                          fontSize: "16px",
-                          color: "#424770",
-                          "::placeholder": {
-                            color: "#aab7c4",
-                          },
-                        },
-                        invalid: {
-                          color: "#9e2146",
-                        },
-                      },
-                    }}
+              <div className="amount-selection">
+                <p>"Select the Plan For Subscription"</p>
+                <label>
+                  <h6>Basic Plan :</h6>
+                  <input
+                    type="radio"
+                    value={199}
+                    checked={selectedAmount === 199}
+                    onChange={() => handleAmountChange(199)}
                   />
-                </div>
-                {error && <div style={{ color: "red" }}>{error}</div>}
-                <button type="submit" disabled={!stripe}>
-                  Pay
-                </button>
-              </form>
+                  ₹199
+                </label>
+                <label>
+                  <h6>Standard Plan :</h6>
+                  <input
+                    type="radio"
+                    value={499}
+                    checked={selectedAmount === 499}
+                    onChange={() => handleAmountChange(499)}
+                  />
+                  ₹499
+                </label>
+                <label>
+                  <h6>Premium Plan :</h6>
+                  <input
+                    type="radio"
+                    value={699}
+                    checked={selectedAmount === 699}
+                    onChange={() => handleAmountChange(699)}
+                  />
+                  ₹699
+                </label>
+              </div>
+              <button onClick={paymentHandler}>Subscribe</button>
             </div>
-            <button className="Next" onClick={() => navigate("/login")}>
-              Next
-            </button>
+            {isNextButtonVisible && (
+              <button className="Next" onClick={() => navigate("/login")}>
+                Next
+              </button>
+            )}
           </div>
         </div>
       </div>

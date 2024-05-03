@@ -15,9 +15,28 @@ const AddMovieForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let newValue = value;
+
+    // Validation for ID field
+    if (name === "id") {
+      // Ensure only numbers are entered and limit to 6 characters
+      newValue = value.replace(/\D/, "").slice(0, 6);
+    }
+
+    // Validation for Name field
+    if (name === "name") {
+      // Ensure only letters are entered
+      newValue = value.replace(/[^a-zA-Z\s]/g, "");
+    }
+
+    // Validation for Genre field
+    if (name === "genre") {
+      // Ensure only letters, commas, and spaces are entered
+      newValue = value.replace(/[^a-zA-Z,\s]/g, "");
+    }
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: newValue,
     }));
   };
 

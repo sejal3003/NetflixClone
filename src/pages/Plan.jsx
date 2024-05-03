@@ -40,7 +40,7 @@ const Plan = () => {
               />
               <PlanCard
                 title="Premium Plan"
-                price="{Monthly price ₹649}"
+                price="{Monthly price ₹699}"
                 text="Supported devices
                         TV, computer, mobile phone, tablet"
                 title2="Resolution
