@@ -15,28 +15,9 @@ const AddMovieForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    let newValue = value;
-
-    // Validation for ID field
-    if (name === "id") {
-      // Ensure only numbers are entered and limit to 6 characters
-      newValue = value.replace(/\D/, "").slice(0, 6);
-    }
-
-    // Validation for Name field
-    if (name === "name") {
-      // Ensure only letters are entered
-      newValue = value.replace(/[^a-zA-Z\s]/g, "");
-    }
-
-    // Validation for Genre field
-    if (name === "genre") {
-      // Ensure only letters, commas, and spaces are entered
-      newValue = value.replace(/[^a-zA-Z,\s]/g, "");
-    }
     setFormData((prevData) => ({
       ...prevData,
-      [name]: newValue,
+      [name]: value,
     }));
   };
 
@@ -109,6 +90,10 @@ const AddMovieForm = () => {
             name="id"
             value={formData.id}
             onChange={handleChange}
+            pattern="\d*"
+            title="ID must contain only numbers"
+            maxLength="6"
+            required
           />
         </div>
 
@@ -120,6 +105,9 @@ const AddMovieForm = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            pattern="[A-Za-z\s]*"
+            title="Name must contain only letters"
+            required
           />
         </div>
 
@@ -131,6 +119,7 @@ const AddMovieForm = () => {
             name="genre"
             value={formData.genre}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -142,6 +131,7 @@ const AddMovieForm = () => {
             name="image"
             accept="image/*"
             onChange={handleImageChange}
+            required
           />
           {imagePreview && (
             <img
