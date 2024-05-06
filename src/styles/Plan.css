@@ -6,7 +6,7 @@
   color: black;
   position: relative;
 }
-.plans .content {
+.plans .planContent {
   position: absolute;
   top: 0;
   left: 0;
