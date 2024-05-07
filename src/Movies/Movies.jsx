@@ -14,10 +14,12 @@ import img4 from "../assets/4.jpg";
 import img5 from "../assets/5.jpg";
 import Layout from "../components/Layout/Layout";
 import { fetchGenres, fetchMovies } from "../utils/Movieapi";
+import Loader from "../components/Loader";
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [genre, setGenre] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [backgroundImage, setBackgroundImage] = useState(img1);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,8 +48,14 @@ export default function Movies() {
   //fetching movies
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchMovies();
-      setMovies(data);
+      try {
+        const data = await fetchMovies();
+        setMovies(data);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      } finally {
+        setIsLoading(false); // Set loading state to false after fetching data
+      }
     };
     fetchData();
   }, []);
@@ -99,7 +107,13 @@ export default function Movies() {
         >
           <SelectGenre genres={genre} type="movie" />
         </div>
-        {movies.length ? <Slider /> : <NotAvailable />}
+        {isLoading ? (
+          <Loader />
+        ) : movies.length ? ( // Check if movies array has data
+          <Slider />
+        ) : (
+          <NotAvailable />
+        )}
       </div>
     </Container>
   );

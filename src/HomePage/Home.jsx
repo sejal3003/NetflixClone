@@ -10,11 +10,13 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import Slider from "../components/Slider";
 import Layout from "../components/Layout/Layout";
 import { fetchMovies } from "../utils/Movieapi";
+import Loader from "../components/Loader";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [movies, setMovies] = useState([]);
   const [showMovieInfo, setShowMovieInfo] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // const genres = useSelector((state) => state.netflix.genres);
   // const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
 
@@ -32,9 +34,14 @@ export default function Home() {
   // }, [dispatch, genresLoaded, genres]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchMovies();
-
-      setMovies(data);
+      try {
+        const data = await fetchMovies();
+        setMovies(data);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, []);
@@ -85,18 +92,24 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Slider />
-      {showMovieInfo && (
-        <MovieInfo>
-          <h3>{strangerThingsInfo.title}</h3>
-          <p>{strangerThingsInfo.description}</p>
-          <p>
-            <strong>Genre:</strong> {strangerThingsInfo.genre}
-          </p>
-          <p>
-            <strong>Rating:</strong> {strangerThingsInfo.rating}
-          </p>
-        </MovieInfo>
+      {isLoading ? (
+        <Loader /> // Display loader while fetching data
+      ) : (
+        <>
+          <Slider movies={movies} />
+          {showMovieInfo && (
+            <MovieInfo>
+              <h3>{strangerThingsInfo.title}</h3>
+              <p>{strangerThingsInfo.description}</p>
+              <p>
+                <strong>Genre:</strong> {strangerThingsInfo.genre}
+              </p>
+              <p>
+                <strong>Rating:</strong> {strangerThingsInfo.rating}
+              </p>
+            </MovieInfo>
+          )}
+        </>
       )}
     </Container>
   );

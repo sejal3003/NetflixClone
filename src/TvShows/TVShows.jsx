@@ -8,12 +8,14 @@ import NotAvailable from "../components/NotAvailable";
 import SelectGenre from "../components/SelectGenre";
 import Layout from "../components/Layout/Layout";
 import { fetchGenres, fetchMovies } from "../utils/Movieapi";
+import Loader from "../components/Loader";
 // import { useSelector } from "react-redux";
 
 export default function TVShows() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [movies, setMovies] = useState([]);
   const [genre, setGenre] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // const genres = useSelector((state) => state.netflix.genres);
   // console.log(genres);
@@ -37,9 +39,14 @@ export default function TVShows() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchMovies();
-
-      setMovies(data);
+      try {
+        const data = await fetchMovies();
+        setMovies(data);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      } finally {
+        setIsLoading(false); // Set loading state to false after fetching data
+      }
     };
     fetchData();
   }, []);
@@ -56,7 +63,13 @@ export default function TVShows() {
       </div>
       <div className="data">
         <SelectGenre genres={genre} type="tv" />
-        {movies.length ? <Slider /> : <NotAvailable />}
+        {isLoading ? (
+          <Loader />
+        ) : movies.length ? ( // Check if movies array has data
+          <Slider />
+        ) : (
+          <NotAvailable />
+        )}
       </div>
     </Container>
   );
