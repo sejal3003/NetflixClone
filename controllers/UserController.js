@@ -104,8 +104,8 @@ exports.forgotpassword = async (req, res) => {
 
     <p>You are receiving this email because a password reset request was initiated for your account.</p>
   
-    <p>To reset your password, please click on the following link:</p>
-    <p><a href="${resetPasswordLink}">${resetPasswordLink}</a></p>
+    <p>To reset your password, please click on the following button:</p>
+    <a href="${resetPasswordLink}" style="display: inline-block; background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Reset Password</a>
   
     <p>If you did not request this password reset, please ignore this email. Your password will remain unchanged.</p>
   

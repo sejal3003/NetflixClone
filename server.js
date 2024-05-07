@@ -5,6 +5,8 @@ const listRoutes = require("./routes/MylistRoutes");
 const userRoutes = require("./routes/UserRoutes");
 const adminRoutes = require("./routes/AdminRoutes");
 const movieRoutes = require("./routes/MovieRoute");
+const genreRoutes = require("./routes/genreRoutes");
+
 const path = require("path");
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
@@ -42,6 +44,7 @@ app.use(express.json());
 app.use("/api/v1", listRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/movies", movieRoutes);
+app.use("/api/genres", genreRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello world");
@@ -58,6 +61,7 @@ app.post("/order", async (req, res) => {
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
+
     if (!req.body) {
       return res.status(400).send(" Bad Request");
     }
@@ -85,11 +89,14 @@ app.post("/validate", async (req, res) => {
   const digest = sha.digest("hex");
 
   if (digest !== razorpay_signature) {
-    return res.status(400).json({ msg: " Transaction is not legit!" });
+    return res
+      .status(400)
+      .json({ success: false, msg: " Transaction is not Successful!" });
   }
 
   res.json({
-    msg: " Transaction is legit!",
+    success: true,
+    msg: " Transaction is Successful!",
     orderId: razorpay_order_id,
     paymentId: razorpay_payment_id,
   });
