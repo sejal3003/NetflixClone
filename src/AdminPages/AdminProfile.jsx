@@ -85,32 +85,44 @@ const ProfileUpdateForm = () => {
     <div className="profile-update-container">
       <h1>Admin Details</h1>
       <form onSubmit={handleSubmit} className="profile-update-form">
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          placeholder="Enter your email"
-          required
-        />
+        <div className="form-group1">
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            value="Admin"
+            disabled // Disable the input field
+          />
+        </div>
+        <div className="form-group1">
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            placeholder="Enter your email"
+            required
+          />
+        </div>
 
-        <label>Password:</label>
-
-        <input
-          type={showPassword ? "text" : "password"}
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          placeholder="Enter your password"
-          required
-        />
-        <span
-          className="profilePassword-toggle-icon"
-          onClick={togglePasswordVisibility}
-        >
-          {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-        </span>
+        <div className="form-group1">
+          <label>Password:</label>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            placeholder="Enter your password"
+            required
+          />
+          <span
+            className="profilePassword-toggle-icon"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+          </span>
+        </div>
 
         <button type="submit" className="update-profile-button">
           Update Profile

@@ -3,14 +3,15 @@ import styled from "styled-components";
 import CardSlider from "./CardSlider";
 import axios from "axios";
 
-export default React.memo(function Slider({ movies }) {
-  // const [movies, setMovies] = useState([]);
+export default React.memo(function Slider() {
+  const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const response = await axios.get("http://localhost:8000/api/movies/");
+        setMovies(response.data);
         fetchMovies(response.data);
       } catch (error) {
         setError(error.message || "An error occurred while fetching movies.");

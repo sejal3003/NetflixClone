@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchMovies, getGenres } from "../store";
+// import { fetchMovies, getGenres } from "../store";
 import styled from "styled-components";
 import Slider from "../components/Slider";
 import NotAvailable from "../components/NotAvailable";
@@ -13,23 +13,45 @@ import img3 from "../assets/3.jpg";
 import img4 from "../assets/4.jpg";
 import img5 from "../assets/5.jpg";
 import Layout from "../components/Layout/Layout";
+import { fetchGenres, fetchMovies } from "../utils/Movieapi";
 
 export default function Movies() {
+  const [movies, setMovies] = useState([]);
+  const [genre, setGenre] = useState([]);
+
   const [backgroundImage, setBackgroundImage] = useState(img1);
   const [isScrolled, setIsScrolled] = useState(false);
-  const movies = useSelector((state) => state.netflix.movies);
-  const genres = useSelector((state) => state.netflix.genres);
-  const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
 
-  const dispatch = useDispatch();
-  // console.log(genres,movies);
-  // Array of imported images
+  // const genres = useSelector((state) => state.netflix.genres);
+  // const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
+
+  // const dispatch = useDispatch();
+
   const images = [img1, img2, img3, img4, img5];
 
   const selectRandomImage = () => {
     const randomIndex = Math.floor(Math.random() * images.length);
     return images[randomIndex];
   };
+  //fetchgenres
+  useEffect(() => {
+    const fetchGenresData = async () => {
+      const data = await fetchGenres();
+      console.log(data);
+      setGenre(data);
+    };
+    fetchGenresData();
+  }, []);
+
+  //fetching movies
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchMovies();
+      setMovies(data);
+    };
+    fetchData();
+  }, []);
+
   // Function to change the background image
   const changeBackgroundImage = () => {
     const newImage = selectRandomImage();
@@ -44,15 +66,15 @@ export default function Movies() {
     return () => clearInterval(interval);
   }, []); // Run once on component mount
 
-  useEffect(() => {
-    dispatch(getGenres());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getGenres());
+  // }, []);
 
-  useEffect(() => {
-    if (genresLoaded) {
-      dispatch(fetchMovies({ type: "movies" }));
-    }
-  }, [genresLoaded]);
+  // useEffect(() => {
+  //   if (genresLoaded) {
+  //     dispatch(fetchMovies({ type: "movies" }));
+  //   }
+  // }, [genresLoaded]);
 
   window.onscroll = () => {
     setIsScrolled(window.scrollY === 0 ? false : true);
@@ -75,9 +97,9 @@ export default function Movies() {
             transition: "background-image 0.5s",
           }}
         >
-          <SelectGenre genres={genres} type="movie" />
+          <SelectGenre genres={genre} type="movie" />
         </div>
-        {movies.length ? <Slider movies={movies} /> : <NotAvailable />}
+        {movies.length ? <Slider /> : <NotAvailable />}
       </div>
     </Container>
   );

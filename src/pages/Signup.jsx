@@ -41,7 +41,6 @@ export default function Signup() {
         password: formValues.password,
       });
       toast.success("Signup successful!"); // Display success message using toast
-      alert("Signup successful!");
 
       // Redirect the user to the subscription page upon successful signup
       navigate("/subscription");

@@ -4,19 +4,8 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { LuLogIn } from "react-icons/lu";
-import { searchMovies } from "../store/index";
-import { useDispatch } from "react-redux";
 
 export default function Navbar({ isScrolled }) {
-  const dispatch = useDispatch();
-  const [query, setQuery] = useState("");
-
-  const handleSearch = () => {
-    if (query.trim() !== "") {
-      dispatch(searchMovies({ query }));
-    }
-  };
-
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem("loginData"));
 
@@ -26,7 +15,6 @@ export default function Navbar({ isScrolled }) {
 
   const handleLogin = () => {
     setIsLoggedIn(true);
-
     navigate("/login");
   };
 
@@ -70,14 +58,11 @@ export default function Navbar({ isScrolled }) {
                   setShowSearch(false);
                 }
               }}
-              onClick={handleSearch}
             >
               <FaSearch />
             </button>
             <input
               type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for movies..."
               onMouseEnter={() => setInputHover(true)}
               onMouseLeave={() => setInputHover(false)}

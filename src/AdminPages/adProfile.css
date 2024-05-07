@@ -53,18 +53,35 @@
 .update-profile-button:hover {
   background-color: #0056b3;
 }
-.profilePassword-toggle-icon {
+.form-group1 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; /* Adjust as needed */
   position: relative;
-  top: -60px !important;
-  left: 219px;
+}
+
+.form-group1 label {
+  flex: 0 0 30%; /* Adjust width of labels */
+  margin-right: 10px; /* Adjust spacing between label and input */
+}
+
+.form-group1 input {
+  flex: 1; /* Take up remaining space */
+}
+.profilePassword-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust as needed */
   transform: translateY(-50%);
   cursor: pointer;
   color: black;
   font-size: 24px;
 }
+
 .profilePassword-toggle-icon:hover {
   color: #007bff;
 }
+
 .profilePassword-toggle-icon:active {
   color: #0056b3;
 }

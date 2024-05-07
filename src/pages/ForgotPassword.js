@@ -26,7 +26,7 @@ export default function ForgotPassword() {
       await axios.post("http://localhost:8000/api/v1/forgot-password", {
         email: formValues.email,
       });
-      alert("check your email for the reset password link");
+      toast.success("check your email for the reset password link");
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -50,7 +50,7 @@ export default function ForgotPassword() {
               <h2>Forgot Password</h2>
               <input
                 type="email"
-                placeholder="Email Address"
+                placeholder="Enter your email address"
                 name="email"
                 value={formValues.email}
                 onChange={(e) =>

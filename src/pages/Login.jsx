@@ -45,10 +45,8 @@ export default function Login() {
 
         if (isAdmin === true) {
           toast.success("Admin Login successful!");
-          alert("Admin Login successful!");
         } else {
           toast.success("User Login successful");
-          alert("User Login successful");
         }
 
         const localStorageData = {

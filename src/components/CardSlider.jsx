@@ -4,7 +4,6 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Card from "./Card";
 export default React.memo(function CardSlider({ data, title }) {
   const listRef = useRef();
-  console.log(data);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const handleDirection = (direction) => {
@@ -18,7 +17,7 @@ export default React.memo(function CardSlider({ data, title }) {
       setSliderPosition(sliderPosition + 1);
     }
   };
-
+  // console.log(data);
   return (
     <Container
       className="flex column"

@@ -69,7 +69,17 @@ const AddMovieForm = () => {
 
       console.log("Movie Uploaded:", response.data);
       toast.success("Movie Added Successfully!");
-      alert("Movie Uploaded");
+      // Reset form data
+      setFormData({
+        id: "",
+        name: "",
+        genre: "",
+        image: null,
+      });
+      // Clear image preview
+      setImagePreview(null);
+      document.getElementById("image").value = "";
+
       // Handle success (e.g., show a success message to the user)
     } catch (error) {
       console.error("Error uploading movie:", error);
