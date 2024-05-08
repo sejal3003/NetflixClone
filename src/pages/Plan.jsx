@@ -52,7 +52,6 @@ export default function Payment() {
       order_id: order.id,
       handler: async function (response) {
         toast.success("Transaction Successful");
-        alert("Transaction successful");
 
         const body = { ...response };
 
@@ -81,13 +80,7 @@ export default function Payment() {
     };
     var rzp1 = new window.Razorpay(option);
     rzp1.on("payment.failed", function (response) {
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
+      toast.error("Payment Failed");
     });
 
     rzp1.open();
