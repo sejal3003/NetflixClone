@@ -17,7 +17,26 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    likedMovies: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Movie",
+      },
+    ],
+    dislikedMovies: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Movie",
+      },
+    ],
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Movie",
+      },
+    ],
   },
+
   {
     timestamps: true,
   }

@@ -2,6 +2,7 @@ const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+// const Movie = require("../models/MovieModel");
 
 // Signup controller
 exports.signup = async (req, res) => {
@@ -182,7 +183,7 @@ exports.updateProfile = async (req, res) => {
         .json({ message: "Unauthorized to update profile." });
     }
 
-    // Update the user's profile
+    // Update the Admin profile
     if (email) {
       user.email = email;
     }
@@ -201,3 +202,143 @@ exports.updateProfile = async (req, res) => {
     return res.status(500).json({ message: "Internal server error." });
   }
 };
+
+// Controller method to like a movie
+exports.likeMovie = async (req, res) => {
+  try {
+    const { movieId } = req.body;
+
+    if (!movieId) {
+      return res.status(200).json({ message: "Movie id is required" });
+    }
+    // Check if the movie is already liked by the user
+    const likedIndex = req.user.likedMovies.indexOf(movieId);
+    if (likedIndex !== -1) {
+      // Movie is already liked, so remove it from likedMovies array
+      req.user.likedMovies.splice(likedIndex, 1);
+      await req.user.save();
+      return res.status(200).json({ message: "Movie removed from liked list" });
+    }
+
+    // Check if the movie is already disliked by the user
+    const dislikedIndex = req.user.dislikedMovies.indexOf(movieId);
+    if (dislikedIndex !== -1) {
+      // Remove the movie from dislikedMovies array
+      req.user.dislikedMovies.splice(dislikedIndex, 1);
+    }
+
+    // Add the movieId to the likedMovies array if it's not already present
+    req.user.likedMovies.push(movieId);
+    await req.user.save();
+    res.status(200).json({ message: "Movie liked successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.dislikeMovie = async (req, res) => {
+  try {
+    const { movieId } = req.body;
+    if (!movieId) {
+      return res.status(200).json({ message: "Movie id is required" });
+    }
+
+    // Check if the movie is already liked by the user
+    const likedIndex = req.user.likedMovies.indexOf(movieId);
+    if (likedIndex !== -1) {
+      // Remove the movie from likedMovies array
+      req.user.likedMovies.splice(likedIndex, 1);
+    }
+
+    // Check if the movie is already disliked by the user
+    const dislikedIndex = req.user.dislikedMovies.indexOf(movieId);
+    if (dislikedIndex !== -1) {
+      // Remove the movie from dislikedMovies array
+      req.user.dislikedMovies.splice(dislikedIndex, 1);
+      await req.user.save();
+      return res
+        .status(200)
+        .json({ message: "Movie removed from disliked list" });
+    }
+
+    // Add the movieId to the dislikedMovies array
+    req.user.dislikedMovies.push(movieId);
+    await req.user.save();
+
+    res.status(200).json({ message: "Movie disliked successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.wishlist = async (req, res) => {
+  try {
+    const { movieId } = req.body;
+
+    if (!movieId) {
+      return res.status(200).json({ message: "Movie id is required" });
+    }
+    // Check if the movie is already wishlist by the user
+    const wishlistIndex = req.user.wishlist.indexOf(movieId);
+    if (wishlistIndex !== -1) {
+      // Movie is already wishlist, so remove it from wishlist array
+      req.user.wishlist.splice(wishlistIndex, 1);
+      await req.user.save();
+      return res.status(200).json({ message: "Movie removed from Mylist" });
+    }
+
+    // Add the movieId to the wishlist array if it's not already present
+    req.user.wishlist.push(movieId);
+    await req.user.save();
+    res.status(200).json({ message: "Movie added to the MyList successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.getMyList = async (req, res) => {
+  try {
+    // Populate the wishlist field with actual movie documents
+    await req.user.populate("wishlist");
+
+    // Extract the populated wishlist from the user document
+    const wishlist = req.user.wishlist;
+
+    // Respond with the wishlist
+    res.status(200).json({ wishlist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// exports.getMyList = async (req, res) => {
+//   try {
+//     // Find the user by ID
+//     const user = await User.findById(req.user._id);
+
+//     // If user is not found
+//     if (!user) {
+//       return res.status(404).json({ error: "User not found" });
+//     }
+
+//     // Populate the wishlist with movie documents
+//     await user.populate({
+//       path: "wishlist",
+//       model: "Movie",
+//       select: "name",
+//     });
+
+//     // Extract the populated wishlist from the user document
+//     const wishlist = user.wishlist;
+
+//     // Respond with the wishlist
+//     res.status(200).json({ wishlist });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
