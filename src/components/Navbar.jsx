@@ -12,6 +12,7 @@ export default function Navbar({ isScrolled }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
+  const [activeLink, setActiveLink] = useState("Home");
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -30,6 +31,10 @@ export default function Navbar({ isScrolled }) {
     setIsLoggedIn(false);
     navigate("/login");
   };
+
+  const handleClick = (name) => {
+    setActiveLink(name); // Update active link state
+  };
   // console.log(isLoggedIn, data);
   return (
     <Container>
@@ -41,8 +46,13 @@ export default function Navbar({ isScrolled }) {
           <ul className="links flex">
             {links.map(({ name, link }) => {
               return (
-                <li key={name}>
-                  <Link to={link}>{name}</Link>
+                <li
+                  key={name}
+                  className={activeLink === name ? "activeHeader" : ""}
+                >
+                  <Link to={link} onClick={() => handleClick(name)}>
+                    {name}
+                  </Link>
                 </li>
               );
             })}
@@ -100,6 +110,11 @@ const Container = styled.div`
   .scrolled {
     background-color: black;
   }
+  .activeHeader {
+    ${"" /* color: white !important; */}
+    border-bottom: 2px solid white  !important;
+  }
+
   nav {
     position: sticky;
     top: 0;

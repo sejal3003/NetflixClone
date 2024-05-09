@@ -23,19 +23,27 @@ export default function ForgotPassword() {
 
     try {
       // Make POST request to backend login endpoint
-      await axios.post("http://localhost:8000/api/v1/forgot-password", {
-        email: formValues.email,
-      });
-      toast.success("check your email for the reset password link");
-      navigate("/login");
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/forgot-password",
+        {
+          email: formValues.email,
+        }
+      );
+      if (response.data.message === "email sent") {
+        toast.success("Check your email for the reset password link");
+        navigate("/login");
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
       console.error(error);
+      toast.error("An error occurred while processing your request.");
     }
   };
 
   const validateEmail = (email) => {
     // Regular expression for basic email validation
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);
   };
 

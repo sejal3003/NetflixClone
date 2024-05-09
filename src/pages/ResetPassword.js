@@ -7,6 +7,36 @@ import axios from "axios";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import "../styles/Password.css";
 
+const validatePassword = (password) => {
+  // Check if password length is at least 6 characters
+  if (password.length < 6) {
+    return "Password must be at least 6 characters long.";
+  }
+
+  // Check if password contains at least one uppercase letter
+  if (!/[A-Z]/.test(password)) {
+    return "Password must contain at least one uppercase letter.";
+  }
+
+  // Check if password contains at least one lowercase letter
+  if (!/[a-z]/.test(password)) {
+    return "Password must contain at least one lowercase letter.";
+  }
+
+  // Check if password contains at least one digit
+  if (!/\d/.test(password)) {
+    return "Password must contain at least one digit.";
+  }
+
+  // Check if password contains at least one special character
+  if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+    return "Password must contain at least one special character.";
+  }
+
+  // Password meets all criteria
+  return "Password is valid.";
+};
+
 export default function ResetPassword() {
   const navigate = useNavigate();
 
@@ -17,8 +47,9 @@ export default function ResetPassword() {
 
   const handleResetPassword = async () => {
     try {
-      if (formValues.password.length < 6) {
-        toast.error("Password must be at least 6 characters long.");
+      const passwordValidationResult = validatePassword(formValues.password);
+      if (passwordValidationResult !== "Password is valid.") {
+        toast.error(passwordValidationResult);
         return;
       }
 

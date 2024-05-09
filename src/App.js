@@ -31,7 +31,15 @@ export default function App() {
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/subscription" element={<Subscription />} />
         <Route exact path="/plan" element={<Plan />} />
-        <Route exact path="/" element={<Home />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <ProtectedRoute path="/">
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route exact path="/player" element={<Player />} />
         <Route
           path="/movies"

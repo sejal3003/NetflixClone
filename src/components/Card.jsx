@@ -7,21 +7,85 @@ import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsCheck } from "react-icons/bs";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 
-export default React.memo(function Card(movieData, isLiked = false) {
+export default React.memo(function Card(movieData, isAddMovie = false) {
+  // console.log("MovieData:", movieData.movieData);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
 
-  const addToList = async () => {
+  const likeMovie = async () => {
     try {
-      await axios.post("http://localhost:8000/api/v1/add", {
-        data: movieData,
-      });
-      // console.log(movieData);
+      const logindataString = localStorage.getItem("loginData");
+      const logindata = JSON.parse(logindataString);
+      const token = logindata.token;
+      // console.log("movie id is ", logindata);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/like",
+        {
+          movieId: movieData.movieData._id,
+        },
+        {
+          headers: headers,
+        }
+      );
+
+      setIsLiked(true);
+
+      if (response.data.message === "Movie removed from liked list") {
+        setIsLiked(false);
+      }
+      if (response.data.message === "Movie liked successfully") {
+        setIsDisliked(false);
+      }
+      toast.success(response.data.message);
     } catch (error) {
       console.log(error);
+      toast.error("Error in liking movie");
+    }
+  };
+
+  const dislikeMovie = async () => {
+    try {
+      const logindataString = localStorage.getItem("loginData");
+      const logindata = JSON.parse(logindataString);
+      const token = logindata.token;
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/dislike",
+        {
+          movieId: movieData.movieData._id,
+        },
+        {
+          headers: headers,
+        }
+      );
+
+      setIsDisliked(true);
+      if (response.data.message === "Movie removed from disliked list") {
+        setIsDisliked(false);
+      }
+      if (response.data.message === "Movie disliked successfully") {
+        setIsLiked(false);
+      }
+      // console.log(response.data.message);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error("Error in disliking movie");
     }
   };
 
@@ -62,12 +126,20 @@ export default React.memo(function Card(movieData, isLiked = false) {
                   title="Play"
                   onClick={() => navigate("/player")}
                 />
-                <RiThumbUpFill title="Like" />
-                <RiThumbDownFill title="Dislike" />
-                {!isLiked ? (
+                <RiThumbUpFill
+                  title="Like"
+                  onClick={likeMovie}
+                  className={isLiked ? "liked thumbupColor" : ""}
+                />
+                <RiThumbDownFill
+                  title="Dislike"
+                  onClick={dislikeMovie}
+                  className={isDisliked ? "disliked thumbupColor" : ""}
+                />
+                {!isAddMovie ? (
                   <BsCheck title="Remove From the List" />
                 ) : (
-                  <AiOutlinePlus title="Add to my list" onClick={addToList} />
+                  <AiOutlinePlus title="Add to my list" />
                 )}
               </div>
               <div className="info">
@@ -76,8 +148,10 @@ export default React.memo(function Card(movieData, isLiked = false) {
             </div>
             <div className="genres flex">
               <ul className="flex">
-                {movieData.genres &&
-                  movieData.genres.map((genre) => <li key={genre}>{genre}</li>)}
+                {movieData.movieData.genre &&
+                  movieData.movieData.genre.map((genre) => (
+                    <li key={genre}>{genre}</li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -151,6 +225,9 @@ const Container = styled.div`
         display: flex;
         gap: 1.5rem;
         color: white;
+      }
+      .thumbupColor {
+        color: blue;
       }
       svg {
         font-size: 2rem;

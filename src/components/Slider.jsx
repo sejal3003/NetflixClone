@@ -12,6 +12,7 @@ export default React.memo(function Slider() {
       try {
         const response = await axios.get("http://localhost:8000/api/movies/");
         setMovies(response.data);
+        // console.log(response.data);
         fetchMovies(response.data);
       } catch (error) {
         setError(error.message || "An error occurred while fetching movies.");

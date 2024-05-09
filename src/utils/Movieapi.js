@@ -20,3 +20,15 @@ export const fetchGenres = async () => {
     return [];
   }
 };
+
+// Fetch movies by genre
+export const fetchMoviesByGenre = async (genre) => {
+  try {
+    const url = `http://localhost:8000/api/movies/list?genre=${genre}`;
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching movies by genre:", error);
+    return [];
+  }
+};

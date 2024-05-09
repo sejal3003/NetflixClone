@@ -28,9 +28,10 @@ const ProfileUpdateForm = () => {
       return;
     }
 
-    // Basic password validation
-    if (formData.password.length < 6) {
-      toast.error("Password must be at least 6 characters long.");
+    // Enhanced password validation
+    const passwordValidationMessage = validatePassword(formData.password);
+    if (passwordValidationMessage !== "Password is valid.") {
+      toast.error(passwordValidationMessage);
       return;
     }
 
@@ -74,9 +75,40 @@ const ProfileUpdateForm = () => {
 
   const validateEmail = (email) => {
     // Regular expression for basic email validation
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);
   };
+
+  const validatePassword = (password) => {
+    // Check if password length is at least 6 characters
+    if (password.length < 6) {
+      return "Password must be at least 6 characters long.";
+    }
+
+    // Check if password contains at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      return "Password must contain at least one uppercase letter.";
+    }
+
+    // Check if password contains at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+      return "Password must contain at least one lowercase letter.";
+    }
+
+    // Check if password contains at least one digit
+    if (!/\d/.test(password)) {
+      return "Password must contain at least one digit.";
+    }
+
+    // Check if password contains at least one special character
+    if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+      return "Password must contain at least one special character.";
+    }
+
+    // Password meets all criteria
+    return "Password is valid.";
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Toggle the state to show/hide password
   };
