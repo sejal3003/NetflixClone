@@ -1,38 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Subscription.css";
 export default function Subscription() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [sensitiveData] = useState("Signup successful!");
+
+  const handleNextClick = () => {
+    navigate("/plan", { state: { sensitiveData } });
+  };
+
+  const dataFromSubscriptionPage = location.state
+    ? location.state.sensitiveData
+    : null;
+  const [dataFromSignupPage, setDataFromSignupPage] = useState("");
+  useEffect(() => {
+    setDataFromSignupPage(dataFromSubscriptionPage);
+  }, []);
+
   return (
-    
     <div className="subscription">
-     <div className="content">
-      <Header />
-     <div className="d-flex justify-content-center">
-      <div className="subscriptionBody">
-      <i className="fas fa-check-circle" style={{ color: "red", fontSize: "25px", padding: "20px" }}></i>
-        <h5>STEP 1 OF 3</h5>
-        <h1>
-          <b>Subscribe to our latest Plans!</b>
-        </h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert("Thank you for subscribing!");
-            navigate("/plan");
-          }}
-        ></form>
+      <div className="content">
+        <Header />
+        <div className="d-flex justify-content-center">
+          {dataFromSignupPage === "Signup successful!" ? (
+            <div className="subscriptionBody">
+              <i
+                className="fas fa-check-circle"
+                style={{ color: "red", fontSize: "25px", padding: "20px" }}
+              ></i>
+              <h5>STEP 1 OF 2</h5>
+              <h1>
+                <b>Subscribe to our latest Plans!</b>
+              </h1>
 
-       
-        <p> <i className="fas fa-check icons" style={{ color: 'red', verticalAlign: 'middle' }}></i>Get the latest updates and offers straight to your inbox.</p>
-        <p> <i className="fas fa-check icons" style={{ color: 'red', verticalAlign: 'middle' }}></i>No commitments, cancel anytime.</p>
-        <p> <i className="fas fa-check icons" style={{ color: 'red' }}></i>Everything on Netflix for one low price.</p>
+              <p>
+                {" "}
+                <i
+                  className="fas fa-check icons"
+                  style={{ color: "red", verticalAlign: "middle" }}
+                ></i>
+                Get the latest updates and offers straight to your inbox.
+              </p>
+              <p>
+                {" "}
+                <i
+                  className="fas fa-check icons"
+                  style={{ color: "red", verticalAlign: "middle" }}
+                ></i>
+                No commitments, just pure entertainment.
+              </p>
+              <p>
+                {" "}
+                <i className="fas fa-check icons" style={{ color: "red" }}></i>
+                Access everything on Netflix at an unbeatable price.
+              </p>
 
-            <button onClick={() => navigate("/plan")}>Next</button>
+              <button onClick={handleNextClick}>Next</button>
             </div>
+          ) : (
+            <div>
+              <p>No Access to this page</p>
+            </div>
+          )}
+        </div>
       </div>
-      </div>
-      </div>
+    </div>
   );
 }

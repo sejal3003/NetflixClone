@@ -110,7 +110,7 @@ export default function AdminUsers() {
                 <th>Email</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>Delete</th>
+                <th>Deactivate Account</th>
               </tr>
             </thead>
             <tbody>
@@ -126,7 +126,7 @@ export default function AdminUsers() {
                         className="delete-btn"
                         onClick={() => deleteUser(curUser._id)}
                       >
-                        Delete
+                        Deactivate
                       </button>
                     </td>
                   </tr>

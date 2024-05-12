@@ -45,7 +45,9 @@ export default function Signup() {
       toast.success("Signup successful!"); // Display success message using toast
 
       // Redirect the user to the subscription page upon successful signup
-      navigate("/subscription");
+      const sensitiveData = "Signup successful!";
+      navigate("/subscription", { state: { sensitiveData } });
+      // navigate("/subscription");
     } catch (error) {
       if (
         error.response &&
@@ -108,7 +110,7 @@ export default function Signup() {
         <div className="signupPageBody flex column a-center j-center">
           <div className="signupPageBodytext flex column">
             <h1>Unlimited movies,TV shows and more</h1>
-            <h4>Watch anywhere, Cancel anytime</h4>
+            <h4>Watch anywhere, Enjoy anytime</h4>
             <h6>
               Ready to watch? Enter your email to create or restart your
               membership

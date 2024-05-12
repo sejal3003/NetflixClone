@@ -11,6 +11,7 @@ const AddMovieForm = () => {
     genre: "",
     image: null,
   });
+  const [selectedGenres, setSelectedGenres] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) => {
@@ -19,6 +20,17 @@ const AddMovieForm = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleGenreSelect = (e) => {
+    const selectedGenre = e.target.value;
+    if (selectedGenre) {
+      setSelectedGenres([...selectedGenres, selectedGenre]);
+      setFormData((prevData) => ({
+        ...prevData,
+        genre: [...selectedGenres, selectedGenre].join(", "),
+      }));
+    }
   };
 
   const handleImageChange = (e) => {
@@ -69,23 +81,23 @@ const AddMovieForm = () => {
 
       console.log("Movie Uploaded:", response.data);
       toast.success("Movie Added Successfully!");
-      // Reset form data
-      setFormData({
-        id: "",
-        name: "",
-        genre: "",
-        image: null,
-      });
-      // Clear image preview
-      setImagePreview(null);
-      document.getElementById("image").value = "";
-
-      // Handle success (e.g., show a success message to the user)
+      resetForm();
     } catch (error) {
-      console.error("Error uploading movie:", error);
-      toast.error("Error uploading movie!");
-      // Handle error (e.g., show an error message to the user)
+      console.error("Error uploading movie:", error.response.data.message);
+      toast.error(error.response.data.message);
     }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      id: "",
+      name: "",
+      genre: "",
+      image: null,
+    });
+    setSelectedGenres([]);
+    setImagePreview(null);
+    document.getElementById("image").value = "";
   };
 
   return (
@@ -107,7 +119,7 @@ const AddMovieForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group ">
           <label htmlFor="name">Name:</label>
           <input
             type="text"
@@ -121,16 +133,33 @@ const AddMovieForm = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="genre">Genre (comma-separated):</label>
-          <input
-            type="text"
-            id="genre"
-            name="genre"
-            value={formData.genre}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-group selected-genres">
+          <label htmlFor="genre">Genre:</label>
+          <select id="genre" name="genre" onChange={handleGenreSelect} required>
+            <option value="">Select Genre</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Family">Family</option>
+            <option value="Drama">Drama</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="War">War</option>
+            <option value="Romance">Romance</option>
+            <option value="History">History</option>
+            <option value="Music">Music</option>
+            <option value="TV Movie">TV Movie</option>
+            <option value="Action">Action</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Animation">Animation</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Western">Western</option>
+            <option value="Crime">Crime</option>
+            <option value="Documentary">Documentary</option>
+            <option value="Horror">Horror</option>
+          </select>
+          <div className="genres">
+            Selected Genres: {selectedGenres.join(", ")}
+          </div>
         </div>
 
         <div className="form-group">
@@ -152,9 +181,12 @@ const AddMovieForm = () => {
           )}
         </div>
 
-        <div className="upload-button-container">
+        <div className="button-container">
           <button type="submit" className="upload-button">
             Upload
+          </button>
+          <button type="button" className="reset-button" onClick={resetForm}>
+            Reset
           </button>
         </div>
       </form>

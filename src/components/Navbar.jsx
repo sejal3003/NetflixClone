@@ -46,11 +46,12 @@ export default function Navbar({ isScrolled }) {
           <ul className="links flex">
             {links.map(({ name, link }) => {
               return (
-                <li
-                  key={name}
-                  className={activeLink === name ? "activeHeader" : ""}
-                >
-                  <Link to={link} onClick={() => handleClick(name)}>
+                <li key={name}>
+                  <Link
+                    to={link}
+                    className={activeLink === name ? "activeHeader" : ""}
+                    onClick={() => handleClick(name)}
+                  >
                     {name}
                   </Link>
                 </li>

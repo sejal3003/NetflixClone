@@ -42,6 +42,7 @@ export default function ResetPassword() {
 
   const [formValues, setFormValues] = useState({
     password: "",
+    confirmPassword: "", // New state for confirm password
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -50,6 +51,11 @@ export default function ResetPassword() {
       const passwordValidationResult = validatePassword(formValues.password);
       if (passwordValidationResult !== "Password is valid.") {
         toast.error(passwordValidationResult);
+        return;
+      }
+
+      if (formValues.password !== formValues.confirmPassword) {
+        toast.error("Passwords do not match.");
         return;
       }
 
@@ -108,6 +114,19 @@ export default function ResetPassword() {
                   {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                 </span>
               </div>
+              {/* Confirm Password Input */}
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                value={formValues.confirmPassword}
+                onChange={(e) =>
+                  setFormValues({
+                    ...formValues,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+              />
               <button onClick={handleResetPassword}>Reset</button>
             </div>
           </div>

@@ -117,7 +117,7 @@ const AdminMovies = () => {
                 <th>Movie Name</th>
                 <th>Movie Image</th>
                 <th>Movie Genre</th>
-                <th>Delete</th>
+                <th>Remove</th>
               </tr>
             </thead>
             <tbody>
@@ -147,7 +147,7 @@ const AdminMovies = () => {
                       className="delete-btn"
                       onClick={() => handleDelete(movie._id)}
                     >
-                      Delete
+                      Remove
                     </button>
                   </td>
                 </tr>

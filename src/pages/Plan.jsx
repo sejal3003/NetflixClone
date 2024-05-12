@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Plan.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,10 +8,12 @@ import PlanCard from "../components/PlanCard"; // Import the PlanCard component
 
 export default function Payment() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [name, setName] = useState("");
   const [isTransactionSuccessful, setIsTransactionSuccessful] = useState(false);
   const [isNextButtonVisible, setIsNextButtonVisible] = useState(false);
+  const [transactionAmount, setTransactionAmount] = useState(0);
 
   const currency = "INR";
   const receiptId = "qwsql";
@@ -65,6 +67,7 @@ export default function Payment() {
         const jsonResponse = await validateResponse.json();
 
         console.log("jsonResponse", jsonResponse);
+        setTransactionAmount(amount);
         handlePaymentSuccess();
       },
       prefill: {
@@ -85,55 +88,75 @@ export default function Payment() {
 
     rzp1.open();
   };
+  const dataFromPlanPage = location.state ? location.state.sensitiveData : null;
+  const [dataFromSubscriptionPage, setDataFromSubscriptionPage] = useState("");
+  useEffect(() => {
+    setDataFromSubscriptionPage(dataFromPlanPage);
+  }, []);
 
   return (
     <div className="plans">
       <div className="planContent">
         <Header />
         <div className="d-flex justify-content-center">
-          <div className="planPageBody">
-            <i
-              className="fas fa-check-circle"
-              style={{ color: "red", fontSize: "25px", padding: "20px" }}
-            ></i>
-            <h5>STEP 2 OF 2</h5>
-            <h2>Choose the plan thats right for you</h2>
-            <p>
-              "Your payment is encrypted and you can change your payment method
-              at anytime".
-            </p>
-            <div className="subscription-cards">
-              {/* PlanCard components with fixed prices */}
-              <PlanCard
-                title="Basic Plan"
-                price={199}
-                text="Supports 1 device to watch at same time (mobile phone)
+          {dataFromSubscriptionPage === "Signup successful!" ? (
+            <div className="planPageBody">
+              <i
+                className="fas fa-check-circle"
+                style={{ color: "red", fontSize: "25px", padding: "20px" }}
+              ></i>
+              <h5>STEP 2 OF 2</h5>
+              <h2>Choose the plan thats right for you</h2>
+              <p>
+                "Your payment is encrypted and your transaction data is
+                secured".
+              </p>
+              <div className="subscription-cards">
+                {/* PlanCard components with fixed prices */}
+                <PlanCard
+                  title="Basic Plan"
+                  price={199}
+                  text="Supports 1 device to watch at same time (mobile phone)
               "
-                title2="Resolution HD"
-                handlePayment={paymentHandler} // Pass the payment handler function
-              />
-              <PlanCard
-                title="Standard Plan"
-                price={499}
-                text="Supports 2 device to watch (mobile phone,computer)
+                  title2="Resolution HD"
+                  handlePayment={paymentHandler} // Pass the payment handler function
+                />
+                <PlanCard
+                  title="Standard Plan"
+                  price={499}
+                  text="Supports 2 device to watch (mobile phone,computer)
               "
-                title2="Resolution Full HD"
-                handlePayment={paymentHandler} // Pass the payment handler function
-              />
-              <PlanCard
-                title="Premium Plan"
-                price={799}
-                text="Supports 4 devices to watch mobile phone,TV,Laptop,Tablet)"
-                title2="Resolution 4K (Ultra HD) + HDR"
-                handlePayment={paymentHandler} // Pass the payment handler function
-              />
+                  title2="Resolution Full HD"
+                  handlePayment={paymentHandler} // Pass the payment handler function
+                />
+                <PlanCard
+                  title="Premium Plan"
+                  price={799}
+                  text="Supports 4 devices to watch mobile phone,TV,Laptop,Tablet)"
+                  title2="Resolution 4K (Ultra HD) + HDR"
+                  handlePayment={paymentHandler} // Pass the payment handler function
+                />
+              </div>
+              {isTransactionSuccessful && (
+                <p className="successMessage">
+                  "Your transaction of amount{" "}
+                  <strong>₹{transactionAmount}</strong> is successful".
+                </p>
+              )}
+              {isNextButtonVisible && (
+                <button
+                  className="nextButton"
+                  onClick={() => navigate("/login")}
+                >
+                  Next
+                </button>
+              )}
             </div>
-            {isNextButtonVisible && (
-              <button className="nextButton" onClick={() => navigate("/login")}>
-                Next
-              </button>
-            )}
-          </div>
+          ) : (
+            <div>
+              <p>No Access to this page</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

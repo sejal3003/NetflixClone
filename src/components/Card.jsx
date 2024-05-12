@@ -12,12 +12,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 
-export default React.memo(function Card(movieData, isAddMovie = false) {
+export default React.memo(function Card(movieData) {
   // console.log("MovieData:", movieData.movieData);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
+  const [isAddMovie, setIsAddMovie] = useState(false);
 
   const likeMovie = async () => {
     try {
@@ -50,7 +51,7 @@ export default React.memo(function Card(movieData, isAddMovie = false) {
       toast.success(response.data.message);
     } catch (error) {
       console.log(error);
-      toast.error("Error in liking movie");
+      toast.error("You need to login first");
     }
   };
 
@@ -85,7 +86,40 @@ export default React.memo(function Card(movieData, isAddMovie = false) {
       toast.success(response.data.message);
     } catch (error) {
       console.log(error);
-      toast.error("Error in disliking movie");
+      toast.error("You need to login first");
+    }
+  };
+
+  const addMovie = async () => {
+    try {
+      const logindataString = localStorage.getItem("loginData");
+      const logindata = JSON.parse(logindataString);
+      const token = logindata.token;
+      // console.log("movie id is ", logindata);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/mylist",
+        {
+          movieId: movieData.movieData._id,
+        },
+        {
+          headers: headers,
+        }
+      );
+
+      setIsAddMovie(true);
+
+      if (response.data.message === "Movie added to the MyList successfully") {
+        toast.success(response.data.message);
+      } else {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("You need to login first");
     }
   };
 
@@ -136,10 +170,18 @@ export default React.memo(function Card(movieData, isAddMovie = false) {
                   onClick={dislikeMovie}
                   className={isDisliked ? "disliked thumbupColor" : ""}
                 />
-                {!isAddMovie ? (
-                  <BsCheck title="Remove From the List" />
+                {isAddMovie ? (
+                  <BsCheck
+                    title="Remove From the List"
+                    onClick={addMovie}
+                    className={isAddMovie ? "added" : ""}
+                  />
                 ) : (
-                  <AiOutlinePlus title="Add to my list" />
+                  <AiOutlinePlus
+                    title="Add to my list"
+                    onClick={addMovie}
+                    className={isAddMovie ? "added" : ""}
+                  />
                 )}
               </div>
               <div className="info">
@@ -227,7 +269,7 @@ const Container = styled.div`
         color: white;
       }
       .thumbupColor {
-        color: blue;
+        color: red;
       }
       svg {
         font-size: 2rem;

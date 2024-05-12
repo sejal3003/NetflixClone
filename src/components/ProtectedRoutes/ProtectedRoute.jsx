@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children, path }) => {
 
   const checkLoginStatus = async () => {
     const data = JSON.parse(localStorage.getItem("loginData"));
-    if (!data || data.isAdmin) {
+    if (!data) {
       navigate("/login");
     }
   };

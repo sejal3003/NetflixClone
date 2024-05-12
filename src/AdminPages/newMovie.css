@@ -39,15 +39,61 @@
 
 .upload-button {
   padding: 10px 20px;
-  font-size: large;
+  margin-top: 10px;
+  margin-right: 10px; /* Add margin between buttons */
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
-
 .upload-button:hover {
   background-color: #0056b3;
+}
+
+.reset-button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #dc3545; /* Red color for reset button */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reset-button:hover {
+  background-color: #c82333; /* Darker red color on hover */
+}
+.form-group select {
+  width: calc(100% - 12px);
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.selected-genres {
+  margin-bottom: 10px;
+}
+
+.selected-genres input {
+  width: calc(100% - 12px);
+  padding: 8px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.selected-genres label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.genres {
+  font-size: 20px;
 }
