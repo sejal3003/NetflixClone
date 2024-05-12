@@ -100,6 +100,18 @@ const uploadMovie = async (req, res) => {
   }
   try {
     const { id, name, genre } = req.body;
+
+    // Check if movie ID already exists
+    const existingMovieByID = await Movie.findOne({ id });
+    if (existingMovieByID) {
+      return res.status(400).json({ message: "Movie ID already exists" });
+    }
+
+    // Check if movie name already exists
+    const existingMovieByName = await Movie.findOne({ name });
+    if (existingMovieByName) {
+      return res.status(400).json({ message: "Movie name already exists" });
+    }
     // console.log(req.file);
     const image = req.file.path;
 

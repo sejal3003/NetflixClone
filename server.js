@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const listRoutes = require("./routes/MylistRoutes");
 const userRoutes = require("./routes/UserRoutes");
 const adminRoutes = require("./routes/AdminRoutes");
 const movieRoutes = require("./routes/MovieRoute");
@@ -41,7 +40,7 @@ mongoose
 app.use(express.json());
 
 // Routes
-app.use("/api/v1", listRoutes);
+
 app.use("/api/v1", userRoutes);
 app.use("/api/movies", movieRoutes);
 app.use("/api/genres", genreRoutes);

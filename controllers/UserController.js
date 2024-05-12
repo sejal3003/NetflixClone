@@ -113,7 +113,7 @@ exports.forgotpassword = async (req, res) => {
     <p>Please note that this link is valid for a limited time and will expire after 5 mins. If you need further assistance, please contact at <a href="mailto:support@example.com">Support team</a>.</p>
   
     <p>Thank you,</p>
-    <p><strong>The Netflix Team</strong></p>
+    <p><strong>The NetaFilm Team</strong></p>
 `;
     var mailOptions = {
       from: "sejalr.uvxcel@gmail.com",
@@ -138,7 +138,7 @@ exports.forgotpassword = async (req, res) => {
 exports.resetpassword = async (req, res) => {
   // const { token } = req.params;
   const { password, token } = req.body;
-  console.log(password, token);
+  // console.log(password, token);
   try {
     const decoded = await jwt.verify(token, process.env.KEY);
     console.log(decoded);
