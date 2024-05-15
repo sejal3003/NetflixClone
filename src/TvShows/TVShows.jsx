@@ -31,7 +31,7 @@ export default function TVShows() {
   useEffect(() => {
     const fetchGenresData = async () => {
       const data = await fetchGenres();
-      console.log(data);
+      // console.log(data);
       setGenre(data);
     };
     fetchGenresData();

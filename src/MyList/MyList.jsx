@@ -57,7 +57,7 @@ export default function MyList() {
                   movieData={movie}
                   index={index}
                   key={movie._id} // Assuming _id is the unique identifier for movies
-                  isAddMovie={true}
+                  isInMyList={true}
                 />
               ))
             )}

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CardSlider from "./CardSlider";
 import axios from "axios";
+import { useSearch } from "../components/Context/SearchContext";
 
 export default React.memo(function Slider() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
-
+  const { searchResults } = useSearch();
+  console.log(searchResults);
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -24,22 +26,31 @@ export default React.memo(function Slider() {
   const getMoviesFromRange = (from, to) => {
     return movies.slice(from, to);
   };
+  const filteredMovies = searchResults.length > 0 ? searchResults : movies;
 
   return (
     <Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      <CardSlider data={getMoviesFromRange(0, 10)} title="Trending Now" />
-      <CardSlider data={getMoviesFromRange(10, 20)} title="New Releases" />
-      <CardSlider
-        data={getMoviesFromRange(20, 30)}
-        title="Blockbuster Movies"
-      />
-      <CardSlider
-        data={getMoviesFromRange(30, 40)}
-        title="Popular on Netflix"
-      />
-      <CardSlider data={getMoviesFromRange(40, 50)} title="Action Movies" />
-      <CardSlider data={getMoviesFromRange(50, 60)} title="Epics" />
+
+      {searchResults.length > 0 ? (
+        <CardSlider data={searchResults} title="Searched Movie" />
+      ) : (
+        <>
+          {" "}
+          <CardSlider data={getMoviesFromRange(0, 10)} title="Trending Now" />
+          <CardSlider data={getMoviesFromRange(10, 20)} title="New Releases" />
+          <CardSlider
+            data={getMoviesFromRange(20, 30)}
+            title="Blockbuster Movies"
+          />
+          <CardSlider
+            data={getMoviesFromRange(30, 40)}
+            title="Popular on Netflix"
+          />
+          <CardSlider data={getMoviesFromRange(40, 50)} title="Action Movies" />
+          <CardSlider data={getMoviesFromRange(50, 60)} title="Epics" />{" "}
+        </>
+      )}
     </Container>
   );
 });

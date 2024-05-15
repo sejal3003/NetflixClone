@@ -4,15 +4,28 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { LuLogIn } from "react-icons/lu";
+import { useSearch } from "../components/Context/SearchContext";
 
 export default function Navbar({ isScrolled }) {
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem("loginData"));
+  const { searchMovies } = useSearch();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    console.log(searchQuery);
+    if (searchQuery.trim() !== "") {
+      await searchMovies(searchQuery);
+    } else {
+      await searchMovies(null); // Call searchMovies with null to fetch all movies
+    }
+  };
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -75,6 +88,8 @@ export default function Navbar({ isScrolled }) {
             <input
               type="text"
               placeholder="Search for movies..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               onMouseEnter={() => setInputHover(true)}
               onMouseLeave={() => setInputHover(false)}
               onBlur={() => {
@@ -82,6 +97,13 @@ export default function Navbar({ isScrolled }) {
                 setInputHover(false);
               }}
             />
+            <button
+              type="submit"
+              className="searchButton"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
           </div>
           {isLoggedIn === false && data ? (
             <button title="Logout" onClick={handleLogout}>
@@ -140,13 +162,16 @@ const Container = styled.div`
         gap: 2rem;
         li {
           a {
-            color: red;
+            color: white;
             font-weight: 600;
             font-size: 1.2rem;
             text-decoration: none;
           }
         }
       }
+    }
+    .searchButton {
+      color: white;
     }
     .right {
       gap: 1rem;

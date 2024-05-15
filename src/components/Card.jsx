@@ -12,13 +12,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 
-export default React.memo(function Card(movieData) {
-  // console.log("MovieData:", movieData.movieData);
+export default React.memo(function Card({ movieData, isInMyList }) {
+  // console.log("MovieData:", movieData);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-  const [isAddMovie, setIsAddMovie] = useState(false);
 
   const likeMovie = async () => {
     try {
@@ -33,7 +32,7 @@ export default React.memo(function Card(movieData) {
       const response = await axios.put(
         "http://localhost:8000/api/v1/like",
         {
-          movieId: movieData.movieData._id,
+          movieId: movieData._id,
         },
         {
           headers: headers,
@@ -68,7 +67,7 @@ export default React.memo(function Card(movieData) {
       const response = await axios.put(
         "http://localhost:8000/api/v1/dislike",
         {
-          movieId: movieData.movieData._id,
+          movieId: movieData._id,
         },
         {
           headers: headers,
@@ -90,7 +89,7 @@ export default React.memo(function Card(movieData) {
     }
   };
 
-  const addMovie = async () => {
+  const toggleMyList = async () => {
     try {
       const logindataString = localStorage.getItem("loginData");
       const logindata = JSON.parse(logindataString);
@@ -103,20 +102,14 @@ export default React.memo(function Card(movieData) {
       const response = await axios.put(
         "http://localhost:8000/api/v1/mylist",
         {
-          movieId: movieData.movieData._id,
+          movieId: movieData._id,
         },
         {
           headers: headers,
         }
       );
 
-      setIsAddMovie(true);
-
-      if (response.data.message === "Movie added to the MyList successfully") {
-        toast.success(response.data.message);
-      } else {
-        toast.success(response.data.message);
-      }
+      toast.success(response.data.message);
     } catch (error) {
       console.log(error);
       toast.error("You need to login first");
@@ -129,16 +122,16 @@ export default React.memo(function Card(movieData) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
-        src={`https://image.tmdb.org/t/p/w500${movieData.movieData.image}`}
+        src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
         alt="card"
         onClick={() => navigate("/player")}
       />
-      <h6>{movieData.movieData.name}</h6>
+      <h6>{movieData.name}</h6>
       {isHovered && (
         <div className="hover">
           <div className="image-video-container">
             <img
-              src={`https://image.tmdb.org/t/p/w500${movieData.movieData.image}`}
+              src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
               alt="card"
               onClick={() => navigate("/player")}
             />
@@ -152,7 +145,7 @@ export default React.memo(function Card(movieData) {
           </div>
           <div className="info-container flex column">
             <h3 className="name" onClick={() => navigate("/player")}>
-              {movieData.movieData.name}
+              {movieData.name}
             </h3>
             <div className="icons flex j-between">
               <div className="controls flex">
@@ -170,17 +163,16 @@ export default React.memo(function Card(movieData) {
                   onClick={dislikeMovie}
                   className={isDisliked ? "disliked thumbupColor" : ""}
                 />
-                {isAddMovie ? (
+                {isInMyList ? (
                   <BsCheck
                     title="Remove From the List"
-                    onClick={addMovie}
-                    className={isAddMovie ? "added" : ""}
+                    onClick={toggleMyList}
+                    className="added"
                   />
                 ) : (
                   <AiOutlinePlus
-                    title="Add to my list"
-                    onClick={addMovie}
-                    className={isAddMovie ? "added" : ""}
+                    title="Add to My List"
+                    onClick={toggleMyList}
                   />
                 )}
               </div>
@@ -190,10 +182,8 @@ export default React.memo(function Card(movieData) {
             </div>
             <div className="genres flex">
               <ul className="flex">
-                {movieData.movieData.genre &&
-                  movieData.movieData.genre.map((genre) => (
-                    <li key={genre}>{genre}</li>
-                  ))}
+                {movieData.genre &&
+                  movieData.genre.map((genre) => <li key={genre}>{genre}</li>)}
               </ul>
             </div>
           </div>

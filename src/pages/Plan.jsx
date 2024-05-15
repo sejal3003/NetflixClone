@@ -14,6 +14,7 @@ export default function Payment() {
   const [isTransactionSuccessful, setIsTransactionSuccessful] = useState(false);
   const [isNextButtonVisible, setIsNextButtonVisible] = useState(false);
   const [transactionAmount, setTransactionAmount] = useState(0);
+  const [paymentId, setPaymentId] = useState("");
 
   const currency = "INR";
   const receiptId = "qwsql";
@@ -25,15 +26,25 @@ export default function Payment() {
   const handlePaymentSuccess = () => {
     setIsTransactionSuccessful(true);
     setIsNextButtonVisible(true); // Show the Next button after successful transaction
+    setPaymentId(paymentId);
   };
 
   const paymentHandler = async (amount) => {
     const paiseAmount = amount * 100; // Convert rupees to paise
-    const response = await fetch("http://localhost:8000/order", {
+
+    // Fetch token from localStorage
+    const logindataString = localStorage.getItem("loginData");
+    const logindata = JSON.parse(logindataString);
+    const token = logindata.token;
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json", // Add Content-Type header
+    };
+
+    const response = await fetch("http://localhost:8000/api/v1/checkout", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify({
         amount: paiseAmount,
         currency,
@@ -41,10 +52,10 @@ export default function Payment() {
       }),
     });
     const order = await response.json();
-    console.log(order);
+    // console.log(order);
 
     var option = {
-      key: "",
+      key: "rzp_test_Lr6ky4XsrjKHBg",
       amount: paiseAmount,
       currency,
       name: "Netflix Subscription",
@@ -54,21 +65,46 @@ export default function Payment() {
       order_id: order.id,
       handler: async function (response) {
         toast.success("Transaction Successful");
+        console.log("Razorpay payment successful:", response);
 
-        const body = { ...response };
+        // const body = { ...response };
+        try {
+          const logindataString = localStorage.getItem("loginData");
+          const logindata = JSON.parse(logindataString);
+          const token = logindata.token;
+          const userId = logindata._id;
 
-        const validateResponse = await fetch("http://localhost:8000/validate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        });
-        const jsonResponse = await validateResponse.json();
+          const validateResponse = await fetch(
+            "http://localhost:8000/api/v1/validate",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                razorpay_order_id: order.id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                userId: userId,
+              }),
+            }
+          );
+          const jsonResponse = await validateResponse.json();
 
-        console.log("jsonResponse", jsonResponse);
-        setTransactionAmount(amount);
-        handlePaymentSuccess();
+          console.log("jsonResponse", jsonResponse);
+
+          if (jsonResponse.success) {
+            console.log("Transaction Successful");
+          } else {
+            console.log("Transaction Failed");
+          }
+          setTransactionAmount(amount);
+          handlePaymentSuccess(response.razorpay_payment_id);
+        } catch (error) {
+          console.error("Error processing payment verification:", error);
+          toast.error("Error processing payment");
+        }
       },
       prefill: {
         name: name, // Dynamic name

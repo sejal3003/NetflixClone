@@ -144,11 +144,10 @@ const Container = styled.div`
       bottom: 5rem;
       .logo {
         img {
-          width: 80%;
+          width: 55%;
           height: 100%;
-          margin-right: 10rem;
-
-          ${"" /* margin-left: 5rem; */};
+          margin-right: 40rem;
+          margin-left: 1.5rem;
         }
       }
       .buttons {
