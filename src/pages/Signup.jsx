@@ -38,13 +38,25 @@ export default function Signup() {
 
     try {
       // Make an HTTP POST request to your backend API endpoint
-      await axios.post("http://localhost:8000/api/v1/signup", {
+      const { data } = await axios.post("http://localhost:8000/api/v1/signup", {
         email: formValues.email,
         password: formValues.password,
       });
-      toast.success("Signup successful!"); // Display success message using toast
 
-      // Redirect the user to the subscription page upon successful signup
+      const { message, _id, token, isAdmin, isSubscribed } = data;
+
+      if (message === "User created successfully.") {
+        toast.success("Signup successful!");
+
+        const localStorageData = {
+          _id,
+          token,
+          isAdmin,
+          isSubscribed,
+        };
+        localStorage.setItem("loginData", JSON.stringify(localStorageData));
+      }
+
       const sensitiveData = "Signup successful!";
       navigate("/subscription", { state: { sensitiveData } });
       // navigate("/subscription");

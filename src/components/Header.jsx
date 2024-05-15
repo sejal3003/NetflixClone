@@ -40,13 +40,13 @@ const Container = styled.div`
 padding: 0 4rem;
 .logo{
    img{
-    height:5rem;
+    height:6rem;
 } 
 
 }
 button{
     padding:0.5rem 1rem;
-    background-color:#e50914;
+    background-color:rgb(30,132,195);
     color:white;
     border-radius:0.2rem;
     cursor:pointer;s

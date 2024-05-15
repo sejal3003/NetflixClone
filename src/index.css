@@ -65,14 +65,14 @@ body::-webkit-scrollbar {
 }
 .signupPageBodytext h1 {
   padding: 0 25rem;
-  font-size: 3.5rem;
+  font-size: 3.7rem;
 }
 .signupPageBodytext h4 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 400;
 }
 .signupPageBodytext h6 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 400;
 }
 
@@ -101,7 +101,8 @@ body::-webkit-scrollbar {
 
 .signupPageBody .signupPageButton {
   padding: 0.5rem 1rem;
-  background-color: #e50914;
+  /* background-color: #e50914; */
+  background-color: rgb(30, 132, 195);
   color: white;
   height: 3rem;
   border: none;
@@ -112,9 +113,13 @@ body::-webkit-scrollbar {
   text-align: center;
   width: fit-content;
 }
+.signupPageButton:hover {
+  background-color: rgb(69, 131, 169);
+}
 .signupPageBody .signupPageGetstartButton {
   padding: 0.7rem 5rem;
-  background-color: #e50914;
+  /* background-color: #e50914; */
+  background-color: rgb(30, 132, 195);
   color: white;
   cursor: pointer;
   font-weight: bolder;

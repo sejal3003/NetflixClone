@@ -38,7 +38,7 @@ export default function Login() {
         password: formValues.password,
       });
 
-      const { message, token, isAdmin } = data;
+      const { message, _id, token, isAdmin, isSubscribed } = data;
 
       if (message === "Login successful.") {
         // Reset failed attempts on successful login
@@ -51,9 +51,10 @@ export default function Login() {
         }
 
         const localStorageData = {
-          message,
+          _id,
           token,
           isAdmin,
+          isSubscribed,
         };
 
         localStorage.setItem("loginData", JSON.stringify(localStorageData));

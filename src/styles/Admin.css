@@ -6,6 +6,7 @@
 .admincontainer {
   display: flex;
   background-color: rgb(255, 251, 251);
+  /* background-color: rgb(203, 201, 198); */
 }
 main {
   width: 100%;

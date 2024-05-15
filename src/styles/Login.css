@@ -115,13 +115,15 @@ body::-webkit-scrollbar {
   font-weight: 400;
 }
 .signuplink:hover {
-  color: #ff3c4a;
+  /* color: #ff3c4a; */
+  color: rgb(45, 132, 198);
 }
 
 .loginForm button {
   width: 100%;
   padding: 12px;
-  background-color: #e50914;
+  /* background-color: #e50914; */
+  background-color: rgb(30, 132, 195);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -130,7 +132,8 @@ body::-webkit-scrollbar {
 }
 
 .loginForm button:hover {
-  background-color: #ff3c4a;
+  /* background-color: #ff3c4a; */
+  background-color: rgb(69, 131, 169);
 }
 
 .password-input-container {

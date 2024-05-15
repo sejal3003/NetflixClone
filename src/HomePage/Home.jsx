@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import backgroundImage from "../assets/home.jpg";
-import MovieLogo from "../assets/homeTitle.webp";
+import MovieLogo from "../assets/homeTitle.png";
 import { useNavigate } from "react-router-dom";
 // import { useSelector, useDispatch } from "react-redux";
 // import { fetchMovies, getGenres } from "../store";
@@ -144,9 +144,11 @@ const Container = styled.div`
       bottom: 5rem;
       .logo {
         img {
-          width: 100%;
+          width: 80%;
           height: 100%;
-          margin-left: 5rem;
+          margin-right: 10rem;
+
+          ${"" /* margin-left: 5rem; */};
         }
       }
       .buttons {
