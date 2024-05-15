@@ -5,6 +5,6 @@ const movieController = require("../controllers/MovieController");
 // GET all movies
 router.get("/", movieController.getAllMovies);
 router.get("/list", movieController.getMovieByGenre);
-// Define other routes for CRUD operations
+router.get("/search", movieController.search);
 
 module.exports = router;

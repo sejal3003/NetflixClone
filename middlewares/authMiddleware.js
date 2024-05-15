@@ -4,6 +4,7 @@ const User = require("../models/UserModel");
 const authMiddleware = async (req, res, next) => {
   // Your authentication logic here
   const token = req.header("Authorization");
+
   if (!token) {
     return res.status(401).json({
       message: "No token, authorization denied",
@@ -19,6 +20,7 @@ const authMiddleware = async (req, res, next) => {
     const userData = await User.findOne({ email: isVerified.email }).select({
       password: 0,
     });
+
     // console.log(userData);
     req.user = userData;
     req.token = token;

@@ -27,7 +27,7 @@ exports.signup = async (req, res) => {
     });
     // //Assign JWT to user
     // const token = jwt.sign({ _id: newUser._id }, process.env.KEY, {
-    //   expiresIn: "15m",
+    //   expiresIn: "1h",
     // });
 
     // Save the user
@@ -37,6 +37,8 @@ exports.signup = async (req, res) => {
       message: "User created successfully.",
       token: await newUser.generateToken(),
       _id: newUser._id.toString(),
+      isAdmin: newUser.isAdmin,
+      isSubscribed: newUser.isSubscribed,
     });
   } catch (error) {
     console.error("Error in signup:", error);
@@ -65,6 +67,7 @@ exports.login = async (req, res) => {
     // const token = jwt.sign({ _id: user._id }, process.env.KEY, {
     //   expiresIn: "15m",
     // });
+    // user.isSubscribed = true;
 
     // If user and password are valid, return success message
     return res.status(200).json({
@@ -72,6 +75,7 @@ exports.login = async (req, res) => {
       token: await user.generateToken(),
       _id: user._id.toString(),
       isAdmin: user.isAdmin,
+      isSubscribed: user.isSubscribed,
     });
   } catch (error) {
     console.error("Error in login:", error);

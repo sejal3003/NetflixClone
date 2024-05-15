@@ -34,3 +34,33 @@ exports.getMovieByGenre = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+exports.search = async (req, res) => {
+  try {
+    const { name } = req.query;
+
+    if (!name) {
+      // If no 'name' parameter is provided, return all movies
+      const allMovies = await Movie.find();
+      return res.status(200).json({ success: true, movies: allMovies });
+    }
+
+    // Log the constructed MongoDB query
+    // console.log("MongoDB Query:", { name: { $regex: new RegExp(name, "i") } });
+
+    // Use a case-insensitive regular expression to search for movies by name
+    const movies = await Movie.find({
+      name: { $regex: new RegExp(name, "i") },
+    });
+
+    if (movies.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No movies found with that name" });
+    }
+
+    res.status(200).json({ success: true, movies });
+  } catch (err) {
+    console.error("Error searching movies:", err);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+};

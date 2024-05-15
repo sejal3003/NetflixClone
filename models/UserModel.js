@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isSubscribed: {
+      type: Boolean,
+      default: false,
+    },
     likedMovies: [
       {
         type: mongoose.Schema.Types.ObjectId,
