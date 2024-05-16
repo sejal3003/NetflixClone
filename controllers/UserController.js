@@ -2,6 +2,8 @@ const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const { sendMail } = require("../sendMail");
+
 // const Movie = require("../models/MovieModel");
 
 // Signup controller
@@ -32,6 +34,8 @@ exports.signup = async (req, res) => {
 
     // Save the user
     await newUser.save();
+
+    const emailInfo = await sendMail(email, "Welcome to The Netafilm Website");
 
     return res.status(201).json({
       message: "User created successfully.",
