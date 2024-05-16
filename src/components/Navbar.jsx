@@ -6,9 +6,13 @@ import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { LuLogIn } from "react-icons/lu";
 import { useSearch } from "../components/Context/SearchContext";
 
+let isAdmin = false;
 export default function Navbar({ isScrolled }) {
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem("loginData"));
+  if (data) {
+    isAdmin = data.isAdmin;
+  }
   const { searchMovies } = useSearch();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -62,7 +66,7 @@ export default function Navbar({ isScrolled }) {
                 <li key={name}>
                   <Link
                     to={link}
-                    className={activeLink === name ? "activeHeader" : ""}
+                    className={isAdmin ? "adminLinksColor" : ""}
                     onClick={() => handleClick(name)}
                   >
                     {name}
@@ -133,9 +137,9 @@ const Container = styled.div`
   .scrolled {
     background-color: black;
   }
-  .activeHeader {
-    ${"" /* color: white !important; */}
-    border-bottom: 2px solid white  !important;
+  .adminLinksColor {
+    color: rgb(30, 132, 195) !important;
+    ${"" /* border-bottom: 2px solid white !important; */}
   }
 
   nav {
@@ -183,7 +187,7 @@ const Container = styled.div`
           outline: none;
         }
         svg {
-          color: #f34242;
+          color: rgb(30, 132, 195);
           font-size: 1.2rem;
         }
       }

@@ -123,7 +123,7 @@ const AdminMovies = () => {
             <tbody>
               {filteredMovies.map((movie) => (
                 <tr key={movie._id}>
-                  <td>{movie.id}</td>
+                  <td>{movie._id}</td>
                   <td>{movie.name}</td>
 
                   <td>

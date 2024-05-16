@@ -259,7 +259,7 @@ const Container = styled.div`
         color: white;
       }
       .thumbupColor {
-        color: red;
+        color: rgb(30, 132, 195);
       }
       svg {
         font-size: 2rem;

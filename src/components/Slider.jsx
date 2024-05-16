@@ -7,8 +7,9 @@ import { useSearch } from "../components/Context/SearchContext";
 export default React.memo(function Slider() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
-  const { searchResults } = useSearch();
-  console.log(searchResults);
+  const { searchResults, searchInput } = useSearch();
+  // console.log(searchResults);
+  // console.log(searchInput);
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -32,7 +33,7 @@ export default React.memo(function Slider() {
     <Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
 
-      {searchResults.length > 0 ? (
+      {searchResults.length > 0 && searchInput !== null ? (
         <CardSlider data={searchResults} title="Searched Movie" />
       ) : (
         <>

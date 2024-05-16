@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const AddMovieForm = () => {
   const [formData, setFormData] = useState({
-    id: "",
+    // id: "",
     name: "",
     genre: "",
     image: null,
@@ -60,7 +60,7 @@ const AddMovieForm = () => {
     const token = logindata.token;
 
     const formDataForUpload = new FormData();
-    formDataForUpload.append("id", formData.id);
+    // formDataForUpload.append("id", formData.id);
     formDataForUpload.append("name", formData.name);
     formDataForUpload.append("genre", formData.genre);
     formDataForUpload.append("image", formData.image);
@@ -90,7 +90,7 @@ const AddMovieForm = () => {
 
   const resetForm = () => {
     setFormData({
-      id: "",
+      // id: "",
       name: "",
       genre: "",
       image: null,
@@ -104,7 +104,7 @@ const AddMovieForm = () => {
     <div className="form-container">
       <h2>Add New Movies / TV Shows</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="id">ID:</label>
           <input
             type="text"
@@ -117,7 +117,7 @@ const AddMovieForm = () => {
             maxLength="6"
             required
           />
-        </div>
+        </div> */}
 
         <div className="form-group ">
           <label htmlFor="name">Name:</label>

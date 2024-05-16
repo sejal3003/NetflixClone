@@ -9,6 +9,7 @@ export const useSearch = () => {
 
 export const SearchProvider = ({ children }) => {
   const [searchResults, setSearchResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const searchMovies = async (searchQuery) => {
     // try {
@@ -39,17 +40,22 @@ export const SearchProvider = ({ children }) => {
 
       if (data.success) {
         setSearchResults(data.movies);
+        setSearchInput(searchQuery);
       } else {
         setSearchResults([]);
+        setSearchInput(searchQuery);
       }
     } catch (error) {
       console.error("Error searching:", error);
       setSearchResults([]);
+      setSearchInput(searchQuery);
     }
   };
 
   return (
-    <SearchContext.Provider value={{ searchMovies, searchResults }}>
+    <SearchContext.Provider
+      value={{ searchMovies, searchResults, searchInput }}
+    >
       {children}
     </SearchContext.Provider>
   );
