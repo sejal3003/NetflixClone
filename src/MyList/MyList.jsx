@@ -9,32 +9,57 @@ export default function MyList() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchMyList = async () => {
+    try {
+      const logindataString = localStorage.getItem("loginData");
+      const logindata = JSON.parse(logindataString);
+      const token = logindata.token;
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.get("http://localhost:8000/api/v1/mylist", {
+        headers,
+      });
+
+      const { wishlist } = response.data;
+      setMovies(wishlist);
+    } catch (error) {
+      console.error("Error fetching user's movie list:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchMyList = async () => {
-      try {
-        const logindataString = localStorage.getItem("loginData");
-        const logindata = JSON.parse(logindataString);
-        const token = logindata.token;
-
-        const headers = {
-          Authorization: `Bearer ${token}`,
-        };
-
-        const response = await axios.get(
-          "http://localhost:8000/api/v1/mylist",
-          { headers }
-        );
-
-        const { wishlist } = response.data;
-        setMovies(wishlist);
-      } catch (error) {
-        console.error("Error fetching user's movie list:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchMyList();
   }, []);
+
+  const removeFromList = async (movieId) => {
+    try {
+      const logindataString = localStorage.getItem("loginData");
+      const logindata = JSON.parse(logindataString);
+      const token = logindata.token;
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      await axios.put(
+        "http://localhost:8000/api/v1/mylist/",
+        { movieId },
+        {
+          headers,
+        }
+      );
+
+      // After successful removal, refetch the updated movie list
+      fetchMyList();
+    } catch (error) {
+      console.error("Error removing movie from list:", error);
+    }
+  };
 
   window.onscroll = () => {
     setIsScrolled(window.scrollY === 0 ? false : true);
@@ -58,6 +83,7 @@ export default function MyList() {
                   index={index}
                   key={movie._id} // Assuming _id is the unique identifier for movies
                   isInMyList={true}
+                  onRemove={() => removeFromList(movie._id)} // Pass remove function to Card component
                 />
               ))
             )}

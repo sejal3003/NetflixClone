@@ -9,10 +9,11 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { BsCheck } from "react-icons/bs";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MdDelete } from "react-icons/md"; // Import delete icon
 
 import axios from "axios";
 
-export default React.memo(function Card({ movieData, isInMyList }) {
+export default React.memo(function Card({ movieData, isInMyList, onRemove }) {
   // console.log("MovieData:", movieData);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
@@ -189,9 +190,28 @@ export default React.memo(function Card({ movieData, isInMyList }) {
           </div>
         </div>
       )}
+      {isInMyList && ( // Render remove button if isInMyList is true
+        <RemoveButton onClick={() => onRemove(movieData._id)}>
+          <MdDelete />
+        </RemoveButton>
+      )}
     </Container>
   );
 });
+const RemoveButton = styled.button`
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1.9rem;
+  font-weight: bold; /* Make the icon bold */
+  transition: color 0.3s ease;
+  &:hover {
+    color: #d32f2f;
+  }
+`;
+
 const Container = styled.div`
   max-width: 230px;
   width: 230px;
