@@ -26,6 +26,13 @@ const subscriptionSchema = new mongoose.Schema(
       type: Date,
       default: Date.now, // Default start date is current date
     },
+    endDate: {
+      type: Date,
+      // Calculate end date as 28 days from start date
+      default: function () {
+        return new Date(this.startDate.getTime() + 28 * 24 * 60 * 60 * 1000);
+      },
+    },
   },
   {
     timestamps: true,

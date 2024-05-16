@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { sendMail } = require("../sendMail");
+const Subscription = require("../models/Subscription");
 
 // const Movie = require("../models/MovieModel");
 
@@ -68,9 +69,15 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password." });
     }
 
-    // const token = jwt.sign({ _id: user._id }, process.env.KEY, {
-    //   expiresIn: "15m",
-    // });
+    // Check user's subscription status
+    const subscription = await Subscription.findOne({ user: user._id });
+
+    if (subscription && subscription.endDate < new Date()) {
+      // Subscription has expired
+      subscription.paymentStatus = "inactive";
+
+      await subscription.save();
+    }
     // user.isSubscribed = true;
 
     // If user and password are valid, return success message

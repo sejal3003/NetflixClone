@@ -1,6 +1,8 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const Subscription = require("../models/Subscription");
+const User = require("../models/UserModel");
+
 exports.checkout = async (req, res) => {
   try {
     const razorpay = new Razorpay({
@@ -57,6 +59,8 @@ exports.paymentVerification = async (req, res) => {
     });
 
     await subscription.save();
+
+    await User.findByIdAndUpdate(req.user._id, { isSubscribed: true });
 
     res.status(200).json({
       success: true,
