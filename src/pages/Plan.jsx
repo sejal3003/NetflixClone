@@ -29,7 +29,7 @@ export default function Payment() {
     setPaymentId(paymentId);
   };
 
-  const paymentHandler = async (amount) => {
+  const paymentHandler = async (amount, planId) => {
     const paiseAmount = amount * 100; // Convert rupees to paise
 
     // Fetch token from localStorage
@@ -64,7 +64,6 @@ export default function Payment() {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLBoNFiGLLn1OUzqhNveglzC5uGYa8U1o3Sw&s",
       order_id: order.id,
       handler: async function (response) {
-        toast.success("Transaction Successful");
         console.log("Razorpay payment successful:", response);
 
         // const body = { ...response };
@@ -87,6 +86,7 @@ export default function Payment() {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 userId: userId,
+                planId: planId,
               }),
             }
           );
@@ -95,9 +95,9 @@ export default function Payment() {
           console.log("jsonResponse", jsonResponse);
 
           if (jsonResponse.success) {
-            console.log("Transaction Successful");
+            toast.success("Transaction Successful");
           } else {
-            console.log("Transaction Failed");
+            toast.error("Transaction Failed");
           }
           setTransactionAmount(amount);
           handlePaymentSuccess(response.razorpay_payment_id);
@@ -148,27 +148,30 @@ export default function Payment() {
             <div className="subscription-cards">
               {/* PlanCard components with fixed prices */}
               <PlanCard
+                planId="1"
                 title="Basic Plan"
                 price={199}
                 text="Supports 1 device to watch at same time (mobile phone)
               "
                 title2="Resolution HD"
-                handlePayment={paymentHandler} // Pass the payment handler function
+                handlePayment={(amount) => paymentHandler(amount, "1")}
               />
               <PlanCard
+                planId="2"
                 title="Standard Plan"
                 price={499}
                 text="Supports 2 device to watch (mobile phone,computer)
               "
                 title2="Resolution Full HD"
-                handlePayment={paymentHandler} // Pass the payment handler function
+                handlePayment={(amount) => paymentHandler(amount, "2")}
               />
               <PlanCard
+                planId="3"
                 title="Premium Plan"
                 price={799}
                 text="Supports 4 devices to watch mobile phone,TV,Laptop,Tablet)"
                 title2="Resolution 4K (Ultra HD) + HDR"
-                handlePayment={paymentHandler} // Pass the payment handler function
+                handlePayment={(amount) => paymentHandler(amount, "3")}
               />
             </div>
             {isTransactionSuccessful && (
