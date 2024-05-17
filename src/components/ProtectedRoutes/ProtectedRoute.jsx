@@ -6,6 +6,10 @@ const ProtectedRoute = ({ children, path }) => {
 
   const checkLoginStatus = async () => {
     const data = JSON.parse(localStorage.getItem("loginData"));
+
+    if (data.isSubscribed) {
+      navigate("/");
+    }
     if (!data.isSubscribed) {
       navigate("/plan");
     } else if (!data) {

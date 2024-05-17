@@ -22,6 +22,7 @@ import AdminProfile from "./AdminPages/AdminProfile";
 import AdminDeletedMovies from "./AdminPages/AdminDeletedMovies";
 import AddMovies from "./AdminPages/AddMovies";
 import { SearchProvider } from "./components/Context/SearchContext"; // Import SearchProvider
+import SubscribedUsers from "./AdminPages/SubscribedUsers";
 
 export default function App() {
   return (
@@ -33,7 +34,15 @@ export default function App() {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/subscription" element={<Subscription />} />
           <Route exact path="/plan" element={<Plan />} />
-          <Route exact path="/" element={<Home />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <ProtectedRoute path="/">
+                <Home />
+              </ProtectedRoute>
+            }
+          />
           <Route
             exact
             path="/player"
@@ -80,6 +89,7 @@ export default function App() {
             <Route exact path="profile" element={<AdminProfile />} />
             <Route exact path="deletemov" element={<AdminDeletedMovies />} />
             <Route exact path="addmov" element={<AddMovies />} />
+            <Route exact path="activesub" element={<SubscribedUsers />} />
           </Route>
         </Routes>
       </div>

@@ -61,8 +61,10 @@ export default function Login() {
 
         if (isAdmin === true) {
           navigate("/admin");
-        } else {
+        } else if (isSubscribed) {
           navigate("/");
+        } else if (!isSubscribed) {
+          navigate("/plan");
         }
       }
     } catch (error) {

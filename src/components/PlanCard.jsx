@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/PCard.css";
 
 export default function PlanCards({
+  planId,
   title,
   price,
   text,
@@ -9,7 +10,7 @@ export default function PlanCards({
   handlePayment,
 }) {
   const handleClick = () => {
-    handlePayment(price);
+    handlePayment(price, planId);
   };
   return (
     <div className="card">

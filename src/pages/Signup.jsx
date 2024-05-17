@@ -8,11 +8,11 @@ import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling to
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import icons
 
 export default function Signup() {
-  useEffect(() => {
-    if (localStorage.getItem("loginData")) {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("loginData")) {
+  //     navigate("/");
+  //   }
+  // }, []);
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);

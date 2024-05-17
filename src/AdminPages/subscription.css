@@ -1,0 +1,38 @@
+.subuser-table tr {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(14rem, 1fr));
+  align-items: center;
+  margin-bottom: 10px;
+  /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  border-bottom: 4px solid transparent;
+  color: black;
+}
+.subscribed-users-section {
+  padding: 20px;
+}
+
+.subContainer {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px; /* Set maximum height for user list container */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  border: 1px solid #ccc;
+}
+
+.subuser-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.subuser-table th,
+.subuser-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.subuser-table th {
+  background-color: rgb(242, 242, 242);
+}

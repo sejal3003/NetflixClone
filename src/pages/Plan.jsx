@@ -23,10 +23,50 @@ export default function Payment() {
     setName(e.target.value);
   };
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = async (paymentId) => {
     setIsTransactionSuccessful(true);
     setIsNextButtonVisible(true); // Show the Next button after successful transaction
     setPaymentId(paymentId);
+    try {
+      // Fetch user details from the backend
+      const logindataString = localStorage.getItem("loginData");
+      const logindata = JSON.parse(logindataString);
+      const token = logindata.token;
+
+      const userDetailsResponse = await fetch(
+        "http://localhost:8000/api/v1/me",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (userDetailsResponse.ok) {
+        const userDetails = await userDetailsResponse.json();
+
+        // Extract only the userData field
+        const userData = {
+          _id: userDetails.user._id,
+          isAdmin: userDetails.user.isAdmin,
+          isSubscribed: userDetails.user.isSubscribed,
+          token: logindata.token, // Retain the token
+        };
+
+        // Update the localStorage with the user data
+        localStorage.setItem("loginData", JSON.stringify(userData));
+
+        // Notify user about successful transaction
+        console.log("Transaction Successful");
+      } else {
+        // Handle error if unable to fetch user details
+        console.log("Failed to fetch user details");
+      }
+    } catch (error) {
+      console.error("Error processing payment verification:", error);
+      console.log("Error processing payment");
+    }
   };
 
   const paymentHandler = async (amount, planId) => {
@@ -58,7 +98,7 @@ export default function Payment() {
       key: "rzp_test_Lr6ky4XsrjKHBg",
       amount: paiseAmount,
       currency,
-      name: "Netflix Subscription",
+      name: "NetaFlim Subscription",
       description: "Test Transaction",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLBoNFiGLLn1OUzqhNveglzC5uGYa8U1o3Sw&s",
