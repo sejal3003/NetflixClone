@@ -11,6 +11,7 @@ const {
   dislikeMovie,
   wishlist,
   getMyList,
+  getuserDetails,
 } = require("../controllers/UserController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -28,5 +29,6 @@ router.put("/like", authMiddleware, likeMovie);
 router.put("/dislike", authMiddleware, dislikeMovie);
 router.put("/mylist", authMiddleware, wishlist);
 router.get("/mylist", authMiddleware, getMyList);
+router.get("/me", authMiddleware, getuserDetails);
 
 module.exports = router;

@@ -13,6 +13,10 @@ const subscriptionSchema = new mongoose.Schema(
       unique: true,
       required: true, // Assuming paymentId is required
     },
+    planId: {
+      type: String,
+      required: true,
+    },
     orderId: {
       type: String,
       unique: true,
@@ -26,6 +30,7 @@ const subscriptionSchema = new mongoose.Schema(
       type: Date,
       default: Date.now, // Default start date is current date
     },
+
     endDate: {
       type: Date,
       // Calculate end date as 28 days from start date

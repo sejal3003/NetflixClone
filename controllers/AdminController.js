@@ -1,5 +1,6 @@
 const User = require("../models/UserModel");
 const Movie = require("../models/MovieModel");
+const Subscription = require("../models/Subscription");
 
 //getAllUsers Logic
 const getAllUsers = async (req, res) => {
@@ -129,6 +130,16 @@ const uploadMovie = async (req, res) => {
   }
 };
 
+//get the Subscribed users Details
+const getSubscribedUsers = async (req, res) => {
+  try {
+    const subscription = await Subscription.find({}, { orderId: 0 });
+    res.status(200).json(subscription);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   deleteUserById,
@@ -137,4 +148,5 @@ module.exports = {
   getDeletedMovie,
   undoDeletedMovie,
   uploadMovie,
+  getSubscribedUsers,
 };

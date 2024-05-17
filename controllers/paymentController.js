@@ -26,8 +26,9 @@ exports.checkout = async (req, res) => {
 };
 exports.paymentVerification = async (req, res) => {
   console.log(req.user);
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature, planId } =
     req.body;
+  console.log("Received planId:", planId);
 
   const sha = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
   sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
@@ -53,9 +54,11 @@ exports.paymentVerification = async (req, res) => {
     const subscription = new Subscription({
       user: req.user._id, // Assuming req.user contains user information and user ID is stored in _id field
       paymentId: razorpay_payment_id,
+      planId: planId,
       orderId: razorpay_order_id,
       paymentStatus: "active", // Assuming the payment is successful, set payment status to "active"
-      startDate: new Date(), // Assuming the start date is the current date
+      startDate: new Date(),
+      // Assuming the start date is the current date
     });
 
     await subscription.save();

@@ -9,6 +9,7 @@ const {
   getDeletedMovie,
   undoDeletedMovie,
   uploadMovie,
+  getSubscribedUsers,
 } = require("../controllers/AdminController");
 const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -67,4 +68,9 @@ router
 router
   .route("/upload")
   .post(authMiddleware, adminMiddleware, upload.single("image"), uploadMovie);
+
+//togetSubscribedusers Details
+router
+  .route("/getdetails")
+  .get(authMiddleware, adminMiddleware, getSubscribedUsers);
 module.exports = router;

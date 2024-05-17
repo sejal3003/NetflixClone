@@ -75,6 +75,7 @@ exports.login = async (req, res) => {
     if (subscription && subscription.endDate < new Date()) {
       // Subscription has expired
       subscription.paymentStatus = "inactive";
+      subscription.isSubscribed = "false";
 
       await subscription.save();
     }
@@ -357,3 +358,15 @@ exports.getMyList = async (req, res) => {
 //     res.status(500).json({ error: "Internal server error" });
 //   }
 // };
+
+exports.getuserDetails = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (e) {
+    res.status(400).json({ success: false, error: e.message });
+  }
+};
