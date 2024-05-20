@@ -70,14 +70,18 @@ exports.login = async (req, res) => {
     }
 
     // Check user's subscription status
-    const subscription = await Subscription.findOne({ user: user._id });
-
+    // const subscription = await Subscription.findOne({ user: user._id });
+    const subscription = await Subscription.findOne(
+      { user: user._id },
+      { sort: { createdAt: -1 } }
+    );
     if (subscription && subscription.endDate < new Date()) {
       // Subscription has expired
       subscription.paymentStatus = "inactive";
-      subscription.isSubscribed = "false";
-
+      user.isSubscribed = false;
       await subscription.save();
+    } else {
+      user.isSubscribed = true;
     }
     // user.isSubscribed = true;
 
