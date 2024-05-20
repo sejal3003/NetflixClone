@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
+import Heading from "../components/Heading";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Subscription.css";
 export default function Subscription() {
@@ -22,7 +22,7 @@ export default function Subscription() {
   return (
     <div className="subscription">
       <div className="content">
-        <Header />
+        <Heading />
         <div className="d-flex justify-content-center">
           {dataFromSignupPage === "Signup successful!" ? (
             <div className="subscriptionBody">

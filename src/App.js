@@ -23,6 +23,7 @@ import AdminDeletedMovies from "./AdminPages/AdminDeletedMovies";
 import AddMovies from "./AdminPages/AddMovies";
 import { SearchProvider } from "./components/Context/SearchContext"; // Import SearchProvider
 import SubscribedUsers from "./AdminPages/SubscribedUsers";
+import { GenreProvider } from "./components/Context/GenreContext";
 
 export default function App() {
   return (
@@ -39,7 +40,9 @@ export default function App() {
             path="/"
             element={
               <ProtectedRoute path="/">
-                <Home />
+                <GenreProvider>
+                  <Home />
+                </GenreProvider>
               </ProtectedRoute>
             }
           />
@@ -56,7 +59,9 @@ export default function App() {
             path="/movies"
             element={
               <ProtectedRoute path="/movies">
-                <Movies />
+                <GenreProvider>
+                  <Movies />
+                </GenreProvider>
               </ProtectedRoute>
             }
           />
@@ -64,7 +69,10 @@ export default function App() {
             path="/tv"
             element={
               <ProtectedRoute path="/tv">
-                <TVShows />
+                <GenreProvider>
+                  {" "}
+                  <TVShows />
+                </GenreProvider>
               </ProtectedRoute>
             }
           />

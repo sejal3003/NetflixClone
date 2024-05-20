@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CardSlider from "./CardSlider";
 import axios from "axios";
 import { useSearch } from "../components/Context/SearchContext";
+import { useGenre } from "./Context/GenreContext";
 
 export default React.memo(function Slider() {
   const [movies, setMovies] = useState([]);
@@ -10,13 +11,23 @@ export default React.memo(function Slider() {
   const { searchResults, searchInput } = useSearch();
   // console.log(searchResults);
   // console.log(searchInput);
+  const { selectedGenre, movies: genreMovies, error: genreError } = useGenre();
+
+  console.log(selectedGenre);
+  console.log(genreMovies);
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/movies/");
+        let response;
+        if (selectedGenre) {
+          response = await axios.get(
+            `http://localhost:8000/api/movies/list?genre=${selectedGenre}`
+          );
+        } else {
+          response = await axios.get("http://localhost:8000/api/movies/");
+        }
         setMovies(response.data);
-        // console.log(response.data);
-        fetchMovies(response.data);
       } catch (error) {
         setError(error.message || "An error occurred while fetching movies.");
       }
@@ -25,14 +36,19 @@ export default React.memo(function Slider() {
   }, []);
 
   const getMoviesFromRange = (from, to) => {
-    return movies.slice(from, to);
+    return genreMovies ? genreMovies.slice(from, to) : movies.slice(from, to);
   };
-  const filteredMovies = searchResults.length > 0 ? searchResults : movies;
+  const filteredMovies =
+    searchResults.length > 0
+      ? searchResults
+      : selectedGenre
+      ? genreMovies
+      : movies;
 
   return (
     <Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-
+      {genreError && <ErrorMessage>{genreError}</ErrorMessage>}
       {searchResults.length > 0 && searchInput !== null ? (
         <CardSlider data={searchResults} title="Searched Movie" />
       ) : (

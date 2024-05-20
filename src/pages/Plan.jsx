@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import "../styles/Plan.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PlanCard from "../components/PlanCard"; // Import the PlanCard component
+import Heading from "../components/Heading";
 
 export default function Payment() {
   const navigate = useNavigate();
@@ -173,7 +173,7 @@ export default function Payment() {
   return (
     <div className="plans">
       <div className="planContent">
-        <Header />
+        <Heading />
         <div className="d-flex justify-content-center">
           <div className="planPageBody">
             <i
