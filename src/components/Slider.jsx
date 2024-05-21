@@ -48,7 +48,7 @@ export default React.memo(function Slider() {
   return (
     <Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      {genreError && <ErrorMessage>{genreError}</ErrorMessage>}
+      {/* {genreError && <ErrorMessage>{genreError}</ErrorMessage>} */}
       {searchResults.length > 0 && searchInput !== null ? (
         <CardSlider data={searchResults} title="Searched Movie" />
       ) : (
@@ -62,7 +62,7 @@ export default React.memo(function Slider() {
           />
           <CardSlider
             data={getMoviesFromRange(30, 40)}
-            title="Popular on Netflix"
+            title="Popular on NetaFlim"
           />
           <CardSlider data={getMoviesFromRange(40, 50)} title="Action Movies" />
           <CardSlider data={getMoviesFromRange(50, 60)} title="Epics" />{" "}

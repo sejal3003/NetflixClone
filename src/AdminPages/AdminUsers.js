@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../AdminPages/adUsers.css";
-import { toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminUsers() {
@@ -51,44 +51,44 @@ export default function AdminUsers() {
 
   //Delete the user onclick of the delete button
 
-  const deleteUser = async (id) => {
-    try {
-      // Make DELETE request to delete user by ID
-      const logindataString = localStorage.getItem("loginData");
-      const logindata = JSON.parse(logindataString);
-      const token = logindata.token;
+  // const deleteUser = async (id) => {
+  //   try {
+  //     // Make DELETE request to delete user by ID
+  //     const logindataString = localStorage.getItem("loginData");
+  //     const logindata = JSON.parse(logindataString);
+  //     const token = logindata.token;
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //     };
 
-      await axios.delete(`http://localhost:8000/api/admin/users/delete/${id}`, {
-        headers: headers,
-      });
-      toast.success("User Deleted Successfully", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      // Re-fetch the users
-      fetchData();
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      toast.error("Failed to delete user. Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  };
+  //     await axios.delete(`http://localhost:8000/api/admin/users/delete/${id}`, {
+  //       headers: headers,
+  //     });
+  //     toast.success("User Deleted Successfully", {
+  //       position: "top-right",
+  //       autoClose: 3000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //     // Re-fetch the users
+  //     fetchData();
+  //   } catch (error) {
+  //     console.error("Error deleting user:", error);
+  //     toast.error("Failed to delete user. Please try again.", {
+  //       position: "top-right",
+  //       autoClose: 3000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -110,7 +110,6 @@ export default function AdminUsers() {
                 <th>Email</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>Deactivate Account</th>
               </tr>
             </thead>
             <tbody>
@@ -121,14 +120,14 @@ export default function AdminUsers() {
                     <td>{curUser.email}</td>
                     <td>{curUser.createdAt}</td>
                     <td>{curUser.updatedAt}</td>
-                    <td>
+                    {/* <td>
                       <button
                         className="delete-btn"
                         onClick={() => deleteUser(curUser._id)}
                       >
                         Deactivate
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}
