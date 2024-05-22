@@ -7,18 +7,44 @@ import { useGenre } from "./Context/GenreContext";
 
 export default React.memo(function Slider() {
   const [categoryMovies, setCategoryMovies] = useState({});
+  const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const { searchResults, searchInput } = useSearch();
   const { selectedGenre, movies: genreMovies, error: genreError } = useGenre();
 
-  const categories = [
-    "Trending Now",
-    "New Releases",
-    "Blockbuster Movies",
-    "Popular on NetaFlim",
-    "Action Movies",
-    "Epics",
-  ];
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/movies/category"
+      );
+      const fetchedCategories = response.data;
+
+      // Define the desired sequence of categories
+      const desiredSequence = [
+        "Trending Now",
+        "New Releases",
+        "Blockbuster Movies",
+        "Popular on NetaFlim",
+        "Action Movies",
+        "Epics",
+      ];
+
+      // Sort the fetched categories based on their index in the desired sequence
+      const sortedCategories = fetchedCategories.sort((a, b) => {
+        const indexA = desiredSequence.indexOf(a);
+        const indexB = desiredSequence.indexOf(b);
+
+        // If a category is not found in the desired sequence, it is placed below "Epics"
+        if (indexA === -1) return 1; // Place category A below "Epics"
+        if (indexB === -1) return -1; // Place category B below "Epics"
+        return indexA - indexB;
+      });
+
+      setCategories(sortedCategories);
+    } catch (error) {
+      setError(error.message || "An error occurred while fetching categories.");
+    }
+  };
 
   const fetchMoviesByCategory = async (category) => {
     try {
@@ -35,26 +61,24 @@ export default React.memo(function Slider() {
   };
 
   useEffect(() => {
-    const fetchAllMovies = async () => {
-      for (const category of categories) {
-        await fetchMoviesByCategory(category);
-      }
-    };
-
-    fetchAllMovies();
+    fetchCategories();
   }, []);
 
-  const getMoviesFromRange = (category, from, to) => {
+  useEffect(() => {
+    if (categories.length > 0) {
+      categories.forEach(fetchMoviesByCategory);
+    }
+  }, [categories]);
+
+  const getMoviesFromCategory = (category) => {
     if (selectedGenre) {
       return categoryMovies[category]
-        ? categoryMovies[category]
-            .filter((movie) => movie.genre.includes(selectedGenre))
-            .slice(from, to)
+        ? categoryMovies[category].filter((movie) =>
+            movie.genre.includes(selectedGenre)
+          )
         : [];
     }
-    return categoryMovies[category]
-      ? categoryMovies[category].slice(from, to)
-      : [];
+    return categoryMovies[category] || [];
   };
 
   const filteredMovies =
@@ -67,29 +91,13 @@ export default React.memo(function Slider() {
       {searchResults.length > 0 && searchInput !== null ? (
         <CardSlider data={searchResults} title="Searched Movie" />
       ) : (
-        <>
+        categories.map((category) => (
           <CardSlider
-            data={getMoviesFromRange("Trending Now", 0, 10)}
-            title="Trending Now"
+            key={category}
+            data={getMoviesFromCategory(category)}
+            title={category}
           />
-          <CardSlider
-            data={getMoviesFromRange("New Releases", 0, 10)}
-            title="New Releases"
-          />
-          <CardSlider
-            data={getMoviesFromRange("Blockbuster Movies", 0, 10)}
-            title="Blockbuster Movies"
-          />
-          <CardSlider
-            data={getMoviesFromRange("Popular on NetaFlim", 0, 10)}
-            title="Popular on NetaFlim"
-          />
-          <CardSlider
-            data={getMoviesFromRange("Action Movies", 0, 10)}
-            title="Action Movies"
-          />
-          <CardSlider data={getMoviesFromRange("Epics", 0, 10)} title="Epics" />
-        </>
+        ))
       )}
     </Container>
   );

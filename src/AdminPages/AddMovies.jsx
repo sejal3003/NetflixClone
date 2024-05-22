@@ -9,6 +9,8 @@ const AddMovieForm = () => {
     // id: "",
     name: "",
     genre: "",
+    category: "",
+    customCategory: "",
     image: null,
   });
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -65,6 +67,13 @@ const AddMovieForm = () => {
     formDataForUpload.append("genre", formData.genre);
     formDataForUpload.append("image", formData.image);
 
+    // Determine category to use (custom or selected)
+    const categoryToUse =
+      formData.category === "Other"
+        ? formData.customCategory
+        : formData.category;
+    formDataForUpload.append("category", categoryToUse);
+
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -93,6 +102,8 @@ const AddMovieForm = () => {
       // id: "",
       name: "",
       genre: "",
+      category: "",
+      customCategory: "",
       image: null,
     });
     setSelectedGenres([]);
@@ -161,6 +172,40 @@ const AddMovieForm = () => {
             Selected Genres: {selectedGenres.join(", ")}
           </div>
         </div>
+
+        <div className="form-group">
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Category</option>
+            <option value="Trending Now">Trending Now</option>
+            <option value="New Releases">New Releases</option>
+            <option value="Blockbuster Movies">Blockbuster Movies</option>
+            <option value="Popular on NetaFlim">Popular on NetaFlim</option>
+            <option value="Action Movies">Action Movies</option>
+            <option value="Epics">Epics</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        {formData.category === "Other" && (
+          <div className="form-group">
+            <label htmlFor="customCategory">Custom Category:</label>
+            <input
+              type="text"
+              id="customCategory"
+              name="customCategory"
+              value={formData.customCategory}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        )}
 
         <div className="form-group">
           <label htmlFor="image">Upload Image:</label>
