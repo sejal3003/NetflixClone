@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { useSearch } from "../components/Context/SearchContext";
 let isAdmin = false;
 export default function Navbar({ isScrolled }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const data = JSON.parse(localStorage.getItem("loginData"));
   if (data) {
     isAdmin = data.isAdmin;
@@ -50,9 +51,15 @@ export default function Navbar({ isScrolled }) {
   };
 
   const handleClick = (name) => {
-    setActiveLink(name); // Update active link state
+    setActiveLink(name);
+    // Update active link state
   };
-  // console.log(isLoggedIn, data);
+
+  useEffect(() => {
+    if (location.pathname === activeLink) {
+      setActiveLink(activeLink);
+    }
+  }, [location, activeLink]);
   return (
     <Container>
       <nav className={`${isScrolled ? "scrolled" : ""} flex`}>
@@ -66,7 +73,9 @@ export default function Navbar({ isScrolled }) {
                 <li key={name}>
                   <Link
                     to={link}
-                    className={isAdmin ? "adminLinksColor" : ""}
+                    className={`${isAdmin ? "adminLinksColor" : ""} ${
+                      activeLink === name ? "activeButton" : ""
+                    } `}
                     onClick={() => handleClick(name)}
                   >
                     {name}
@@ -141,7 +150,9 @@ const Container = styled.div`
     color: rgb(30, 132, 195) !important;
     ${"" /* border-bottom: 2px solid white !important; */}
   }
-
+  .activeButton {
+    border-bottom: 2px solid white !important;
+  }
   nav {
     position: sticky;
     top: 0;

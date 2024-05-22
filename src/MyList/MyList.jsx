@@ -96,6 +96,15 @@ export default function MyList() {
 
 const Container = styled.div`
   background-color: black;
+  .navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    ${"" /* justify-content: space-between; */}
+    justify-content: flex-start;
+    padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
+  }
   .listcontent {
     margin: 2.3rem;
     margin-top: 8rem;

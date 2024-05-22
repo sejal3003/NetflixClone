@@ -122,11 +122,22 @@ export default React.memo(function Card({ movieData, isInMyList, onRemove }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img
+      {movieData.image.startsWith("uploads") ? (
+        <img
+          src={`http://localhost:8000/${movieData.image}`}
+          alt={movieData.name}
+        />
+      ) : (
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
+          alt={movieData.name}
+        />
+      )}
+      {/* <img
         src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
         alt="card"
         onClick={() => navigate("/player")}
-      />
+      /> */}
       <h6>{movieData.name}</h6>
       {isHovered && (
         <div className="hover">
