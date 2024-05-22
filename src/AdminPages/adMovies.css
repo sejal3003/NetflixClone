@@ -1,3 +1,12 @@
+.movie-list tr {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(14rem, 1fr));
+  align-items: center;
+  margin-bottom: 10px;
+  /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  border-bottom: 4px solid transparent;
+  color: black;
+}
 .admin-movies-section {
   padding: 30px;
 }
