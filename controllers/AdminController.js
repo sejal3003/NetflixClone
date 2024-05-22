@@ -100,7 +100,7 @@ const uploadMovie = async (req, res) => {
     return res.status(400).json({ message: "No file uploaded" });
   }
   try {
-    const { name, genre } = req.body;
+    const { name, genre, category } = req.body;
 
     // // Check if movie ID already exists
     // const existingMovieByID = await Movie.findOne({ id });
@@ -120,6 +120,7 @@ const uploadMovie = async (req, res) => {
       name,
       image: image,
       genre: genre.split(",").map((g) => g.trim()),
+      category,
       isDeleted: false,
     });
 

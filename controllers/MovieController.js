@@ -77,3 +77,12 @@ exports.getMoviesByCategory = async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching movies" });
   }
 };
+
+exports.getCategory = async (req, res) => {
+  try {
+    const categories = await Movie.distinct("category");
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
