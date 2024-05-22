@@ -35,17 +35,23 @@ export default React.memo(function Slider() {
   };
 
   useEffect(() => {
-    if (!selectedGenre) {
-      const fetchAllMovies = async () => {
-        for (const category of categories) {
-          await fetchMoviesByCategory(category);
-        }
-      };
-      fetchAllMovies();
-    }
-  }, [selectedGenre]);
+    const fetchAllMovies = async () => {
+      for (const category of categories) {
+        await fetchMoviesByCategory(category);
+      }
+    };
+
+    fetchAllMovies();
+  }, []);
 
   const getMoviesFromRange = (category, from, to) => {
+    if (selectedGenre) {
+      return categoryMovies[category]
+        ? categoryMovies[category]
+            .filter((movie) => movie.genre.includes(selectedGenre))
+            .slice(from, to)
+        : [];
+    }
     return categoryMovies[category]
       ? categoryMovies[category].slice(from, to)
       : [];
@@ -60,8 +66,6 @@ export default React.memo(function Slider() {
       {genreError && <ErrorMessage>{genreError}</ErrorMessage>}
       {searchResults.length > 0 && searchInput !== null ? (
         <CardSlider data={searchResults} title="Searched Movie" />
-      ) : selectedGenre ? (
-        <CardSlider data={filteredMovies} title={`${selectedGenre} Movies`} />
       ) : (
         <>
           <CardSlider
