@@ -6,5 +6,5 @@ const movieController = require("../controllers/MovieController");
 router.get("/", movieController.getAllMovies);
 router.get("/list", movieController.getMovieByGenre);
 router.get("/search", movieController.search);
-
+router.get("/get/:category", movieController.getMoviesByCategory);
 module.exports = router;

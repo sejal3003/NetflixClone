@@ -65,3 +65,15 @@ exports.getMovieByGenre = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+//getMovie By category
+exports.getMoviesByCategory = async (req, res) => {
+  const category = req.params.category;
+
+  try {
+    const movies = await Movie.find({ category, isDeleted: false });
+    res.status(200).json(movies);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while fetching movies" });
+  }
+};
