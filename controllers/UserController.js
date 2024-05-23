@@ -69,21 +69,19 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password." });
     }
 
-    // Check user's subscription status
-    // const subscription = await Subscription.findOne({ user: user._id });
-    const subscription = await Subscription.findOne(
-      { user: user._id },
-      { sort: { createdAt: -1 } }
-    );
-    if (subscription && subscription.endDate < new Date()) {
-      // Subscription has expired
-      subscription.paymentStatus = "inactive";
-      user.isSubscribed = false;
-      await subscription.save();
-    } else {
-      user.isSubscribed = true;
-    }
-    // user.isSubscribed = true;
+    // // Check user's subscription status
+    // // const subscription = await Subscription.findOne({ user: user._id });
+    // const subscription = await Subscription.findOne(
+    //   { user: user._id },
+    //   { sort: { createdAt: -1 } }
+    // );
+    // if (subscription && subscription.endDate < new Date()) {
+    //   // Subscription has expired
+    //   subscription.paymentStatus = "inactive";
+    //   user.isSubscribed = false;
+    // }
+    // await subscription.save();
+    // // user.isSubscribed = true;
 
     // If user and password are valid, return success message
     return res.status(200).json({
