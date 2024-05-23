@@ -17,6 +17,11 @@ const movieSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  trailer: {
+    // New field for storing trailer URL
+    type: String,
+    required: true,
+  },
   isDeleted: {
     type: Boolean,
     default: false,

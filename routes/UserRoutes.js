@@ -12,6 +12,7 @@ const {
   wishlist,
   getMyList,
   getuserDetails,
+  getLoginInfo,
 } = require("../controllers/UserController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -30,5 +31,6 @@ router.put("/dislike", authMiddleware, dislikeMovie);
 router.put("/mylist", authMiddleware, wishlist);
 router.get("/mylist", authMiddleware, getMyList);
 router.get("/me", authMiddleware, getuserDetails);
+router.get("/login-history/:userId", getLoginInfo);
 
 module.exports = router;

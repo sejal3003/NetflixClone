@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema(
         ref: "Movie",
       },
     ],
+    lastLoginTime: {
+      type: Date,
+      default: null,
+    },
   },
 
   {

@@ -83,10 +83,17 @@ exports.login = async (req, res) => {
     // await subscription.save();
     // // user.isSubscribed = true;
 
+    // Generate token
+    const token = await user.generateToken();
+
+    // Update login history and count
+    user.lastLoginTime = new Date();
+    await user.save();
+
     // If user and password are valid, return success message
     return res.status(200).json({
       message: "Login successful.",
-      token: await user.generateToken(),
+      token: token,
       _id: user._id.toString(),
       isAdmin: user.isAdmin,
       isSubscribed: user.isSubscribed,
@@ -370,5 +377,28 @@ exports.getuserDetails = async (req, res, next) => {
     });
   } catch (e) {
     res.status(400).json({ success: false, error: e.message });
+  }
+};
+
+// Retrieve login history and count for a user
+exports.getLoginInfo = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Extract login history and count
+    const { lastLoginTime } = user;
+
+    // Return login information
+    return res.status(200).json({ lastLoginTime });
+  } catch (error) {
+    console.error("Error retrieving login info:", error);
+    return res.status(500).json({ message: "Internal server error." });
   }
 };
