@@ -20,6 +20,14 @@ export default React.memo(function Card({ movieData, isInMyList, onRemove }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
 
+  const playTrailer = () => {
+    if (movieData.trailer) {
+      navigate("/player", { state: { trailerUrl: movieData.trailer } });
+    } else {
+      toast.error("Trailer URL not available");
+    }
+  };
+
   const likeMovie = async () => {
     try {
       const logindataString = localStorage.getItem("loginData");
@@ -145,26 +153,23 @@ export default React.memo(function Card({ movieData, isInMyList, onRemove }) {
             <img
               src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
               alt="card"
-              onClick={() => navigate("/player")}
+              onClick={playTrailer}
             />
             <video
-              src={video}
+              src={playTrailer}
               autoPlay={true}
               loop
               muted
-              onClick={() => navigate("/player")}
+              onClick={playTrailer}
             />
           </div>
           <div className="info-container flex column">
-            <h3 className="name" onClick={() => navigate("/player")}>
+            <h3 className="name" onClick={playTrailer}>
               {movieData.name}
             </h3>
             <div className="icons flex j-between">
               <div className="controls flex">
-                <IoPlayCircleSharp
-                  title="Play"
-                  onClick={() => navigate("/player")}
-                />
+                <IoPlayCircleSharp title="Play" onClick={playTrailer} />
                 <RiThumbUpFill
                   title="Like"
                   onClick={likeMovie}

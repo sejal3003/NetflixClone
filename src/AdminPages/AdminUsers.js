@@ -18,9 +18,6 @@ export default function AdminUsers() {
       // Extract the token from the logindata object
       const token = logindata.token;
 
-      // Now you can use the token for your Axios request
-      console.log("Token:", token);
-
       const headers = {
         Authorization: `Bearer ${token}`, // Assuming your backend expects a Bearer token
       };
@@ -110,6 +107,7 @@ export default function AdminUsers() {
                 <th>Email</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
+                <th>Last LoginTime</th>
               </tr>
             </thead>
             <tbody>
@@ -120,6 +118,8 @@ export default function AdminUsers() {
                     <td>{curUser.email}</td>
                     <td>{curUser.createdAt}</td>
                     <td>{curUser.updatedAt}</td>
+                    <td>{curUser.lastLoginTime}</td>
+
                     {/* <td>
                       <button
                         className="delete-btn"
