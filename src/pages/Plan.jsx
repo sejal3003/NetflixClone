@@ -98,7 +98,7 @@ export default function Payment() {
       key: "rzp_test_Lr6ky4XsrjKHBg",
       amount: paiseAmount,
       currency,
-      name: "NetaFlim Subscription",
+      name: "NetaFilm Subscription",
       description: "Test Transaction",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLBoNFiGLLn1OUzqhNveglzC5uGYa8U1o3Sw&s",

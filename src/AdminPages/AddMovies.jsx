@@ -211,7 +211,7 @@ const AddMovieForm = () => {
         )}
 
         <div className="form-group">
-          <label htmlFor="trailer">Trailer (YouTube URL):</label>
+          <label htmlFor="trailer">Trailer URL:</label>
           <input
             type="url"
             id="trailer"
