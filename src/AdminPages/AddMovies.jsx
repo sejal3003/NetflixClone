@@ -11,6 +11,7 @@ const AddMovieForm = () => {
     genre: "",
     category: "",
     customCategory: "",
+    trailer: "",
     image: null,
   });
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -66,6 +67,7 @@ const AddMovieForm = () => {
     formDataForUpload.append("name", formData.name);
     formDataForUpload.append("genre", formData.genre);
     formDataForUpload.append("image", formData.image);
+    formDataForUpload.append("trailer", formData.trailer);
 
     // Determine category to use (custom or selected)
     const categoryToUse =
@@ -104,6 +106,7 @@ const AddMovieForm = () => {
       genre: "",
       category: "",
       customCategory: "",
+      trailer: "",
       image: null,
     });
     setSelectedGenres([]);
@@ -206,6 +209,20 @@ const AddMovieForm = () => {
             />
           </div>
         )}
+
+        <div className="form-group">
+          <label htmlFor="trailer">Trailer (YouTube URL):</label>
+          <input
+            type="url"
+            id="trailer"
+            name="trailer"
+            value={formData.trailer}
+            onChange={handleChange}
+            pattern="https?://.*"
+            title="Please enter a valid URL"
+            required
+          />
+        </div>
 
         <div className="form-group">
           <label htmlFor="image">Upload Image:</label>

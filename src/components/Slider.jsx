@@ -87,7 +87,7 @@ export default React.memo(function Slider() {
   return (
     <Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      {genreError && <ErrorMessage>{genreError}</ErrorMessage>}
+      {/* {genreError && <ErrorMessage>{genreError}</ErrorMessage>} */}
       {searchResults.length > 0 && searchInput !== null ? (
         <CardSlider data={searchResults} title="Searched Movie" />
       ) : (

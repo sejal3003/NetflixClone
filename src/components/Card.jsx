@@ -14,7 +14,7 @@ import { MdDelete } from "react-icons/md"; // Import delete icon
 import axios from "axios";
 
 export default React.memo(function Card({ movieData, isInMyList, onRemove }) {
-  // console.log("MovieData:", movieData);
+  console.log("MovieData:", movieData);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -27,7 +27,7 @@ export default React.memo(function Card({ movieData, isInMyList, onRemove }) {
       toast.error("Trailer URL not available");
     }
   };
-
+  // console.log(movieData.trailer);
   const likeMovie = async () => {
     try {
       const logindataString = localStorage.getItem("loginData");
@@ -150,11 +150,24 @@ export default React.memo(function Card({ movieData, isInMyList, onRemove }) {
       {isHovered && (
         <div className="hover">
           <div className="image-video-container">
-            <img
+            {/* <img
               src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
               alt="card"
               onClick={playTrailer}
-            />
+            /> */}
+            {movieData.image.startsWith("uploads") ? (
+              <img
+                src={`http://localhost:8000/${movieData.image}`}
+                alt={movieData.name}
+                onClick={playTrailer}
+              />
+            ) : (
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
+                alt={movieData.name}
+                onClick={playTrailer}
+              />
+            )}
             <video
               src={playTrailer}
               autoPlay={true}
