@@ -24,7 +24,7 @@ export default React.memo(function Slider() {
         "Trending Now",
         "New Releases",
         "Blockbuster Movies",
-        "Popular on NetaFlim",
+        "Popular on NetaFilm",
         "Action Movies",
         "Epics",
       ];
