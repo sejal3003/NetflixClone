@@ -135,7 +135,7 @@ exports.forgotpassword = async (req, res) => {
   
     <p>If you did not request this password reset, please ignore this email. Your password will remain unchanged.</p>
   
-    <p>Please note that this link is valid for a limited time and will expire after 5 mins. If you need further assistance, please contact at <a href="mailto:support@example.com">Support team</a>.</p>
+    <p>Please note that this link is valid for a limited time and will expire after 5 mins. If you need further assistance, please contact at <a href="mailto:support@netafilm.com">Support team</a>.</p>
   
     <p>Thank you,</p>
     <p><strong>The NetaFilm Team</strong></p>

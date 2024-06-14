@@ -56,7 +56,7 @@ async function main(to, subject) {
                 <p>Thank you for registering with NetaFilm. We are thrilled to have you join our community.</p>
                 <p>Get ready to enjoy unlimited movies, TV shows, and more on any device, anywhere.</p>
                
-                <p>If you have any questions or need assistance, feel free to contact our <a href="mailto:support@example.com">Support team</a></p>
+                <p>If you have any questions or need assistance, feel free to contact our <a href="mailto:support@netafilm.com">Support team</a></p>
                 <p>Happy streaming!</p>
                 <p><bold>Best regards,</bold><br><strong>NetaFilm Team</strong></p>
             </div>
